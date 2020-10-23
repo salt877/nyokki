@@ -1,15 +1,18 @@
 <template>
   <v-app name="App">
     <div>
-      <v-content>
-    <v-app-bar class="light-green lighten-2" dark>
+    <v-app-bar class="light-green lighten-2">
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      <v-toolbar-title>にょっき</v-toolbar-title>
+      <v-toolbar-title>にょっき！</v-toolbar-title>
       <div class="flex-grow-1"></div>
     </v-app-bar>
+    
     <v-navigation-drawer v-model="drawer" fixed temporary> 
       <v-list nav dense>
-        <v-list-item-group>
+            <v-list-item-content>
+              <v-list-item-title class="title">にょっき！</v-list-item-title> 
+            </v-list-item-content>
+            <v-divider />
           <v-list-item v-for="nav_list in nav_lists" :key="nav_list.name" :to="nav_list.link">
             <v-list-item-icon>
               <v-icon>{{ nav_list.icon }}</v-icon>
@@ -18,14 +21,14 @@
               <v-list-item-title>{{ nav_list.name }}</v-list-item-title> 
             </v-list-item-content>
           </v-list-item>
-        </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-      </v-content>
+    
     </div>
-    <v-main>
+
+    <v-content>
       <router-view/>
-    </v-main>
+    </v-content>
   </v-app>
 </template>
 
@@ -38,6 +41,7 @@ export default {
       drawer: false,
       nav_lists: [
         { name: 'Top' ,icon: 'mdi-home', link: '/'},
+        { name: 'マイページ' ,icon: 'mdi-account', link: '/mypage'},
         { name: 'ToDo登録' ,icon: 'mdi-pencil', link: '/registerToDo'},
         { name: 'ToDo管理' ,icon: 'mdi-format-list-bulleted', link: '/manageToDo'},
         { name: '日報登録' ,icon: ' mdi-clipboard-text', link: '/registerDailyReport'},
