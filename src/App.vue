@@ -2,37 +2,21 @@
   <v-app name="App">
     <div>
       <v-content>
-    <v-app-bar dark>
+    <v-app-bar class="light-green lighten-2" dark>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      <v-toolbar-title to="/">にょっき</v-toolbar-title>
+      <v-toolbar-title>にょっき</v-toolbar-title>
       <div class="flex-grow-1"></div>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" fixed temporary> 
       <v-list nav dense>
         <v-list-item-group>
-          <v-list-item to="/registerToDo"> 
-            <v-list-item-title>ToDo登録</v-list-item-title> 
-          </v-list-item>
-          <v-list-item to="/manageToDo"> 
-            <v-list-item-title>ToDo管理</v-list-item-title> 
-          </v-list-item>
-          <v-list-item to="/registerDailyReport"> 
-            <v-list-item-title>日報登録</v-list-item-title> 
-          </v-list-item>
-          <v-list-item to="/registerMonthlyReport"> 
-            <v-list-item-title>月報登録</v-list-item-title> 
-          </v-list-item>
-          <v-list-item to="/calendar"> 
-            <v-list-item-title>カレンダー</v-list-item-title> 
-          </v-list-item>
-          <v-list-item to="/levelForAchivement"> 
-            <v-list-item-title>みんなの達成度</v-list-item-title> 
-          </v-list-item>
-          <v-list-item to="/faq"> 
-            <v-list-item-title>FAQ</v-list-item-title> 
-          </v-list-item>
-          <v-list-item> 
-            <v-list-item-title>ログアウト</v-list-item-title> 
+          <v-list-item v-for="nav_list in nav_lists" :key="nav_list.name" :to="nav_list.link">
+            <v-list-item-icon>
+              <v-icon>{{ nav_list.icon }}</v-icon>
+            </v-list-item-icon> 
+            <v-list-item-content>
+              <v-list-item-title>{{ nav_list.name }}</v-list-item-title> 
+            </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -52,6 +36,17 @@ export default {
   data(){
     return {
       drawer: false,
+      nav_lists: [
+        { name: 'Top' ,icon: 'mdi-home', link: '/'},
+        { name: 'ToDo登録' ,icon: 'mdi-pencil', link: '/registerToDo'},
+        { name: 'ToDo管理' ,icon: 'mdi-format-list-bulleted', link: '/manageToDo'},
+        { name: '日報登録' ,icon: ' mdi-clipboard-text', link: '/registerDailyReport'},
+        { name: '月報登録' ,icon: 'mdi-note-text', link: '/registerMonthlyReport'},
+        { name: 'カレンダー' ,icon: 'mdi-calendar-text', link: '/calendar'},
+        { name: 'みんなの達成度' ,icon: 'mdi-account-multiple-outline', link: '/levelForAchivement'},
+        { name: 'FAQ' ,icon: 'mdi-help', link: '/faq'},
+        { name: 'ログアウト' ,icon: 'mdi-logout', link: ''}
+      ]
     }
   }
 };
