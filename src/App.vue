@@ -8,11 +8,20 @@
     </v-app-bar>
     
     <v-navigation-drawer v-model="drawer" fixed temporary> 
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            にょっき！
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            にょきにょき育成日記
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider></v-divider>
+
       <v-list nav dense>
-            <v-list-item-content>
-              <v-list-item-title class="title">にょっき！</v-list-item-title> 
-            </v-list-item-content>
-            <v-divider />
+
           <v-list-item v-for="nav_list in nav_lists" :key="nav_list.name" :to="nav_list.link">
             <v-list-item-icon>
               <v-icon>{{ nav_list.icon }}</v-icon>
@@ -23,12 +32,15 @@
           </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    
     </div>
 
     <v-content>
       <router-view/>
     </v-content>
+
+    <v-footer>
+      <!-- フッダー-->
+    </v-footer>
   </v-app>
 </template>
 
@@ -55,3 +67,4 @@ export default {
   }
 };
 </script>
+
