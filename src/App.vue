@@ -6,7 +6,6 @@
       <v-toolbar-title>にょっき！</v-toolbar-title>
       <div class="flex-grow-1"></div>
     </v-app-bar>
-    
     <v-navigation-drawer v-model="drawer" fixed temporary> 
       <v-list nav dense>
             <v-list-item-content>
