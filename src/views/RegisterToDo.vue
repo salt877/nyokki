@@ -1,11 +1,90 @@
 <template>
-  <div style="text-align: center">
-  <h2>ToDo登録</h2>
-</div>
+    <div style="text-align: center">
+        <h2>ToDo登録</h2>
+        <v-row>
+            <v-col>
+                <v-text-field 
+                    placeholder="今日のToDoを追加しよう！"
+                    v-model="toDoCard"
+                    >
+                </v-text-field> 
+                <v-btn
+                    color="primary"
+                    @click="addToDoCard()"
+                >追加
+                </v-btn>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col>
+                <v-card>
+            <v-card-title>
+                今日のToDo
+            </v-card-title>
+            <v-card-text 
+                v-for="todo in todos" 
+                :key="todo" 
+            >
+                {{todo.text}}
+            </v-card-text>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="warning"
+                    @click="copyToDo"
+                 >コピー
+                 </v-btn>
+                 <v-btn
+                    color="error"
+                    @click="saveToDo"
+                 >保存
+                </v-btn>
+            </v-card-actions>
+            </v-card>
+            </v-col>
+        </v-row>
+    </div>
 </template>
 
 <script>
   export default {
-    name: "RegisterToDo"
+    name: "RegisterToDo",
+    data(){
+        return {
+            toDoCard: '',
+            todos:
+                [{
+                    text: 'タスク1'
+                },
+                {
+                    text: 'タスク2'
+                },
+                {
+                    text: 'タスク3'
+                }]
+        }
+    },
+    methods: {
+        addToDoCard: function(){
+            const newToDoCard = this.toDoCard;
+            if (!newToDoCard){
+                return ;
+            }
+            this.todos.push({
+                text: newToDoCard
+            });
+            this.toDoCard = '';
+        }
+    }
   };
 </script>
+<style scoped>
+.row {
+    align-content: "center";
+}
+.v-input, .v-card{
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+</style>
