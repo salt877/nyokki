@@ -81,6 +81,7 @@
 <style scoped>
 .row {
     align-content: "center";
+    margin: 5em 0em;
 }
 .v-input, .v-card{
     max-width: 80%;
