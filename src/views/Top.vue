@@ -1,19 +1,45 @@
 <template>
-<v-main fluid fill-height class="top-hero__content">
-<v-app>
-  <div id="app" class="">
-    <Chart
-      :def="def1"
-      :data="data"
-    >
-    </Chart>
-  </div>
-    <div class="flower">
-    <v-img lazy-src="../images/flower.png"
-            src="../images/flower.png">
-    </v-img>
-    </div>
-</v-app>
+<v-main  class="top-hero__content">
+  <v-container>
+    <v-row justify="space-around">
+      <v-col
+        v-for="rounded in ['xl', 'xl']"
+        :key="rounded"
+        cols="10"
+        md="6"
+      >
+        <v-hover
+        v-slot:default="{ hover }"
+        open-delay="200"
+      >
+          <v-sheet
+            :elevation="hover ? 16 : 2"
+            color="white"
+            :rounded="rounded"
+            class="mx-auto"
+            height="500"
+            width="500"
+          >
+          <div></div>
+          <div id="app">
+             <Chart
+              :def="def1"
+              :data="data"
+          >
+            </Chart>
+            <div></div>
+            </div>
+             <div class="flower">
+            <v-img lazy-src="../images/flower.png"
+                src="../images/flower.png">
+            </v-img>
+        </div>
+          </v-sheet>
+        </v-hover>
+      </v-col>
+          <div></div>
+    </v-row>
+  </v-container>
 </v-main>
 </template>
 
@@ -35,8 +61,13 @@ export default {
           { label: 'test3', value:'1' },
           { label: 'test4', value:'2' }
       ],
+      
     }
-  }
+  },
+  options:{
+        responsive: true,
+        maintainAspectRatio: false,
+    }
 }
 </script>
 
@@ -46,7 +77,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: relative; top:100px; left:100px;
+  position: relative; top:100px; left:30px;
   color: #2c3e50;
   margin: 0 auto;
   width: 500px;
@@ -56,7 +87,7 @@ export default {
 .flower {
   width :400px;
   height:400px;
-  position:absolute; top:30px; left:-300px;
+  position:absolute; top:100px; left:100px;
 }
 .top-hero__content {
   background-image: url("~@/assets/TopBackground.png");
