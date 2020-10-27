@@ -1,7 +1,7 @@
 <template>
   <v-app name="App">
     <div>
-    <v-app-bar class="light-green lighten-2">
+    <v-app-bar class="light-green accent-1">
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>にょっき！</v-toolbar-title>
       <div class="flex-grow-1"></div>
