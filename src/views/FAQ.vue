@@ -13,7 +13,7 @@
     >
       <v-expansion-panel-header class="lime lighten-4">質問</v-expansion-panel-header>
       <v-expansion-panel-content>
-        回答
+        回答だよ
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
