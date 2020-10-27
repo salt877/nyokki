@@ -1,19 +1,18 @@
 <template>
-  <div style="text-align: center">
-  <h2>ToDo管理</h2>
-  <h3>達成率：○○％</h3>
-    <div id="box1" class="box">
-        <draggable tag="ul" :options="{group:'ITEMS'}">
-            <li v-for="incomplete in incompletes" :key="incomplete.no">{{ incomplete.name }} </li>    
-        </draggable>
-    </div>
-     <div id="box2" class="box">
-        <draggable tag="ul" :options="{group:'ITEMS'}">
-            <li v-for="complete in completes" :key="complete.no">{{ complete.name }} </li>    
-        </draggable>
-    </div>
-
-</div>
+      <v-container>
+        <h2>ToDo管理</h2>
+        <h3>達成率：○○％</h3>
+        <div id="box1" class="box">
+            <draggable tag="ul" :options="{group:'ITEMS'}">
+                <li v-for="incomplete in incompletes" :key="incomplete.no">{{ incomplete.name }} </li>    
+            </draggable>
+        </div>
+        <div id="box2" class="box">
+            <draggable tag="ul" :options="{group:'ITEMS'}">
+                <li v-for="complete in completes" :key="complete.no">{{ complete.name }} </li>    
+            </draggable>
+        </div>
+      </v-container>
 </template>
 
 <script>
@@ -42,12 +41,15 @@ import draggable from 'vuedraggable';
 </script>
 
 <style scoped>
+h2 {
+    text-align: center;
+}
 h3 {
     text-align: right;
     margin-right: 5%;
 }
 .box {
-    width: 42.5%;
+    width: 49%;
     float: left;
     border-radius: 1em;
     padding: 2em;
@@ -56,14 +58,12 @@ h3 {
 }
 #box1 {
     border: 0.3em solid rgb(255, 123, 123);
-    margin-left: 5%;
-    margin-right: 2.5%;
+    margin-right: 1%; 
 }
 #box2 {
     border: 0.3em solid rgb(142, 159, 255);
-    margin-left: 2.5%;
-    margin-right: 5%;
-} 
+    margin-left: 1%;
+}
 
 #box1::before {
     background-color: #fff;

@@ -1,5 +1,5 @@
 <template>
-    <div style="text-align: center">
+    <v-container>
         <h2>ToDo登録</h2>
         <v-row>
             <v-col>
@@ -43,7 +43,7 @@
             </v-card>
             </v-col>
         </v-row>
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -52,16 +52,11 @@
     data(){
         return {
             toDoCard: '',
-            todos:
-                [{
-                    text: 'タスク1'
-                },
-                {
-                    text: 'タスク2'
-                },
-                {
-                    text: 'タスク3'
-                }]
+            todos:[
+                { text: 'タスク1' },
+                { text: 'タスク2' },
+                { text: 'タスク3' }
+            ]
         }
     },
     methods: {
@@ -79,8 +74,11 @@
   };
 </script>
 <style scoped>
+.container {
+    text-align: center;
+}
 .row {
-    align-content: "center";
+    align-content: center;
     margin: 5em 0em;
 }
 .v-input, .v-card{
