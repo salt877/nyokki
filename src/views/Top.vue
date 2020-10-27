@@ -1,11 +1,29 @@
 <template>
 <v-main  class="top-hero__content">
-  <v-container>
-    <v-row justify="space-around">
+  <v-container
+   >
+    <v-subheader 
+    v-for="type in types"
+      :key="type"
+      class="grey lighten-4"
+      fluid
+      >
+      {{ type }}
+      </v-subheader>
+    <v-row justify="center" align-content="center">
+      <v-spacer></v-spacer>
+      <v-col
+          v-for="card in cards"
+          :key="card"
+          cols="2"
+          sm="8"
+          md="6"
+        >{{card}}
+      </v-col>
       <v-col
         v-for="rounded in ['xl', 'xl']"
         :key="rounded"
-        cols="10"
+        cols="12"
         md="6"
       >
         <v-hover
@@ -16,28 +34,27 @@
             :elevation="hover ? 16 : 2"
             color="white"
             :rounded="rounded"
-            class="mx-auto"
             height="500"
             width="500"
+            class="headline black--text pl-4 pt-4 d-inline-block"
+                v-text="card"
           >
-          <div></div>
-          <div id="app">
-             <Chart
-              :def="def1"
-              :data="data"
-          >
-            </Chart>
-            <div></div>
-            </div>
-             <div class="flower">
-            <v-img lazy-src="../images/flower.png"
-                src="../images/flower.png">
-            </v-img>
-        </div>
           </v-sheet>
         </v-hover>
+        <v-spacer></v-spacer>
       </v-col>
-          <div></div>
+        <div class="flower">
+          <v-spacer></v-spacer>
+            <v-img src="../images/flower.png"></v-img>
+        </div>
+        <div id="app">
+          <v-spacer></v-spacer>
+          <Chart
+            :def="def1"
+            :data="data"
+          >
+          </Chart>
+        </div>
     </v-row>
   </v-container>
 </v-main>
@@ -61,7 +78,8 @@ export default {
           { label: 'test3', value:'1' },
           { label: 'test4', value:'2' }
       ],
-      
+      types: ['今月の目標'],
+      cards: ['日報継続度', '今月の自己達成度'],
     }
   },
   options:{
@@ -77,7 +95,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: relative; top:100px; left:30px;
+  position: absolute; top:200px; left:750px;
   color: #2c3e50;
   margin: 0 auto;
   width: 500px;
@@ -87,7 +105,7 @@ export default {
 .flower {
   width :400px;
   height:400px;
-  position:absolute; top:100px; left:100px;
+  position:absolute; top:150px; left:200px;
 }
 .top-hero__content {
   background-image: url("~@/assets/TopBackground.png");
