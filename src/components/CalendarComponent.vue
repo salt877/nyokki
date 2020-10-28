@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-app>
+  
+    <v-app height="40vh">
 
     <v-sheet tile height="6vh" color="grey lighten-3" class="d-flex align-center">
       <v-btn outlined small class="ma-4" @click="setToday">
@@ -14,7 +14,7 @@
       </v-btn>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
     </v-sheet>
-    <v-sheet height="94vh">
+    <v-sheet height="40vh">
       <v-calendar
         ref="calendar"
         v-model="value"
@@ -29,7 +29,7 @@
       ></v-calendar>
     </v-sheet>
     </v-app>
-  </div>
+  
 </template>
 
 <script>
@@ -82,7 +82,7 @@ export default {
           timed: false,
         },
         {
-          name: '飲み会',
+          name: 'お花見',
           start: moment('2020-08-06').toDate(),
           end: moment('2020-08-06').toDate(),
           color: 'orange',

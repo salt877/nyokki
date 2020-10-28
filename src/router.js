@@ -9,7 +9,8 @@ import Mypage from './views/Mypage.vue';
 import RegisterDailyReport from './views/RegisterDailyReport.vue';
 import RegisterMonthlyReport from './views/RegisterMonthlyReport.vue';
 import RegisterToDo from './views/RegisterToDo.vue';
-import CalendarComponent from './views/CalendarComponent.vue';
+import CalendarComponent from './components/CalendarComponent.vue';
+import Chart from './components/Chart.vue';
 
 
 Vue.use(Router);
@@ -27,7 +28,8 @@ export default new Router({
         { path: '/registerToDo', component: RegisterToDo },
         { path: '/calendar', component: Calendar, 
             children: [
-                { path: '/calendarComponent', component: CalendarComponent }
+                { path: '/calendarComponent', component: CalendarComponent },
+                { path: '/chart', component: Chart },
             ]
         },
     ]
