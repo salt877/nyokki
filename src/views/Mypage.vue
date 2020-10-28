@@ -10,7 +10,7 @@
         </v-avatar>
       </v-col>
       <v-col>
-        <p>お花</p>
+        <p>ここにお花を表示</p>
       </v-col>
       <v-col>
       </v-col>
@@ -38,15 +38,12 @@
       <v-col>
         <v-card>
           <p>3つのコンポーネントがボタンによって切り替わる</p>
-          <p>ここにそれぞれの内容が表示される</p>
           <p>プロフィール変更コンポーネント</p>
           <ProfileChange></ProfileChange>
           <p>フォロー一覧コンポーネント</p>
           <Follow></Follow>
           <p>フォロワー一覧コンポーネント</p>
           <Follower></Follower>
-          <p>一覧の内容</p>
-          <p>一覧の内容</p>
         </v-card>
       </v-col>
     </v-row>
