@@ -1,7 +1,54 @@
 <template>
-  <div style="text-align: center">
-  <h2>マイページ</h2>
-</div>
+  <v-container>
+    <h2>マイページ</h2>
+    <v-row>
+      <v-col>
+      </v-col>
+      <v-col >
+        <v-avatar size="150" >
+         <img src="../images/same.jpeg">
+        </v-avatar>
+      </v-col>
+      <v-col>
+        <p>お花</p>
+      </v-col>
+      <v-col>
+      </v-col>
+    </v-row>
+    <br>
+    <br>
+    <v-row>
+      <v-col>
+          <v-card-actions>
+            <v-btn color="warning">フォロー一覧</v-btn>
+          </v-card-actions>
+      </v-col>
+      <v-col>
+        <v-card-actions>
+            <v-btn color="warning">フォロワー一覧</v-btn>
+        </v-card-actions>
+      </v-col>
+      <v-col>
+        <v-card-actions>
+            <v-btn color="warning">プロフィール変更</v-btn>
+        </v-card-actions>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-card>
+          <p>3つのコンポーネントがボタンによって切り替わる</p>
+          <p>ここにそれぞれの内容が表示される</p>
+          <p>一覧の内容</p>
+          <p>一覧の内容</p>
+          <p>一覧の内容</p>
+          <p>一覧の内容</p>
+          <p>一覧の内容</p>
+        </v-card>
+      </v-col>
+    </v-row>
+
+  </v-container>
 </template>
 
 <script>
