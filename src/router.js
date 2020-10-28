@@ -11,6 +11,9 @@ import RegisterMonthlyReport from './views/RegisterMonthlyReport.vue';
 import RegisterToDo from './views/RegisterToDo.vue';
 import CalendarComponent from './components/CalendarComponent.vue';
 import Chart from './components/Chart.vue';
+import ProfileChange from './components/ProfileChange.vue';
+import Follow from './components/Follow.vue';
+import Follower from './components/Follower.vue';
 
 
 Vue.use(Router);
@@ -22,7 +25,13 @@ export default new Router({
         { path: '/faq', component: FAQ },
         { path: '/levelForAchivement', component: LevelOfAchievement },
         { path: '/manageToDo', component: ManageToDo },
-        { path: '/mypage', component: Mypage },
+        { path: '/mypage', component: Mypage,
+            children: [
+            { path: '/profileChange', component: ProfileChange },
+            { path: '/follow', component: Follow },
+            { path: '/follower', component: Follower },
+         ]
+        },
         { path: '/registerDailyReport', component: RegisterDailyReport },
         { path: '/registerMonthlyReport', component: RegisterMonthlyReport },
         { path: '/registerToDo', component: RegisterToDo },

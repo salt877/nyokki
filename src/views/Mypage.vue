@@ -39,9 +39,12 @@
         <v-card>
           <p>3つのコンポーネントがボタンによって切り替わる</p>
           <p>ここにそれぞれの内容が表示される</p>
-          <p>一覧の内容</p>
-          <p>一覧の内容</p>
-          <p>一覧の内容</p>
+          <p>プロフィール変更コンポーネント</p>
+          <ProfileChange></ProfileChange>
+          <p>フォロー一覧コンポーネント</p>
+          <Follow></Follow>
+          <p>フォロワー一覧コンポーネント</p>
+          <Follower></Follower>
           <p>一覧の内容</p>
           <p>一覧の内容</p>
         </v-card>
@@ -52,7 +55,17 @@
 </template>
 
 <script>
+import ProfileChange from '../components/ProfileChange.vue';
+import Follow from '../components/Follow.vue';
+import Follower from '../components/Follower.vue';
+
   export default {
-    name: "Mypage"
+    name: "Mypage",
+    components:{
+      ProfileChange,
+      Follow,
+      Follower
+      
+    },
   };
 </script>
