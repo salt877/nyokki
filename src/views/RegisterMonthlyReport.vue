@@ -61,11 +61,14 @@
                 </v-card>  
             </v-col>
         </v-row>
-        <v-btn
-            color="error"
-            @click="saveMonthlyReport"
+        <v-row>
+            <v-btn
+                class="save-button"
+                color="error"
+                @click="saveMonthlyReport"
             >保存する
-        </v-btn>
+            </v-btn>
+        </v-row>
     </v-container>
 </template>
 
@@ -110,5 +113,8 @@
 }
 .v-btn {
     margin: 0 0 0 auto;
+}
+.save-button {
+    margin: 3em auto;
 }
 </style>
