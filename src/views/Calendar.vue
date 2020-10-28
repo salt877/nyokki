@@ -13,8 +13,10 @@
     </v-col>
   </v-row>
   <v-row>
-    <v-col>
+    <v-col outline>
       <p>日報・月報表示</p>
+      <daily-report></daily-report>
+      <monthly-report></monthly-report>
     </v-col>
     <v-col>
       
@@ -27,12 +29,16 @@
 <script>
 import CalendarComponent from '../components/CalendarComponent.vue';
 import Chart from '../components/Chart.vue';
+import DailyReport from '../components/DailyReport.vue';
+import MonthlyReport from '../components/MonthlyReport.vue';
 
   export default {
     name: "Calendar",
     components:{
       CalendarComponent,
-      Chart
+      Chart,
+      DailyReport,
+      MonthlyReport
     },
     // data(){
     //   return{
