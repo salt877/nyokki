@@ -34,7 +34,7 @@
               </v-list-item-content>
 
 
- <v-list-item-action>
+              <v-list-item-action>
                 <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
 
                 <v-icon
