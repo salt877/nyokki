@@ -113,6 +113,9 @@
 </script>
 
 <style scoped>
+.container {
+    text-align: center;
+}
 .v-input {
     width: 80%;
     margin: auto;
