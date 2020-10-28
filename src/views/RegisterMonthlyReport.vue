@@ -9,7 +9,7 @@
                         v-for="tmGoal in thisMonthsGoals"
                         :key="tmGoal"
                     >
-                        {{ tmGoal.text }}
+                        {{ tmGoal }}
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -43,7 +43,7 @@
                     <v-card-text
                         v-for=" nmGoal in nextMonthsGoals"
                         :key="nmGoal">
-                        {{ nmGoal.text }}
+                        {{ nmGoal }}
                     </v-card-text>
                     <v-text-field 
                         placeholder="来月の目標は？"
@@ -78,13 +78,13 @@
     data() {
         return {
             thisMonthsGoals:[
-                { text: '目標1'},
-                { text: '目標2'}
+                '目標1',
+                '目標2'
             ],
             inputNextMonthsGoals: '',
             nextMonthsGoals: [
-                { text: '来月の目標1' },
-                { text: '来月の目標2' }
+                '来月の目標1',
+                '来月の目標2' 
             ]
         }
     },
@@ -94,9 +94,7 @@
             if (!newMonthsGoals){
                 return ;
             }
-            this.nextMonthsGoals.push({
-                text: newMonthsGoals
-            });
+            this.nextMonthsGoals.push(newMonthsGoals);
             this.inputNextMonthsGoals = '';
         }
     }

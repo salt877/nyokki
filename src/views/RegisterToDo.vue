@@ -53,9 +53,9 @@
         return {
             toDoCard: '',
             todos:[
-                { text: 'タスク1' },
-                { text: 'タスク2' },
-                { text: 'タスク3' }
+                { text: 'ここにToDoが追加される1' },
+                { text: 'ここにToDoが追加される2' },
+                { text: 'ここにToDoが追加される3' }
             ]
         }
     },

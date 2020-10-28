@@ -5,17 +5,33 @@
       <v-col>
         <v-card>
           <v-card-title>今日のタスク</v-card-title>
-          <v-card-text>タスク1</v-card-text>
-          <v-card-text>タスク2</v-card-text>
-          <v-card-text>タスク3</v-card-text>
+          <v-card-text>登録したToDoが表示される1</v-card-text>
+          <v-card-text>登録したToDoが表示される2</v-card-text>
+          <v-card-text>登録したToDoが表示される3</v-card-text>
         </v-card>
       </v-col>
       <v-col>
         <v-card>
           <v-card-title>今日の報告</v-card-title>
-          <v-card-text>タスク1</v-card-text>
-          <v-card-text>タスク3</v-card-text>
-          <v-text-field>自由記述</v-text-field>
+          <v-card-text
+            v-for="card in cards"
+            :key="card"
+          >
+            {{card}}
+          </v-card-text>
+          <v-card-actions>
+            <v-textarea 
+              rows="1"
+              placeholder="追加の記述も可能"
+              v-model="newCard"
+            >
+            </v-textarea>
+            <v-spacer></v-spacer>
+            <v-btn 
+            color="primary"
+            @click="addNewCard()"
+            >追加</v-btn>
+          </v-card-actions>
           <v-card-actions>
             <v-btn color="warning">コピー</v-btn>
           </v-card-actions>
@@ -30,9 +46,7 @@
           </v-card-title>
           <v-radio-group row>
             <v-radio label="😊 よくできた"></v-radio>
-            <v-radio label="😃 できた"></v-radio>
             <v-radio label="😐 まあまあできた"></v-radio>
-            <v-radio label="🙁 あまりできなかった"></v-radio>
             <v-radio label="😢 できなかった"></v-radio>
           </v-radio-group>
         </v-card>
@@ -75,13 +89,32 @@
 
 <script>
   export default {
-    name: "RegisterDailyReport"
+    name: "RegisterDailyReport",
+    data() {
+      return {
+        newCard: '',
+        cards: [
+          '完了したToDoが表示されている1' ,
+          '完了したToDoが表示されている2'
+        ]
+      }
+    },
+    methods: {
+      addNewCard: function() {
+        const addCard = this.newCard;
+        if(!addCard){
+          return ;
+        }
+        this.cards.push(addCard);
+        this.newCard = '';
+      }
+    }
   };
 </script>
 
 <style scoped>
 .v-input {
-    width: 90%;
+    width: 80%;
     margin: auto;
 }
 .v-input--radio-group.v-input--radio-group--row .v-radio {
