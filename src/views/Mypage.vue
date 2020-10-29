@@ -10,7 +10,9 @@
         </v-avatar>
       </v-col>
       <v-col>
-        <p>ここにお花を表示</p>
+        <v-list-item-avatar size="150">
+                <img src="../images/flower8_31day.png">
+        </v-list-item-avatar>
       </v-col>
       <v-col>
       </v-col>
