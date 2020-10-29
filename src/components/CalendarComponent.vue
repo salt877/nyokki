@@ -2,7 +2,7 @@
   
     <v-app height="40vh">
 
-    <v-sheet tile height="6vh" color="grey lighten-3" class="d-flex align-center">
+    <v-sheet tile height="6vh" color="pink lighten-4" class="d-flex align-center">
       <v-btn outlined small class="ma-4" @click="setToday">
         今日
       </v-btn>
@@ -26,6 +26,7 @@
         @change="getEvents"
         @click:event="showEvent"
         @click:date="viewDay"
+        color="light-green accent-2"
       ></v-calendar>
     </v-sheet>
     </v-app>
