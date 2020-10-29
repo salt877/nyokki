@@ -23,11 +23,18 @@
       <v-col>
           <v-card-actions>
             <v-btn color="warning">フォロー一覧</v-btn>
-          </v-card-actions>
+        <v-card-actions>
+        <v-text>フォロー数：10人</v-text>
+        </v-card-actions>
+        </v-card-actions>
+          
       </v-col>
       <v-col>
         <v-card-actions>
             <v-btn color="warning">フォロワー一覧</v-btn>
+        <v-card-actions>
+        <v-text>フォロワー数：20人</v-text>
+        </v-card-actions>
         </v-card-actions>
       </v-col>
       <v-col>

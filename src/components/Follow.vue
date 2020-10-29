@@ -1,6 +1,6 @@
 <template>
 <v-container>
-  <h2 style="text-align: center">フォロー一覧</h2>
+  <h2 style="text-align: center">フォローしている人</h2>
   <v-row>
     <v-col
       cols="12"
@@ -62,7 +62,7 @@
   export default {
     data: () => ({
       items: [
-        { header: '良い養分を吸収しよう🌱' },
+        { header: '養分を吸収しよう🌱' },
         { 
         title: 'ユーザーD',
         subtitle: '咲かせた花数🌷：10🌸'},
