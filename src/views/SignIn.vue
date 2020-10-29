@@ -31,9 +31,4 @@ export default {
 .box h1 {
     margin: 5vh 0;
 }
-.v-btn__content {
-    color: white;
-    font-weight: bold;
-}
-
 </style>
