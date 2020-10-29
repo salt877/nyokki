@@ -45,7 +45,7 @@
       </v-col>
         <div class="flower">
           <v-spacer></v-spacer>
-            <v-img src="../images/flower.png"></v-img>
+            <v-img src="../images/flower8_31day.png"></v-img>
         </div>
         <div id="app">
           <v-spacer></v-spacer>

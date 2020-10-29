@@ -14,6 +14,7 @@
       </v-text>
       </v-col>
       <v-col>
+        
         <v-card-actions>
         <v-text-field 
           placeholder="新しい名前"
@@ -51,6 +52,15 @@
       </v-sheet>
     </v-col>
   </v-row>
+<v-row justify="center">
+      <v-btn
+        class="save-button"
+        color="error"
+        @click="saveMonthlyReport"
+        >変更を保存する
+      </v-btn> 
+    </v-row>
+  
 
 </v-container>
 </template>
