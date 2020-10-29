@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import SignIn from './views/SignIn.vue'
 import Top from './views/Top.vue';
 import Calendar from './views/Calendar.vue';
 import FAQ from './views/FAQ.vue';
@@ -18,6 +19,7 @@ Vue.use(Router);
 export default new Router({
     mode: "history",
     routes: [
+        { path: '/signIn', component: SignIn },
         { path: '/', component: Top },
         { path: '/faq', component: FAQ },
         { path: '/levelForAchivement', component: LevelOfAchievement },
