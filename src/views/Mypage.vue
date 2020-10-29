@@ -8,11 +8,15 @@
         <v-avatar size="150" >
          <img src="../images/same.jpeg">
         </v-avatar>
+        <v-card-actions>
+        <v-text>ユーザー名：サメ</v-text>
+        </v-card-actions>
       </v-col>
       <v-col>
         <v-list-item-avatar size="150">
                 <img src="../images/flower8_31day.png">
         </v-list-item-avatar>
+  
       </v-col>
       <v-col>
       </v-col>

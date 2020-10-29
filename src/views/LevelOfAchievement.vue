@@ -9,7 +9,7 @@
     >
       <v-card>
         <v-list two-line>
-          <template v-for="(item, index) in items.slice(0, 6)">
+          <template v-for="(item, index) in items.slice(0, 6)" :to="user.link">
             <v-subheader
               v-if="item.header"
               :key="item.header"
@@ -25,8 +25,9 @@
               v-else
               :key="item.title"
             >
-              <v-list-item-avatar size="90">
+              <v-list-item-avatar size="90" >
                 <img src="../images/same.jpeg">
+
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title v-html="item.title"></v-list-item-title>
@@ -55,6 +56,10 @@
     </v-col>
   </v-row>
 
+  <v-content>
+    <router-view/>
+  </v-content>
+
 </v-container>
 </template>
 
@@ -74,6 +79,9 @@
         subtitle: '咲かせた花数🌷：100🌸',
          },
       ],
+      user:[
+        {name: '詳細' ,icon: 'mdi-account-multiple-outline',link: '/userpage'}
+      ]
     }),
   }
 </script>

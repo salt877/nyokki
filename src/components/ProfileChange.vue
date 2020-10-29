@@ -9,9 +9,6 @@
         <v-avatar size="150" >
          <img src="../images/same.jpeg">
         </v-avatar>
-      <v-text>
-        サメ
-      </v-text>
       </v-col>
       <v-col>
         
