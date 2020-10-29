@@ -1,6 +1,6 @@
 <template>
 <v-container>
-  <h2 style="text-align: center">みんなの達成度</h2>
+  <h2 style="text-align: center">フォローしている人</h2>
   <v-row>
     <v-col
       cols="12"
@@ -9,7 +9,7 @@
     >
       <v-card>
         <v-list two-line>
-          <template v-for="(item, index) in items.slice(0, 6)" :to="user.link">
+          <template v-for="(item, index) in items.slice(0, 6)">
             <v-subheader
               v-if="item.header"
               :key="item.header"
@@ -25,16 +25,15 @@
               v-else
               :key="item.title"
             >
-              <v-list-item-avatar size="90" >
+              <v-list-item-avatar size="90">
                 <img src="../images/same.jpeg">
-
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title v-html="item.title"></v-list-item-title>
                 <v-list-item-subtitle v-html="item.subtitle">
                 </v-list-item-subtitle>
                 <v-list-item-avatar size="50">
-                <img src="../images/flower6_25day.png">
+                <img src="../images/flower4_15day.png">
               </v-list-item-avatar>
               </v-list-item-content>
 
@@ -43,9 +42,9 @@
                 <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
 
               <v-btn 
-                color="light-green accent-2"
+                color="pink lighten-4"
                 @click="addNewCard()"
-               >フォロー申請</v-btn>
+               >フォロー解除😇</v-btn>
                 
               </v-list-item-action>
 
@@ -56,10 +55,6 @@
     </v-col>
   </v-row>
 
-  <v-content>
-    <router-view/>
-  </v-content>
-
 </v-container>
 </template>
 
@@ -67,21 +62,18 @@
   export default {
     data: () => ({
       items: [
-        { header: 'たくさんお花を育てているお友達をリスペクトしよう🌱' },
+        { header: '養分を吸収しよう🌱' },
         { 
-        title: 'ユーザーA',
+        title: 'ユーザーD',
         subtitle: '咲かせた花数🌷：10🌸'},
         { divider: true, inset: true },
         { 
-        title: 'ユーザーB', subtitle: '咲かせた花数🌷：50🌸'},
+        title: 'ユーザーE', subtitle: '咲かせた花数🌷：50🌸'},
         { divider: true, inset: true },
-        { title: 'ユーザーC', 
+        { title: 'ユーザーF', 
         subtitle: '咲かせた花数🌷：100🌸',
          },
       ],
-      user:[
-        {name: '詳細' ,icon: 'mdi-account-multiple-outline',link: '/userpage'}
-      ]
     }),
   }
 </script>

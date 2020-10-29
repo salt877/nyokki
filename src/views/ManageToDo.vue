@@ -26,14 +26,14 @@ import draggable from 'vuedraggable';
     data() {
         return {
             incompletes: [
-                { no:1 , name: 'タスク1' },
-                { no:2 , name: 'タスク2' },
-                { no:3 , name: 'タスク3' }
+                { no:1 , name: 'ToDoの移動ができる1' },
+                { no:2 , name: 'ToDoの移動ができる2' },
+                { no:3 , name: 'ToDoの移動ができる3' }
             ],
              completes: [
-                { no:4 , name: 'タスク4'},
-                { no:5 , name: 'タスク5' },
-                { no:6 , name: 'タスク6' }
+                { no:4 , name: 'ToDoの移動ができる4'},
+                { no:5 , name: 'ToDoの移動ができる5' },
+                { no:6 , name: 'ToDoの移動ができる6' }
             ]
         }
     }

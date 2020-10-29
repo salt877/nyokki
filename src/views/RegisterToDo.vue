@@ -26,6 +26,16 @@
                 :key="todo" 
             >
                 {{todo.text}}
+                 <v-btn
+                    elevation="2"
+                    fab
+                    x-small
+                    color="gray"
+                >  
+                    <v-icon>
+                        mdi-minus
+                    </v-icon>
+                </v-btn>
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
@@ -53,9 +63,9 @@
         return {
             toDoCard: '',
             todos:[
-                { text: 'タスク1' },
-                { text: 'タスク2' },
-                { text: 'タスク3' }
+                { text: 'ここにToDoが追加される1' },
+                { text: 'ここにToDoが追加される2' },
+                { text: 'ここにToDoが追加される3' }
             ]
         }
     },
@@ -84,6 +94,11 @@
 .v-input, .v-card{
     max-width: 80%;
     margin: 0 auto;
+}
+.v-btn--fab.v-size--x-small {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0 1rem;
 }
 
 </style>
