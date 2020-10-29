@@ -33,9 +33,9 @@
     </v-navigation-drawer>
     </div>
 
-    <v-content>
+    <v-main>
       <router-view/>
-    </v-content>
+    </v-main>
 
     <v-footer>
       <!-- フッダー-->
@@ -51,6 +51,7 @@ export default {
     return {
       drawer: false,
       nav_lists: [
+        { name: 'サインイン（ログイン前に使用したい）' , link: '/signIn'},
         { name: 'Top' ,icon: 'mdi-home', link: '/'},
         { name: 'マイページ' ,icon: 'mdi-account', link: '/mypage'},
         { name: 'ToDo登録' ,icon: 'mdi-pencil', link: '/registerToDo'},

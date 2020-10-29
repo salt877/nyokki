@@ -25,3 +25,8 @@ export default {
     name: 'monthlyReport'
 }
 </script>
+<style scoped>
+.container{
+    border: solid 0.25rem green;
+}
+</style>

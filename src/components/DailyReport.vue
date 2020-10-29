@@ -39,3 +39,8 @@ export default {
     name: 'dailyReport'
 }
 </script>
+<style scoped>
+.container{
+    border: solid 0.25rem green;
+}
+</style>
