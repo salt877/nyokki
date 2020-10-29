@@ -10,6 +10,7 @@ import Mypage from './views/Mypage.vue';
 import RegisterDailyReport from './views/RegisterDailyReport.vue';
 import RegisterMonthlyReport from './views/RegisterMonthlyReport.vue';
 import RegisterToDo from './views/RegisterToDo.vue';
+import Userpage from './views/Userpage.vue';
 import CalendarComponent from './components/CalendarComponent.vue';
 import Chart from './components/Chart.vue';
 import ProfileChange from './components/ProfileChange.vue';
@@ -25,14 +26,18 @@ export default new Router({
         { path: '/signIn', component: SignIn },
         { path: '/', component: Top },
         { path: '/faq', component: FAQ },
-        { path: '/levelForAchivement', component: LevelOfAchievement },
+        { path: '/levelForAchivement', component: LevelOfAchievement ,
+        children: [
+            { path: '/userpage', component: Userpage },
+            ]
+        },
         { path: '/manageToDo', component: ManageToDo },
         { path: '/mypage', component: Mypage,
             children: [
             { path: '/profileChange', component: ProfileChange },
             { path: '/follow', component: Follow },
             { path: '/follower', component: Follower },
-         ]
+          ]
         },
         { path: '/registerDailyReport', component: RegisterDailyReport },
         { path: '/registerMonthlyReport', component: RegisterMonthlyReport },

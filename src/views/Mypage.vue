@@ -8,9 +8,15 @@
         <v-avatar size="150" >
          <img src="../images/same.jpeg">
         </v-avatar>
+        <v-card-actions>
+        <v-text>ユーザー名：サメ</v-text>
+        </v-card-actions>
       </v-col>
       <v-col>
-        <p>ここにお花を表示</p>
+        <v-list-item-avatar size="150">
+                <img src="../images/flower8_31day.png">
+        </v-list-item-avatar>
+  
       </v-col>
       <v-col>
       </v-col>
@@ -21,11 +27,18 @@
       <v-col>
           <v-card-actions>
             <v-btn color="warning">フォロー一覧</v-btn>
-          </v-card-actions>
+        <v-card-actions>
+        <v-text>フォロー数：10人</v-text>
+        </v-card-actions>
+        </v-card-actions>
+          
       </v-col>
       <v-col>
         <v-card-actions>
             <v-btn color="warning">フォロワー一覧</v-btn>
+        <v-card-actions>
+        <v-text>フォロワー数：20人</v-text>
+        </v-card-actions>
         </v-card-actions>
       </v-col>
       <v-col>

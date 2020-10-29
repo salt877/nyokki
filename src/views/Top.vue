@@ -45,7 +45,7 @@
       </v-col>
         <div class="flower">
           <v-spacer></v-spacer>
-            <v-img src="../images/flower.png"></v-img>
+            <v-img src="../images/flower8_31day.png"></v-img>
         </div>
         <div id="app">
           <v-spacer></v-spacer>
@@ -73,10 +73,10 @@ export default {
             type:'pie',
       },
       data:[
-          { label: 'test1', value:'3' },
-          { label: 'test2', value:'4' },
-          { label: 'test3', value:'1' },
-          { label: 'test4', value:'2' }
+          { label: '😢', value:'1' },
+          { label: '😐', value:'2' },
+          { label: '😊', value:'3' },
+          
       ],
       types: ['今月の目標'],
       cards: ['日報継続度', '今月の自己達成度'],
