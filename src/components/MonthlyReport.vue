@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <p>月報詳細</p>
+        <h2>月報詳細</h2>
         <v-row>
             <v-col>
                 <v-card>
@@ -27,6 +27,7 @@ export default {
 </script>
 <style scoped>
 .container{
-    border: solid 0.25rem green;
+    border: solid 0.2em pink;
+    margin: 5em 0;
 }
 </style>

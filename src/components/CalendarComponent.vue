@@ -1,7 +1,5 @@
 <template>
-  
     <v-app height="40vh">
-
     <v-sheet tile height="6vh" color="pink lighten-4" class="d-flex align-center">
       <v-btn outlined small class="ma-4" @click="setToday">
         今日
@@ -13,6 +11,9 @@
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-btn outlined small class="ma-8" @click="componentName='MonthlyReport'">
+        月報
+      </v-btn>
     </v-sheet>
     <v-sheet height="40vh">
       <v-calendar
@@ -29,19 +30,26 @@
         color="light-green accent-2"
       ></v-calendar>
     </v-sheet>
+    <component :is="componentName"></component>
     </v-app>
-  
 </template>
 
 <script>
 import moment from 'moment';
+import MonthlyReport from './MonthlyReport';
+import DailyReport from './DailyReport';
 
 export default {
   name:'Calender',
   data: () => ({
     events: [],
     value: moment().format('yyyy-MM-DD'),
+    componentName: ['MonthlyReport', 'DailyReport']
   }),
+  components: {
+    MonthlyReport,
+    DailyReport
+  },
   computed: {
     title() {
       return moment(this.value).format('yyyy年 M月');
@@ -56,6 +64,7 @@ export default {
     },
     viewDay({ date }) {
       alert(`date: ${date}`);
+      this.componentName = 'DailyReport';
     },
     getEvents() {
       const events = [
@@ -119,3 +128,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-application--wrap {
+  min-height: 40vh;
+}
+</style>
