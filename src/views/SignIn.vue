@@ -2,8 +2,8 @@
     <div class="back-ground">
     <div class="box">
         <h3>毎日書いてにょきにょき育てる</h3>
-        <h1>にょっき</h1>
-        <v-btn color="green"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
+        <v-img src="../images/logo.jpg"></v-img>
+        <v-btn class="loginButton" color="green"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
     </div>
     </div>
 </template>
@@ -27,8 +27,17 @@ export default {
     text-align: center;
     position: relative;
     top: 20vh;
+    width: 70%;
+    height: 50%;
+    background-color:rgba(255, 255, 255, 0.671);
+    margin: 0 auto;
 }
 .box h1 {
     margin: 5vh 0;
+}
+.v-image {
+    width: 300px;
+    height: auto;
+    margin: 3vh auto;
 }
 </style>
