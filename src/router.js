@@ -36,9 +36,12 @@ export default new Router({
         { path: '/mypage', component: Mypage,
             children: [
             { path: '/profileChange', component: ProfileChange },
-            { path: '/follow', component: Follow },
             { path: '/follower', component: Follower },
             { path: '/nyokkiFlower', component: NyokkiFlower },
+            { path: '/follow', component: Follow ,
+        children:[
+            { path: '/nyokkiFlower', component: NyokkiFlower }
+            ]},
           ]
         },
         { path: '/registerDailyReport', component: RegisterDailyReport },
