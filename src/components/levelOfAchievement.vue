@@ -54,11 +54,6 @@
       </v-card>
     </v-col>
   </v-row>
-
-  <v-content>
-    <router-view/>
-  </v-content>
-
 </v-container>
 </template>
 
@@ -79,7 +74,7 @@
          },
       ],
       user:[
-        {name: '詳細' ,icon: 'mdi-account-multiple-outline',link: '/userpage'}
+        {name: '詳細' ,icon: 'mdi-account-multiple-outline',link: 'userpage'}
       ]
     }),
   }

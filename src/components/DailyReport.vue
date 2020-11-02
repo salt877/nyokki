@@ -28,7 +28,10 @@
             <v-col>
                 <v-card>
                     <v-card-title>所感</v-card-title>
-                    <v-card-text>所感が表示されます</v-card-text>
+                    <v-card-text>
+                        自分のカレンダー画面から見たときだけ所感が表示されます<br>
+                        ユーザーページでは所感は表示されません
+                    </v-card-text>
                 </v-card>
             </v-col>
         </v-row>    
