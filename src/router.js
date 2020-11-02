@@ -26,8 +26,11 @@ export default new Router({
         { path: '/signIn', component: SignIn },
         { path: '/', component: Top },
         { path: '/faq', component: FAQ },
-        { path: '/levelForAchivement', component: LevelOfAchievement },
-        { path: '/userpage', component: Userpage },
+        { path: '/levelForAchivement', component: LevelOfAchievement ,
+        children: [
+            { path: '/userpage', component: Userpage },
+            ]
+        },
         { path: '/manageToDo', component: ManageToDo },
         { path: '/mypage', component: Mypage,
             children: [

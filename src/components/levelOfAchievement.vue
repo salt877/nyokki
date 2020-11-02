@@ -25,7 +25,7 @@
               v-else
               :key="item.title"
             >
-             <router-link :to="user.link">
+             <router-link to="/userpage">
               <v-list-item-avatar size="90" >
                 <img src="../images/same.jpeg">
               </v-list-item-avatar>
