@@ -30,6 +30,7 @@ export default new Router({
         { path: '/levelForAchivement', component: LevelOfAchievement ,
         children: [
             { path: '/userpage', component: Userpage },
+            { path: '/nyokkiFlower', component: NyokkiFlower }
             ]
         },
         { path: '/manageToDo', component: ManageToDo },
