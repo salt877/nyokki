@@ -9,7 +9,7 @@
     >
       <v-card>
         <v-list two-line>
-          <template v-for="(item, index) in items.slice(0, 6)" :to="user.link">
+          <template v-for="(item, index) in items.slice(0, 6)">
             <v-subheader
               v-if="item.header"
               :key="item.header"
@@ -26,7 +26,7 @@
               :key="item.title"
             >
               <v-list-item-avatar size="90" >
-                <img src="../images/same.jpeg">
+                <img src="../images/same.jpeg" :to="user.link">
 
               </v-list-item-avatar>
               <v-list-item-content>
@@ -64,6 +64,7 @@
 </template>
 
 <script>
+
   export default {
     data: () => ({
       items: [
