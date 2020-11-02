@@ -16,6 +16,7 @@ import Chart from './components/Chart.vue';
 import ProfileChange from './components/ProfileChange.vue';
 import Follow from './components/Follow.vue';
 import Follower from './components/Follower.vue';
+import NyokkiFlower from './components/NyokkiFlower.vue';
 
 
 Vue.use(Router);
@@ -37,6 +38,7 @@ export default new Router({
             { path: '/profileChange', component: ProfileChange },
             { path: '/follow', component: Follow },
             { path: '/follower', component: Follower },
+            { path: '/nyokkiFlower', component: NyokkiFlower },
           ]
         },
         { path: '/registerDailyReport', component: RegisterDailyReport },
