@@ -5,19 +5,25 @@
     <v-main>
       <router-view/>
     </v-main>
-    <v-footer>
-      <!-- フッダー-->
+      <!-- フッター -->
+    <v-footer
+        class="font-weight-medium"
+        color="light-green accent-1"
+    >
+      <Footer></Footer>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import Navigation from './components/Navigation'
+import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 
 export default {
   name: 'App',
   components: {
-    Navigation
+    Navigation,
+    Footer
   }
 };
 </script>
