@@ -16,7 +16,6 @@
         <v-list-item-avatar size="150">
       <NyokkiFlower></NyokkiFlower>
         </v-list-item-avatar>
-  
       </v-col>
       <v-col>
       </v-col>

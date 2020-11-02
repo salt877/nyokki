@@ -3,12 +3,16 @@
         <h2>ユーザーページ</h2>
         <v-row>
             <v-col>
+                    <v-text>ユーザー名：サメ</v-text>
                 <v-avatar size="150" >
                     <img src="../images/same.jpeg">
                     <br>
                 </v-avatar>
-                    <v-text>ユーザー名：サメ</v-text>
-                <img class="flower" src="../images/flower8_31day.png">
+                
+                <v-list-item-avatar size="150">
+                <NyokkiFlower></NyokkiFlower>
+              </v-list-item-avatar>
+                
             </v-col>
             </v-row>
             <v-row>
@@ -25,11 +29,13 @@
 
 <script>
 import CalendarComponent from '../components/CalendarComponent.vue';
+import NyokkiFlower from '../components/NyokkiFlower.vue';
 
   export default {
     name: "Userpage",
     components:{
-      CalendarComponent
+      CalendarComponent,
+      NyokkiFlower
     },
   };
 </script>

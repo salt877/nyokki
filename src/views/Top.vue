@@ -45,7 +45,7 @@
       </v-col>
         <div class="flower">
           <v-spacer></v-spacer>
-            <v-img src="../images/flower8_31day.png"></v-img>
+                <NyokkiFlower></NyokkiFlower>
         </div>
         <div id="app">
           <v-spacer></v-spacer>
@@ -61,11 +61,14 @@
 </template>
 
 <script>
+import NyokkiFlower from '../components/NyokkiFlower.vue';
 import Chart from 'vue-chartless';
+
 export default {
   name: 'Top',
   components: {
-    Chart
+    Chart,
+    NyokkiFlower
   },
   data(){
     return {

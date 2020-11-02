@@ -25,7 +25,10 @@ export default new Router({
     mode: "history",
     routes: [
         { path: '/signIn', component: SignIn },
-        { path: '/', component: Top },
+        { path: '/', component: Top ,
+        children: [
+            { path: '/nyokkiFlower', component: NyokkiFlower }
+            ]},
         { path: '/faq', component: FAQ },
         { path: '/levelForAchivement', component: LevelOfAchievement ,
         children: [
