@@ -14,7 +14,7 @@
       </v-col>
       <v-col>
         <v-list-item-avatar size="150">
-                <img src="../images/flower8_31day.png">
+      <NyokkiFlower></NyokkiFlower>
         </v-list-item-avatar>
   
       </v-col>
@@ -68,14 +68,15 @@
 import ProfileChange from '../components/ProfileChange.vue';
 import Follow from '../components/Follow.vue';
 import Follower from '../components/Follower.vue';
+import NyokkiFlower from '../components/NyokkiFlower.vue';
 
   export default {
     name: "Mypage",
     components:{
       ProfileChange,
       Follow,
-      Follower
-      
+      Follower,
+      NyokkiFlower
     },
   };
 </script>
