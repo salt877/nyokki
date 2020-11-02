@@ -27,15 +27,22 @@ export default new Router({
         { path: '/signIn', component: SignIn },
         { path: '/', component: Top },
         { path: '/faq', component: FAQ },
-        { path: '/levelForAchivement', component: LevelOfAchievement },
+        { path: '/levelForAchivement', component: LevelOfAchievement ,
+        children: [
+            { path: '/nyokkiFlower', component: NyokkiFlower }
+            ]},
         { path: '/userpage', component: Userpage },
+
         { path: '/manageToDo', component: ManageToDo },
         { path: '/mypage', component: Mypage,
             children: [
             { path: '/profileChange', component: ProfileChange },
-            { path: '/follow', component: Follow },
             { path: '/follower', component: Follower },
             { path: '/nyokkiFlower', component: NyokkiFlower },
+            { path: '/follow', component: Follow ,
+        children:[
+            { path: '/nyokkiFlower', component: NyokkiFlower }
+            ]},
           ]
         },
         { path: '/registerDailyReport', component: RegisterDailyReport },

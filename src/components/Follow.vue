@@ -25,27 +25,31 @@
               v-else
               :key="item.title"
             >
-              <v-list-item-avatar size="90">
+                <v-col>
+              <v-list-item-avatar size="80">
                 <img src="../images/same.jpeg">
               </v-list-item-avatar>
+                </v-col>
               <v-list-item-content>
                 <v-list-item-title v-html="item.title"></v-list-item-title>
                 <v-list-item-subtitle v-html="item.subtitle">
                 </v-list-item-subtitle>
-                <v-list-item-avatar size="50">
-                <img src="../images/flower4_15day.png">
+                <v-col></v-col>
+                <v-col>
+                <v-list-item-avatar size="100">
+                <NyokkiFlower></NyokkiFlower>
               </v-list-item-avatar>
+                </v-col>
               </v-list-item-content>
 
 
               <v-list-item-action>
                 <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
 
-              <v-btn 
+              <v-btn
                 color="pink lighten-4"
                 @click="addNewCard()"
                >フォロー解除😇</v-btn>
-                
               </v-list-item-action>
 
             </v-list-item>
@@ -59,7 +63,12 @@
 </template>
 
 <script>
+import NyokkiFlower from '../components/NyokkiFlower.vue';
+
   export default {
+    components:{
+      NyokkiFlower
+    },
     data: () => ({
       items: [
         { header: '養分を吸収しよう🌱' },
