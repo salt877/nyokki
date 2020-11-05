@@ -3,22 +3,15 @@
         <h2>○○さんのページ</h2>
         <v-row>
             <v-col>
-                    <v-text>ユーザー名：サメ</v-text>
-                <v-avatar size="150" >
+                <v-avatar size="150">
                     <img src="../images/same.jpeg">
                 </v-avatar>
-                
-                <v-list-item-avatar size="150">
-                <NyokkiFlower></NyokkiFlower>
-              </v-list-item-avatar>
-                
-<!-- =======
-                    <p>ユーザー名：サメ</p>
             </v-col>
             <v-col>
                 <p>咲かせた花数🌷：10🌸 +</p>
-                <img class="flower" src="../images/flower8_31day.png">
->>>>>>> create-mock -->
+                    <v-avatar size="150" class="userpage-flower">
+                        <NyokkiFlower></NyokkiFlower>
+                    </v-avatar>
             </v-col>
             <v-col>
                 <v-btn color="light-green accent-2">フォロー申請</v-btn>
@@ -70,10 +63,7 @@ p {
 }
 .col {
     text-align: center;
-}
-.flower {
-    width: auto;
-    height: 150px;
+    margin: auto 0;
 }
 .v-btn {
     top: 50%;
@@ -81,6 +71,9 @@ p {
 }
 .follow-yet {
     padding: 100px;
+}
+.userpage-flower {
+    border-radius: 0%;
 }
 
 </style>
