@@ -57,7 +57,9 @@ h3 {
     border-radius: 1em;
     padding: 2em;
     position: relative;
-    margin: 5em 0em;
+    height: auto;
+    margin-top: 10%;
+    margin-bottom: 23%;
 }
 #box1 {
     border: 0.3em solid rgb(255, 123, 123);
@@ -98,5 +100,10 @@ li {
     cursor:pointer;
     padding: 10px;
     border: solid #ddd 1px;
+}
+.v-main__wrap {
+    flex: 1 1 auto;
+    max-width: 100%;
+    position: relative;
 }
 </style>
