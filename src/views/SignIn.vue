@@ -3,14 +3,35 @@
     <div class="box">
         <h3>毎日書いてにょきにょき育てる</h3>
         <v-img src="../images/logo.jpg"></v-img>
-        <v-btn class="loginButton" color="green"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
+        <v-btn class="loginButton" color="green" @click="signIn"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
+        <v-btn class="loginButton" color="green" @click="signIn2"><v-icon>mdi-flower</v-icon>サインイン2</v-btn>
     </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-    name: 'SignIn'
+    name: 'SignIn',
+    methods: {
+        signIn(){
+            axios.post("/user/signIn")
+            .then(( res ) => {
+                console.log(res.data);
+            alert('サインイン！');
+            })
+        },
+        signIn2(){
+            axios.post("/signIn")
+             Promise.resolve()
+            .then(( res ) => {
+                console.log(res);
+            alert('サインイン2！');
+            })
+        }            
+
+    }
 };
 </script>
 
