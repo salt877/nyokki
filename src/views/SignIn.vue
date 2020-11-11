@@ -6,6 +6,7 @@
         <v-btn class="loginButton" color="green" @click="signIn"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
         <v-btn class="loginButton" color="green" @click="signIn2"><v-icon>mdi-flower</v-icon>サインイン2</v-btn>
     </div>
+    {{res}}
     </div>
 </template>
 
@@ -23,7 +24,7 @@ export default {
             })
         },
         signIn2(){
-            axios.post("/signIn")
+            axios.post("/users")
              Promise.resolve()
             .then(( res ) => {
                 console.log(res);
