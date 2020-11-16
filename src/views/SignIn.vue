@@ -2,8 +2,14 @@
   <div class="back-ground">
     <div class="box">
       <h3>毎日書いてにょきにょき育てる</h3>
-      <h3>{{ aaa }}{{ id }}{{ name }}</h3>
-
+      <h3>{{ aaa }}</h3>
+      <p v-for="user in users" :key="user.id">
+        id: {{ user.id }}<br>
+        name: {{ user.name }}<br>
+        continuationDays: {{ user.continuationDays }}<br>
+        firstdayContinuation: {{ user.firstdayContinuation }}<br>
+        levelAchievement: {{ user.levelAchievement }}
+      </p>
       <v-img src="../images/logo.jpg"></v-img>
       <v-btn class="loginButton" color="green" @click="signIn"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
       <v-btn class="loginButton" color="green" @click="signIn2"><v-icon>mdi-flower</v-icon>サインイン2</v-btn>
@@ -18,8 +24,13 @@ export default {
   data() {
     return {
       aaa: "",
-      id: "",
-      name: "",
+      users: [{ 
+        id: "",
+        name: "",
+        continuationDays: "",
+        firstdayContinuation: "",
+        levelAchievement: ""
+      }]  
     };
   },
   name: "SignIn",
@@ -27,8 +38,16 @@ export default {
     signIn() {
       axios.post("/user/signIn").then((res) => {
         console.log(res.data);
-        this.aaa = res.data;
-        alert("サインイン！");
+        for(var i=0; i < res.data.length; i++){
+          this.users.push({
+            id: res.data[i].id,
+            name: res.data[i].name,
+            continuationDays: res.data[i].continuationDays,
+            firstdayContinuation: res.data[i].firstdayContinuation,
+            levelAchievement: res.data[i].levelAchievement
+        })
+        }
+        alert("サインインを押しました！");
       });
     },
     signIn2() {
