@@ -22,13 +22,13 @@
         registration_date:{{todo.registrationDate}}<br>
         </div>  -->
 
-        <!-- <p>フォローリスト</p>
+        <p>フォローリスト</p>
         <div v-for="(follow, index3) in followingList" :key="index3">
         id:{{follow.id}}<br>
         follow_flag:{{follow.followFlag}}<br>
         following_id:{{follow.followingId}}<br>
         followed_id :{{follow.followedId }}<br>
-        </div> -->
+        </div>
 
         <p>日報一つ分のデータ</p>
         <div>
@@ -108,7 +108,7 @@ export default {
         console.log("res.data:", res.data)
         console.log("userList:", res.data.userList);
         console.log("todoList:", res.data.todoList);
-        console.log("followList:", res.data.followList);
+        console.log("followingList:", res.data.followingList);
         console.log("dailyReport:", res.data.dailyReport);
         console.log("monthlyReport:", res.data.monthlyReport);
         console.log("objective:", res.data.objective);

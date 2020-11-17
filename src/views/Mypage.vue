@@ -14,7 +14,7 @@
       </v-col>
       <v-col>
         <v-list-item-avatar size="150">
-      <NyokkiFlower></NyokkiFlower>
+        <NyokkiFlower></NyokkiFlower>
         </v-list-item-avatar>
       </v-col>
       <v-col>
@@ -27,7 +27,7 @@
           <v-card-actions>
             <v-btn color="warning" @click="componentName='Follow'">フォロー一覧</v-btn>
         <v-card-actions>
-        <v-text>フォロー数：10人</v-text>
+        <v-text>フォロー数：{{}}人</v-text>
         </v-card-actions>
         </v-card-actions>
           
