@@ -45,6 +45,7 @@
         <div>ログインユーザ<br>{{ getloginUser }}</div>
         <div>ユーザリスト<br>{{ getUserList }}</div>
         <div>Todoリスト<br>{{ getTodoList }}</div>
+        <div>月報<br>{{ getMonthlyReport }}</div>
 
         <!-- <p>月報一つ分のデータ</p>
         <div>
@@ -98,7 +99,8 @@ export default {
     ...mapActions([
       "setLoginUser",
       "setUserList",
-      "setTodoList"
+      "setTodoList",
+      "setMonthlyReport"
     ]),
     signIn() {
       axios.post("/user/signIn").then((res) => {
@@ -152,6 +154,7 @@ export default {
             this.setLoginUser(res.data.loginUser);
             this.setUserList(res.data.userList);
             this.setTodoList(res.data.todoList);
+            this.setMonthlyReport(res.data.monthlyReport);
           })
       })
       .catch((error) => {
@@ -168,6 +171,9 @@ export default {
     },
     getTodoList(){
       return this.$store.state.todoList
+    },
+    getMonthlyReport(){
+      return this.$store.state.monthlyReport
     }
   }
 };

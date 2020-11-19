@@ -11,8 +11,20 @@ export default {
         state.todoList = todoList;
         console.log(("setTodoListのmutationが呼ばれました"));
     },
+    setDailyReport(state, dailyReport){
+        state.dailyReport = dailyReport;
+        console.log(("setDailyReportのmutationが呼ばれました"));
+    },
     setMonthlyReport(state, monthlyReport){
         state.monthlyReport = monthlyReport;
         console.log(("setMonthlyReportのmutationが呼ばれました"));
+    },
+    setObjective(state, objective){
+        state.objective = objective;
+        console.log(("setObjectiveのmutationが呼ばれました"));
+    },
+    setFollowingList(state, followingList){
+        state.followingList = followingList;
+        console.log(("setFollowingListのmutationが呼ばれました"));
     }
 }
