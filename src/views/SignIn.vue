@@ -4,14 +4,15 @@
       <h3>毎日書いてにょきにょき育てる</h3>
 
      
-        <!-- <p>ユーザーリスト</p>
+        <p>ユーザーリスト</p>
         <div v-for="(user, index) in userList" :key="index">
         id: {{ user.id }}<br>
         name: {{ user.name }}<br>
+        gmail:{{user.gmail}}<br>
         continuationDays: {{ user.continuationDays }}<br>
         firstdayContinuation: {{ user.firstdayContinuation }}<br>
         levelAchievement: {{ user.levelAchievement }}
-        </div> -->
+        </div>
         
         <!-- <p>Todoリスト</p>
         <div v-for="(todo, index2) in todoList" :key="index2">
@@ -70,6 +71,7 @@
 
 <script>
 import axios from "axios";
+import { mapActions} from "vuex";
 
 export default {
   data() {
@@ -88,6 +90,11 @@ export default {
   },
   name: "SignIn",
   methods: {
+    ...mapActions([
+        "setFollowingList",
+        "setUserList"
+
+    ]),
     signIn() {
       axios.post("/user/signIn").then((res) => {
         console.log(res.data);
@@ -112,7 +119,7 @@ export default {
         console.log("dailyReport:", res.data.dailyReport);
         console.log("monthlyReport:", res.data.monthlyReport);
         console.log("objective:", res.data.objective);
-        
+
         this.response = res.data
         this.userList = res.data.userList;
         this.todoList = res.data.todoList;
@@ -120,6 +127,13 @@ export default {
         this.dailyReport = res.data.dailyReport;
         this.monthlyReport = res.data.monthlyReport;
         this.objective = res.data.objective;
+
+        this.setFollowingList(res.data.followingList);
+        this.setUserList(res.data.userList);
+        
+        
+
+
         
         alert("サインイン2！");
       });
