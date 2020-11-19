@@ -43,8 +43,8 @@
         </div><br> -->
 
         <div>ログインユーザ<br>{{ getloginUser }}</div>
-        <!-- <div>ユーザリスト<br>{{ getUserList }}</div>
-        <div>Todoリスト<br>{{ getTodoList }}</div> -->
+        <div>ユーザリスト<br>{{ getUserList }}</div>
+        <div>Todoリスト<br>{{ getTodoList }}</div>
         <div>日報<br>{{ getDailyReport }}</div>
         <div>月報<br>{{ getMonthlyReport }}</div>
         <div>目標<br>{{ getObjective }}</div>
