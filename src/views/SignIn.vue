@@ -22,7 +22,7 @@
         registration_date:{{todo.registrationDate}}<br>
         </div>  -->
 
-        <p>フォローリスト</p>
+        <!-- <p>フォローリスト</p>
         <div v-for="(follow, index3) in followingList" :key="index3">
         id:{{follow.id}}<br>
         follow_flag:{{follow.followFlag}}<br>
@@ -40,7 +40,10 @@
         {{dailyReport.levelAchievementlevelAchievement}}<br>
         impressions:{{dailyReport.impressions}}<br>
         registration_date:{{dailyReport.registrationDate}}<br>
-        </div><br>
+        </div><br> -->
+
+        <div>ログインユーザ<br>{{ getloginUser }}</div>
+        <div>ユーザリスト<br>{{ getUserList }}</div>
 
         <!-- <p>月報一つ分のデータ</p>
         <div>
@@ -64,12 +67,14 @@
       <v-img src="../images/logo.jpg"></v-img>
       <v-btn class="loginButton" color="green" @click="signIn"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
       <v-btn class="loginButton" color="green" @click="signIn2"><v-icon>mdi-flower</v-icon>サインイン2</v-btn>
+      <v-btn class="loginButton" color="green" @click="getData"><v-icon>mdi-flower</v-icon>ログインデータ取得</v-btn>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -77,6 +82,7 @@ export default {
       aaa: "",
       id: "",
       name: "",
+      gmail: '',
       response: {},
       userList:[],
       todoList:[],
@@ -88,6 +94,10 @@ export default {
   },
   name: "SignIn",
   methods: {
+    ...mapActions([
+      "setLoginUser",
+      "setUserList"
+    ]),
     signIn() {
       axios.post("/user/signIn").then((res) => {
         console.log(res.data);
@@ -124,7 +134,36 @@ export default {
         alert("サインイン2！");
       });
     },
+
+    // ログイン時にデータを取得するメソッド
+    getData(){
+      axios.get("/get/Information", {
+        params: {
+          gmail: "same@gmail.com"
+        }
+      })
+      .then((res) => {
+        console.log("成功");
+        console.log(res.data);
+        Promise.resolve()
+          .then(() => {
+            this.setLoginUser(res.data.loginUser);
+            this.setUserList(res.data.userList);
+          })
+      })
+      .catch((error) => {
+        console.log("失敗" + error);
+      })
+    }
   },
+  computed: {
+    getloginUser(){
+      return this.$store.state.loginUser
+    },
+    getUserList(){
+      return this.$store.state.userList
+    }
+  }
 };
 </script>
 
