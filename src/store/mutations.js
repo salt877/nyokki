@@ -11,7 +11,7 @@ export default {
         state.todoList = todoList;
         console.log(("setTodoListのmutationが呼ばれました"));
     },
-    setmonthlyReport(state, monthlyReport){
+    setMonthlyReport(state, monthlyReport){
         state.monthlyReport = monthlyReport;
         console.log(("setMonthlyReportのmutationが呼ばれました"));
     }

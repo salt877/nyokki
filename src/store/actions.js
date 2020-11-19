@@ -11,5 +11,9 @@ export default {
     setTodoList({ commit }, todoList){
         commit("setTodoList", todoList);
         console.log("setTodoListのActionsを呼び出しました");
+    },
+    setMonthlyReport({ commit }, monthlyReport){
+        commit("setMonthlyReport", monthlyReport);
+        console.log("setMonthlyReportのActionsを呼び出しました");
     }
 }
