@@ -73,13 +73,16 @@
       <v-btn class="loginButton" color="green" @click="signIn"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
       <v-btn class="loginButton" color="green" @click="signIn2"><v-icon>mdi-flower</v-icon>サインイン2</v-btn>
       <v-btn class="loginButton" color="green" @click="getData"><v-icon>mdi-flower</v-icon>ログインデータ取得</v-btn>
+      <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import firebase from 'firebase'
 import { mapActions } from 'vuex'
+// import router from '../router'
 
 export default {
   data() {
@@ -147,6 +150,7 @@ export default {
 
     // ログイン時にデータを取得するメソッド
     getData(){
+
       axios.get("/get/Information", {
         params: {
           gmail: "same@gmail.com"
@@ -169,6 +173,52 @@ export default {
       .catch((error) => {
         console.log("失敗" + error);
       })
+    },
+
+    // Googleログイン
+    googleLogin(){
+      const provider = new firebase.auth.GoogleAuthProvider()
+
+      firebase.auth().signInWithPopup(provider)
+        .then(() => {
+          // const userData = {
+          //   name: res.additionalUserInfo.profile.name,
+          //   gmail: res.additionalUserInfo.profile.email
+          // }
+          // console.log(userData);
+
+          // if(res.additionalUserInfo.isNewUser){
+          //   console.log("新しく登録");
+          // } else {
+          //   console.log("elseが呼ばれました");
+            axios.get("/get/Information", {
+              params: {
+                gmail: "same@gmail.com"
+              }
+            })
+            .then((res) => {
+              console.log("成功");
+              console.log(res.data);
+              Promise.resolve()
+                .then(() => {
+                  this.setLoginUser(res.data.loginUser);
+                  this.setUserList(res.data.userList);
+                  this.setTodoList(res.data.todoList);
+                  this.setDailyReport(res.data.dailyReport);
+                  this.setMonthlyReport(res.data.monthlyReport);
+                  this.setObjective(res.data.objective);
+                  this.setFollowingList(res.data.followingList);
+                })
+            })
+            .catch((error) => {
+              console.log("失敗" + error);
+            })
+ 
+          // console.log(userData);
+          // console.log("成功");
+          // router.push('/')
+        })
+
     }
   },
   computed: {
