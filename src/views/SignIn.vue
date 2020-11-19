@@ -43,9 +43,12 @@
         </div><br> -->
 
         <div>ログインユーザ<br>{{ getloginUser }}</div>
-        <div>ユーザリスト<br>{{ getUserList }}</div>
-        <div>Todoリスト<br>{{ getTodoList }}</div>
+        <!-- <div>ユーザリスト<br>{{ getUserList }}</div>
+        <div>Todoリスト<br>{{ getTodoList }}</div> -->
+        <div>日報<br>{{ getDailyReport }}</div>
         <div>月報<br>{{ getMonthlyReport }}</div>
+        <div>目標<br>{{ getObjective }}</div>
+        <div>フォローリスト<br>{{ getFollowingList }}</div>
 
         <!-- <p>月報一つ分のデータ</p>
         <div>
@@ -100,7 +103,10 @@ export default {
       "setLoginUser",
       "setUserList",
       "setTodoList",
-      "setMonthlyReport"
+      "setDailyReport",
+      "setMonthlyReport",
+      "setObjective",
+      "setFollowingList"
     ]),
     signIn() {
       axios.post("/user/signIn").then((res) => {
@@ -154,7 +160,10 @@ export default {
             this.setLoginUser(res.data.loginUser);
             this.setUserList(res.data.userList);
             this.setTodoList(res.data.todoList);
+            this.setDailyReport(res.data.dailyReport);
             this.setMonthlyReport(res.data.monthlyReport);
+            this.setObjective(res.data.objective);
+            this.setFollowingList(res.data.followingList);
           })
       })
       .catch((error) => {
@@ -172,9 +181,18 @@ export default {
     getTodoList(){
       return this.$store.state.todoList
     },
+    getDailyReport(){
+      return this.$store.state.dailyReport
+    },
     getMonthlyReport(){
       return this.$store.state.monthlyReport
-    }
+    },
+    getObjective(){
+      return this.$store.state.objective
+    },
+    getFollowingList(){
+      return this.$store.state.followingList
+    },
   }
 };
 </script>
