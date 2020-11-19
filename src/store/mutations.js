@@ -6,5 +6,9 @@ export default {
     setUserList(state, userList){
         state.userList = userList;
         console.log("setUserListのmutationが呼ばれました");
+    },
+    setTodoList(state, todoList){
+        state.todoList = todoList;
+        console.log(("setTodoListのmutationが呼ばれました"));
     }
 }
