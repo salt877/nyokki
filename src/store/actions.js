@@ -9,7 +9,7 @@ export default {
         console.log("setUserListのActionsを呼び出しました");
     },
     setTodoList({ commit }, todoList){
-        commit("todoList", todoList);
+        commit("setTodoList", todoList);
         console.log("setTodoListのActionsを呼び出しました");
     }
 }
