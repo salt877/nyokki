@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import mutations from './mutations'
 import actions from './actions'
+import getters from './getters'
 import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
@@ -90,5 +91,6 @@ var initializeState = defaultState();
 export default new Vuex.Store({
     state: initializeState,
     mutations,
+    getters,
     actions,
 });
