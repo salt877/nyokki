@@ -14,6 +14,7 @@
 
       <v-img src="../images/logo.jpg"></v-img>
       <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>
+      <v-btn class="loginButton" color="green" @click="logout"><v-icon>mdi-flower</v-icon>ログアウト</v-btn>
     </div>
   </div>
 </template>
@@ -94,6 +95,23 @@ export default {
           // router.push('/');
         })
 
+    },
+
+    // ログアウト処理
+    logout(){
+      if(confirm("ログアウトしてもよろしいですか？")){
+        firebase.auth().signOut()
+          .then(() => {
+            // ログアウト時にローカルストレージのストアの中身を消去
+            localStorage.removeItem('vuex')
+            console.log("ログアウト成功！");
+            alert("ログアウトに成功しました。")
+          })
+          .catch((error) => {
+            console.log("ログアウト失敗" + error);
+            alert("ログアウトに失敗しました")
+          })
+      }
     }
   },
   computed: {
