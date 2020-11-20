@@ -3,6 +3,15 @@
     <div class="box">
       <h3>毎日書いてにょきにょき育てる</h3>
 
+      <div>登録日時：{{ getLoginUserFirstDay }}</div>
+      <div>ログインユーザ<br>{{ getloginUser }}</div>
+      <div>ユーザリスト<br>{{ getUserList }}</div>
+      <div>Todoリスト<br>{{ getTodoList }}</div>
+      <div>日報情報<br>{{ getDailyReport }}</div>
+      <div>月報情報<br>{{ getMonthlyReport }}</div>
+      <div>目標情報<br>{{ getObjective }}</div>
+      <div>フォローリスト<br>{{ getFollowingList }}</div>
+
       <v-img src="../images/logo.jpg"></v-img>
       <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>
     </div>
@@ -13,7 +22,8 @@
 import axios from "axios";
 import firebase from 'firebase'
 import { mapActions } from 'vuex'
-import router from '../router'
+import moment from 'moment'
+// import router from '../router'
 
 export default {
   name: "SignIn",
@@ -54,17 +64,18 @@ export default {
             .catch((error) => {
               console.log("新規ログイン失敗" + error);
             })
-          } else {
-            // ログインしたことがあるユーザの処理
-            console.log("elseが呼ばれました");
+          }
+            // 初期データの取得
+            console.log("データの取得開始");
             axios.get("/get/Information", {
               params: {
-                gmail: "same@gmail.com"
+                gmail: res.additionalUserInfo.profile.email
               }
             })
             .then((res) => {
-              console.log("既存ユーザ通信成功");
-              // 初期データの取得
+              console.log("データの取得成功");
+              console.log(res.data);
+              // storeに保存
               Promise.resolve()
                 .then(() => {
                   this.setLoginUser(res.data.loginUser);
@@ -79,9 +90,8 @@ export default {
             .catch((error) => {
               console.log("既存ログイン失敗" + error);
             })
-          }
           console.log("つつがなく成功");
-          router.push('/');
+          // router.push('/');
         })
 
     }
@@ -108,6 +118,9 @@ export default {
     getFollowingList(){
       return this.$store.state.followingList
     },
+    getLoginUserFirstDay(){
+      return moment(this.$store.state.loginUser.firstdayContinuation).format('YYYY/MM/DD HH:mm:ss')
+    }
   }
 };
 </script>
