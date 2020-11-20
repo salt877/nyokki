@@ -33,15 +33,31 @@ export default {
 
       firebase.auth().signInWithPopup(provider)
         .then((res) => {
-          const userData = {
+          // Googleアカウント情報(名前とメールのみ)
+          const loginUserData = {
             name: res.additionalUserInfo.profile.name,
             gmail: res.additionalUserInfo.profile.email
           }
-          console.log(userData);
+          console.log(loginUserData);
 
           if(res.additionalUserInfo.isNewUser){
+            // 新規ログインするユーザの処理
             console.log("新しく登録");
+            axios.post("/users/register", {
+              params: {
+                name: res.additionalUserInfo.profile.name,
+                gmail: res.additionalUserInfo.profile.email
+              }
+            })
+            .then((res) => {
+              console.log("新規ログイン成功");
+              console.log(res.data);
+            })
+            .catch((error) => {
+              console.log("新規ログイン失敗" + error);
+            })
           } else {
+            // ログインしたことがあるユーザの処理
             console.log("elseが呼ばれました");
             axios.get("/get/Information", {
               params: {
@@ -49,8 +65,8 @@ export default {
               }
             })
             .then((res) => {
-              console.log("成功");
-              console.log(res.data);
+              console.log("既存ユーザ通信成功");
+              // 初期データの取得
               Promise.resolve()
                 .then(() => {
                   this.setLoginUser(res.data.loginUser);
@@ -63,11 +79,10 @@ export default {
                 })
             })
             .catch((error) => {
-              console.log("失敗" + error);
+              console.log("既存ログイン失敗" + error);
             })
           }
-          console.log(userData);
-          console.log("成功");
+          console.log("つつがなく成功");
           router.push('/');
         })
 
