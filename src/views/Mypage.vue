@@ -46,6 +46,11 @@
         </v-card-actions>
       </v-col>
     </v-row>
+<p>{{$store.state.message}}</p>
+<ul>
+  <li v-for="user in users" :key="user">{{user.name}}</li>
+</ul>
+
 
     <v-row>
       <v-col>
@@ -114,7 +119,7 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
 
 
 
-        
+
     },
 
     computed:{
@@ -127,7 +132,7 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
         for(var key in this.$store.state.followingList[number]){
             if(key === 'followingId'){
             // console.log(this.$store.state.followingList[number][key])
-            
+
             // ログインユーザーのIDが１のとき
             if(this.$store.state.followingList[number][key] === 1){
               followingLengthList.push(this.$store.state.followingList[number][key])
@@ -165,6 +170,13 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       followedLength = followedLengthList.length;
       return followedLength;
     },
+    users:function(){
+      return this.$store.getters.users;
+    }
+    // users:function(){
+    //   return this.$store.state.users.filter(user => user.age < 30);
+    // }
+
 
       }
     
