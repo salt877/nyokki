@@ -82,7 +82,6 @@ const defaultState = () => {
             }
         ],
 
-        plugins: [createPersistedState()] // この行でvuexに「vuex-persistedstate」を追加
     }
 }
 
@@ -93,4 +92,5 @@ export default new Vuex.Store({
     mutations,
     getters,
     actions,
+    plugins: [createPersistedState()] // この行でvuexに「vuex-persistedstate」を追加
 });
