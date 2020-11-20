@@ -31,6 +31,7 @@
       <v-col>
       </v-col>
     </v-row>
+    <p>{{$store.state.message}}</p>
 
     <v-row justify="center">
     <v-col sm="12" md="11" lg="9" xl="6">
@@ -84,6 +85,9 @@ export default {
       } else {
         this.uploadImageUrl = ''
       }
+    },
+    changeName(){
+
     }
   }
 }
