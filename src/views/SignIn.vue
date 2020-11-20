@@ -44,10 +44,8 @@ export default {
             // 新規ログインするユーザの処理
             console.log("新しく登録");
             axios.post("/users/register", {
-              params: {
                 name: res.additionalUserInfo.profile.name,
                 gmail: res.additionalUserInfo.profile.email
-              }
             })
             .then((res) => {
               console.log("新規ログイン成功");
