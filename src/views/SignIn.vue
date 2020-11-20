@@ -2,19 +2,22 @@
   <div class="back-ground">
     <div class="box">
       <h3>毎日書いてにょきにょき育てる</h3>
+      <v-btn class="loginButton" color="green" @click="signIn"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
+      <v-btn class="loginButton" color="green" @click="signIn2"><v-icon>mdi-flower</v-icon>サインイン2</v-btn>
+      <v-btn class="loginButton" color="green" @click="getData"><v-icon>mdi-flower</v-icon>ログインデータ取得</v-btn>
+      <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>
 
-     
-        <p>ユーザーリスト</p>
-        <div v-for="(user, index) in userList" :key="index">
-        id: {{ user.id }}<br>
-        name: {{ user.name }}<br>
-        gmail:{{user.gmail}}<br>
-        continuationDays: {{ user.continuationDays }}<br>
-        firstdayContinuation: {{ user.firstdayContinuation }}<br>
+      <p>ユーザーリスト</p>
+      <div v-for="(user, index) in userList" :key="index">
+        id: {{ user.id }}<br />
+        name: {{ user.name }}<br />
+        gmail:{{ user.gmail }}<br />
+        continuationDays: {{ user.continuationDays }}<br />
+        firstdayContinuation: {{ user.firstdayContinuation }}<br />
         levelAchievement: {{ user.levelAchievement }}
-        </div>
-        
-        <!-- <p>Todoリスト</p>
+      </div>
+
+      <!-- <p>Todoリスト</p>
         <div v-for="(todo, index2) in todoList" :key="index2">
         id:{{todo.id}}<br>
         user_id:{{todo.user_id}}<br>
@@ -23,7 +26,7 @@
         registration_date:{{todo.registrationDate}}<br>
         </div>  -->
 
-        <!-- <p>フォローリスト</p>
+      <!-- <p>フォローリスト</p>
         <div v-for="(follow, index3) in followingList" :key="index3">
         id:{{follow.id}}<br>
         follow_flag:{{follow.followFlag}}<br>
@@ -43,15 +46,15 @@
         registration_date:{{dailyReport.registrationDate}}<br>
         </div><br> -->
 
-        <div>ログインユーザ<br>{{ getloginUser }}</div>
-        <div>ユーザリスト<br>{{ getUserList }}</div>
-        <div>Todoリスト<br>{{ getTodoList }}</div>
-        <div>日報<br>{{ getDailyReport }}</div>
-        <div>月報<br>{{ getMonthlyReport }}</div>
-        <div>目標<br>{{ getObjective }}</div>
-        <div>フォローリスト<br>{{ getFollowingList }}</div>
+      <div>ログインユーザ<br />{{ getloginUser }}</div>
+      <div>ユーザリスト<br />{{ getUserList }}</div>
+      <div>Todoリスト<br />{{ getTodoList }}</div>
+      <div>日報<br />{{ getDailyReport }}</div>
+      <div>月報<br />{{ getMonthlyReport }}</div>
+      <div>目標<br />{{ getObjective }}</div>
+      <div>フォローリスト<br />{{ getFollowingList }}</div>
 
-        <!-- <p>月報一つ分のデータ</p>
+      <!-- <p>月報一つ分のデータ</p>
         <div>
         id:{{monthlyReport.id}}<br>
         user_id:{{monthlyReport.userId}}<br>
@@ -62,7 +65,7 @@
         registration_date:{{monthlyReport.registrationDate}}<br>
         </div><br> -->
 
-        <!-- <p>目標一つ分のデータ</p>
+      <!-- <p>目標一つ分のデータ</p>
         <div>
         id:{{objective.id}}<br>
         user_id:{{objective.userId}}<br>
@@ -71,18 +74,14 @@
         </div> -->
 
       <v-img src="../images/logo.jpg"></v-img>
-      <v-btn class="loginButton" color="green" @click="signIn"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
-      <v-btn class="loginButton" color="green" @click="signIn2"><v-icon>mdi-flower</v-icon>サインイン2</v-btn>
-      <v-btn class="loginButton" color="green" @click="getData"><v-icon>mdi-flower</v-icon>ログインデータ取得</v-btn>
-      <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import firebase from 'firebase'
-import { mapActions } from 'vuex'
+import firebase from "firebase";
+import { mapActions } from "vuex";
 // import router from '../router'
 
 export default {
@@ -91,45 +90,37 @@ export default {
       aaa: "",
       id: "",
       name: "",
-      gmail: '',
+      gmail: "",
       response: {},
-      userList:[],
-      todoList:[],
-      followingList:[],
-      dailyReport:[],
-      monthlyReport:[],
-      objective:[],
+      userList: [],
+      todoList: [],
+      followingList: [],
+      dailyReport: [],
+      monthlyReport: [],
+      objective: [],
     };
   },
   name: "SignIn",
   methods: {
-    ...mapActions([
-      "setLoginUser",
-      "setUserList",
-      "setTodoList",
-      "setDailyReport",
-      "setMonthlyReport",
-      "setObjective",
-      "setFollowingList"
-    ]),
+    ...mapActions(["setLoginUser", "setUserList", "setTodoList", "setDailyReport", "setMonthlyReport", "setObjective", "setFollowingList"]),
     signIn() {
       axios.post("/user/signIn").then((res) => {
         console.log(res.data);
-        for(var i=0; i < res.data.length; i++){
+        for (var i = 0; i < res.data.length; i++) {
           this.users.push({
             id: res.data[i].id,
             name: res.data[i].name,
             continuationDays: res.data[i].continuationDays,
             firstdayContinuation: res.data[i].firstdayContinuation,
-            levelAchievement: res.data[i].levelAchievement
-        })
+            levelAchievement: res.data[i].levelAchievement,
+          });
         }
         alert("サインインを押しました！");
       });
     },
     signIn2() {
       axios.post("/users").then((res) => {
-        console.log("res.data:", res.data)
+        console.log("res.data:", res.data);
         console.log("userList:", res.data.userList);
         console.log("todoList:", res.data.todoList);
         console.log("followingList:", res.data.followingList);
@@ -137,7 +128,7 @@ export default {
         console.log("monthlyReport:", res.data.monthlyReport);
         console.log("objective:", res.data.objective);
 
-        this.response = res.data
+        this.response = res.data;
         this.userList = res.data.userList;
         this.todoList = res.data.todoList;
         this.followingList = res.data.followingList;
@@ -147,28 +138,23 @@ export default {
 
         this.setFollowingList(res.data.followingList);
         this.setUserList(res.data.userList);
-        
-        
 
-
-        
         alert("サインイン2！");
       });
     },
 
     // ログイン時にデータを取得するメソッド
-    getData(){
-
-      axios.get("/get/Information", {
-        params: {
-          gmail: "same@gmail.com"
-        }
-      })
-      .then((res) => {
-        console.log("成功");
-        console.log(res.data);
-        Promise.resolve()
-          .then(() => {
+    getData() {
+      axios
+        .get("/get/Information", {
+          params: {
+            gmail: "same@gmail.com",
+          },
+        })
+        .then((res) => {
+          console.log("成功");
+          console.log(res.data);
+          Promise.resolve().then(() => {
             this.setLoginUser(res.data.loginUser);
             this.setUserList(res.data.userList);
             this.setTodoList(res.data.todoList);
@@ -176,18 +162,20 @@ export default {
             this.setMonthlyReport(res.data.monthlyReport);
             this.setObjective(res.data.objective);
             this.setFollowingList(res.data.followingList);
-          })
-      })
-      .catch((error) => {
-        console.log("失敗" + error);
-      })
+          });
+        })
+        .catch((error) => {
+          console.log("失敗" + error);
+        });
     },
 
     // Googleログイン
-    googleLogin(){
-      const provider = new firebase.auth.GoogleAuthProvider()
+    googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
 
-      firebase.auth().signInWithPopup(provider)
+      firebase
+        .auth()
+        .signInWithPopup(provider)
         .then(() => {
           // const userData = {
           //   name: res.additionalUserInfo.profile.name,
@@ -199,59 +187,58 @@ export default {
           //   console.log("新しく登録");
           // } else {
           //   console.log("elseが呼ばれました");
-            axios.get("/get/Information", {
+          axios
+            .get("/get/Information", {
               params: {
-                gmail: "same@gmail.com"
-              }
+                gmail: "same@gmail.com",
+              },
             })
             .then((res) => {
               console.log("成功");
               console.log(res.data);
-              Promise.resolve()
-                .then(() => {
-                  this.setLoginUser(res.data.loginUser);
-                  this.setUserList(res.data.userList);
-                  this.setTodoList(res.data.todoList);
-                  this.setDailyReport(res.data.dailyReport);
-                  this.setMonthlyReport(res.data.monthlyReport);
-                  this.setObjective(res.data.objective);
-                  this.setFollowingList(res.data.followingList);
-                })
+              Promise.resolve().then(() => {
+                this.setLoginUser(res.data.loginUser);
+                this.setUserList(res.data.userList);
+                this.setTodoList(res.data.todoList);
+                this.setDailyReport(res.data.dailyReport);
+                this.setMonthlyReport(res.data.monthlyReport);
+                this.setObjective(res.data.objective);
+                this.setFollowingList(res.data.followingList);
+              });
             })
             .catch((error) => {
               console.log("失敗" + error);
-            })
- 
+            });
+
           // console.log(userData);
           // console.log("成功");
           // router.push('/')
-        })
-
-    }
+        });
+    },
   },
   computed: {
-    getloginUser(){
-      return this.$store.state.loginUser
+    getloginUser() {
+      return this.$store.state.loginUser;
     },
-    getUserList(){
-      return this.$store.state.userList
+    getUserList() {
+      return this.$store.state.userList;
     },
-    getTodoList(){
-      return this.$store.state.todoList
+    getTodoList() {
+      return this.$store.state.todoList;
     },
-    getDailyReport(){
-      return this.$store.state.dailyReport
+    getDailyReport() {
+      return this.$store.state.dailyReport;
     },
-    getMonthlyReport(){
-      return this.$store.state.monthlyReport
+    getMonthlyReport() {
+      return this.$store.state.monthlyReport;
     },
-    getObjective(){
-      return this.$store.state.objective
+    getObjective() {
+      return this.$store.state.objective;
     },
-    getFollowingList(){
-      return this.$store.state.followingList
+    getFollowingList() {
+      return this.$store.state.followingList;
     },
-  }
+  },
 };
 </script>
 
