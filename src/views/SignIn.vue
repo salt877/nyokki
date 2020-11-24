@@ -7,73 +7,18 @@
       <v-btn class="loginButton" color="green" @click="getData"><v-icon>mdi-flower</v-icon>ログインデータ取得</v-btn>
       <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>
 
-      <p>ユーザーリスト</p>
-      <div v-for="(user, index) in userList" :key="index">
-        id: {{ user.id }}<br />
-        name: {{ user.name }}<br />
-        gmail:{{ user.gmail }}<br />
-        continuationDays: {{ user.continuationDays }}<br />
-        firstdayContinuation: {{ user.firstdayContinuation }}<br />
-        levelAchievement: {{ user.levelAchievement }}
-      </div>
-
-      <!-- <p>Todoリスト</p>
-        <div v-for="(todo, index2) in todoList" :key="index2">
-        id:{{todo.id}}<br>
-        user_id:{{todo.user_id}}<br>
-        task:{{todo.task}}<br>
-        status:{{todo.status}}<br>
-        registration_date:{{todo.registrationDate}}<br>
-        </div>  -->
-
-      <!-- <p>フォローリスト</p>
-        <div v-for="(follow, index3) in followingList" :key="index3">
-        id:{{follow.id}}<br>
-        follow_flag:{{follow.followFlag}}<br>
-        following_id:{{follow.followingId}}<br>
-        followed_id :{{follow.followedId }}<br>
-        </div>
-
-        <p>日報一つ分のデータ</p>
-        <div>
-        id:{{dailyReport.id}}<br>
-        user_id:{{dailyReport.userId}}<br>
-        todo_id:{{dailyReport.todoId}}<br>
-        today_report:{{dailyReport.todayReport}}<br>
-        level_achievementlevel_achievement:
-        {{dailyReport.levelAchievementlevelAchievement}}<br>
-        impressions:{{dailyReport.impressions}}<br>
-        registration_date:{{dailyReport.registrationDate}}<br>
-        </div><br> -->
-
+      <div>登録日時：{{ getLoginUserFirstDay }}</div>
       <div>ログインユーザ<br />{{ getloginUser }}</div>
       <div>ユーザリスト<br />{{ getUserList }}</div>
       <div>Todoリスト<br />{{ getTodoList }}</div>
-      <div>日報<br />{{ getDailyReport }}</div>
-      <div>月報<br />{{ getMonthlyReport }}</div>
-      <div>目標<br />{{ getObjective }}</div>
+      <div>日報情報<br />{{ getDailyReport }}</div>
+      <div>月報情報<br />{{ getMonthlyReport }}</div>
+      <div>目標情報<br />{{ getObjective }}</div>
       <div>フォローリスト<br />{{ getFollowingList }}</div>
 
-      <!-- <p>月報一つ分のデータ</p>
-        <div>
-        id:{{monthlyReport.id}}<br>
-        user_id:{{monthlyReport.userId}}<br>
-        objective_id:{{monthlyReport.objectiveId}}<br>
-        this_month_objective:{{monthlyReport.thisMonthObjective}}<br>
-        impressions:{{monthlyReport.impressions}}<br>
-        next_month_objective:{{monthlyReport.nextMonthObjective}}<br>
-        registration_date:{{monthlyReport.registrationDate}}<br>
-        </div><br> -->
-
-      <!-- <p>目標一つ分のデータ</p>
-        <div>
-        id:{{objective.id}}<br>
-        user_id:{{objective.userId}}<br>
-        objective:{{objective.objective}}<br>
-        objective_month:{{objective.objectiveMonth}}<br>
-        </div> -->
-
       <v-img src="../images/logo.jpg"></v-img>
+      <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>
+      <v-btn class="loginButton" color="green" @click="logout"><v-icon>mdi-flower</v-icon>ログアウト</v-btn>
     </div>
   </div>
 </template>
@@ -82,93 +27,13 @@
 import axios from "axios";
 import firebase from "firebase";
 import { mapActions } from "vuex";
+import moment from "moment";
 // import router from '../router'
 
 export default {
-  data() {
-    return {
-      aaa: "",
-      id: "",
-      name: "",
-      gmail: "",
-      response: {},
-      userList: [],
-      todoList: [],
-      followingList: [],
-      dailyReport: [],
-      monthlyReport: [],
-      objective: [],
-    };
-  },
   name: "SignIn",
   methods: {
     ...mapActions(["setLoginUser", "setUserList", "setTodoList", "setDailyReport", "setMonthlyReport", "setObjective", "setFollowingList"]),
-    signIn() {
-      axios.post("/user/signIn").then((res) => {
-        console.log(res.data);
-        for (var i = 0; i < res.data.length; i++) {
-          this.users.push({
-            id: res.data[i].id,
-            name: res.data[i].name,
-            continuationDays: res.data[i].continuationDays,
-            firstdayContinuation: res.data[i].firstdayContinuation,
-            levelAchievement: res.data[i].levelAchievement,
-          });
-        }
-        alert("サインインを押しました！");
-      });
-    },
-    signIn2() {
-      axios.post("/users").then((res) => {
-        console.log("res.data:", res.data);
-        console.log("userList:", res.data.userList);
-        console.log("todoList:", res.data.todoList);
-        console.log("followingList:", res.data.followingList);
-        console.log("dailyReport:", res.data.dailyReport);
-        console.log("monthlyReport:", res.data.monthlyReport);
-        console.log("objective:", res.data.objective);
-
-        this.response = res.data;
-        this.userList = res.data.userList;
-        this.todoList = res.data.todoList;
-        this.followingList = res.data.followingList;
-        this.dailyReport = res.data.dailyReport;
-        this.monthlyReport = res.data.monthlyReport;
-        this.objective = res.data.objective;
-
-        this.setFollowingList(res.data.followingList);
-        this.setUserList(res.data.userList);
-
-        alert("サインイン2！");
-      });
-    },
-
-    // ログイン時にデータを取得するメソッド
-    getData() {
-      axios
-        .get("/get/Information", {
-          params: {
-            gmail: "same@gmail.com",
-          },
-        })
-        .then((res) => {
-          console.log("成功");
-          console.log(res.data);
-          Promise.resolve().then(() => {
-            this.setLoginUser(res.data.loginUser);
-            this.setUserList(res.data.userList);
-            this.setTodoList(res.data.todoList);
-            this.setDailyReport(res.data.dailyReport);
-            this.setMonthlyReport(res.data.monthlyReport);
-            this.setObjective(res.data.objective);
-            this.setFollowingList(res.data.followingList);
-          });
-        })
-        .catch((error) => {
-          console.log("失敗" + error);
-        });
-    },
-
     // Googleログイン
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
@@ -176,26 +41,42 @@ export default {
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(() => {
-          // const userData = {
-          //   name: res.additionalUserInfo.profile.name,
-          //   gmail: res.additionalUserInfo.profile.email
-          // }
-          // console.log(userData);
+        .then((res) => {
+          // Googleアカウント情報(名前とメールのみ)
+          const loginUserData = {
+            name: res.additionalUserInfo.profile.name,
+            gmail: res.additionalUserInfo.profile.email,
+          };
+          console.log(loginUserData);
 
-          // if(res.additionalUserInfo.isNewUser){
-          //   console.log("新しく登録");
-          // } else {
-          //   console.log("elseが呼ばれました");
+          if (res.additionalUserInfo.isNewUser) {
+            // 新規ログインするユーザの処理
+            console.log("新しく登録");
+            axios
+              .post("/users/register", {
+                name: res.additionalUserInfo.profile.name,
+                gmail: res.additionalUserInfo.profile.email,
+              })
+              .then((res) => {
+                console.log("新規ログイン成功");
+                console.log(res.data);
+              })
+              .catch((error) => {
+                console.log("新規ログイン失敗" + error);
+              });
+          }
+          // 初期データの取得
+          console.log("データの取得開始");
           axios
             .get("/get/Information", {
               params: {
-                gmail: "same@gmail.com",
+                gmail: res.additionalUserInfo.profile.email,
               },
             })
             .then((res) => {
-              console.log("成功");
+              console.log("データの取得成功");
               console.log(res.data);
+              // storeに保存
               Promise.resolve().then(() => {
                 this.setLoginUser(res.data.loginUser);
                 this.setUserList(res.data.userList);
@@ -207,13 +88,30 @@ export default {
               });
             })
             .catch((error) => {
-              console.log("失敗" + error);
+              console.log("既存ログイン失敗" + error);
             });
-
-          // console.log(userData);
-          // console.log("成功");
-          // router.push('/')
+          console.log("つつがなく成功");
+          // router.push('/');
         });
+    },
+
+    // ログアウト処理
+    logout() {
+      if (confirm("ログアウトしてもよろしいですか？")) {
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            // ログアウト時にローカルストレージのストアの中身を消去
+            localStorage.removeItem("vuex");
+            console.log("ログアウト成功！");
+            alert("ログアウトに成功しました。");
+          })
+          .catch((error) => {
+            console.log("ログアウト失敗" + error);
+            alert("ログアウトに失敗しました");
+          });
+      }
     },
   },
   computed: {
@@ -237,6 +135,9 @@ export default {
     },
     getFollowingList() {
       return this.$store.state.followingList;
+    },
+    getLoginUserFirstDay() {
+      return moment(this.$store.state.loginUser.firstdayContinuation).format("YYYY/MM/DD HH:mm:ss");
     },
   },
 };
