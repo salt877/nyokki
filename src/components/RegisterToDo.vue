@@ -13,7 +13,7 @@
             今日のToDo
           </v-card-title>
           <v-card-text v-for="todo in todos" :key="todo.id">
-            {{ todo.text }}
+            {{ todo }}
             <v-btn elevation="2" fab x-small color="gray">
               <v-icon>
                 mdi-minus
@@ -22,6 +22,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
+            <textarea v-model="aaa"></textarea>
             <v-btn color="warning" @click="copyToDo">コピー </v-btn>
             <v-btn color="error" @click="saveToDo">保存 </v-btn>
           </v-card-actions>
@@ -39,6 +40,7 @@ export default {
     return {
       toDoCard: "",
       todos: [],
+      aaa: "",
     };
   },
   methods: {
@@ -47,14 +49,12 @@ export default {
       if (!newToDoCard) {
         return;
       }
-      this.todos.push({
-        text: newToDoCard,
-      });
+      this.todos.push(newToDoCard);
       this.toDoCard = "";
     },
     saveToDo() {
-      axios.get("/users/registerToDo", this.todos);
-      console.log(this.todos);
+      axios.post("/get/registerToDo", { todos: this.todos });
+      console.log(typeof this.todos);
     },
     copyToDo() {
       console.log("保存");
