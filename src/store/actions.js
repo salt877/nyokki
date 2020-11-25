@@ -26,5 +26,8 @@ export default {
     setFollowingList({ commit }, followingList){
         commit("setFollowingList", followingList);
         console.log("setFollowingListのActionsを呼び出しました");
+    },
+    incrementOne: function(context){
+        context.commit('increment');
     }
 }
