@@ -13,7 +13,7 @@
             今日のToDo
           </v-card-title>
           <v-card-text v-for="todo in todos" :key="todo.id">
-            {{ todo }}
+            {{ todo.text }}
             <v-btn elevation="2" fab x-small color="gray">
               <v-icon>
                 mdi-minus
@@ -49,12 +49,13 @@ export default {
       if (!newToDoCard) {
         return;
       }
-      this.todos.push(newToDoCard);
+      this.todos.push({ text: newToDoCard });
       this.toDoCard = "";
     },
     saveToDo() {
-      axios.post("/get/registerToDo", { todos: this.todos });
+      axios.post("/get/registerToDo", { todos: this.todos, loginUser: this.$store.state.loginUser });
       console.log(typeof this.todos);
+      console.log(this.$store.state.loginUser);
     },
     copyToDo() {
       console.log("保存");
