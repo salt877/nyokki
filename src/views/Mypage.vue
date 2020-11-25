@@ -47,6 +47,8 @@
       </v-col>
     </v-row>
 <p>{{$store.state.message}}</p>
+<v-btn @click="increment">UP</v-btn>
+<h1>Count:{{count}}</h1>
 <ul>
   <li v-for="user in users" :key="user">{{user.name}}</li>
 </ul>
@@ -172,13 +174,20 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
     },
     users:function(){
       return this.$store.getters.users;
-    }
+    },
     // users:function(){
     //   return this.$store.state.users.filter(user => user.age < 30);
     // }
+    count:function(){
+      return this.$store.getters.count;
+    }
 
-
-      }
+  },
+  methods:{
+    increment:function(){
+      return this.$store.commit('increment');
+    }
+  }
     
   };
 </script>
