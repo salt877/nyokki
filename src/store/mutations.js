@@ -30,4 +30,8 @@ export default {
     increment:function(state){
         state.count++;
       },
+    increment2(state, number){
+        state.count += number;
+        console.log("mutationが呼ばれた！"+number+"を渡す");
+    }
 }

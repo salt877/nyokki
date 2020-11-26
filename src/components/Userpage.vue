@@ -1,6 +1,7 @@
 <template>
     <v-container>
-        <h2>○○さんのページ</h2>
+        <h2>{{ $route.params.name }}さんのページ</h2>
+        
         <v-row>
             <v-col>
                 <v-avatar size="150">

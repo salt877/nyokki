@@ -29,5 +29,9 @@ export default {
     },
     incrementOne: function(context){
         context.commit('increment');
+    },
+    increment(context, number){
+        context.commit('increment2',number);
+        console.log("actionsが呼ばれた！"+number+"が渡された！");
     }
 }
