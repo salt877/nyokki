@@ -87,8 +87,15 @@ const defaultState = () => {
 
 var initializeState = defaultState();
 
+
+
 export default new Vuex.Store({
-    state: initializeState,
+    namespaced: true,
+    state: {
+        initializeState,
+        name: "",
+        count:2
+    },
     mutations,
     getters,
     actions,

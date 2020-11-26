@@ -15,6 +15,7 @@
         <v-card-actions>
         <v-text-field 
           placeholder="新しい名前"
+          v-model="name"
           >
         </v-text-field> 
         <v-spacer></v-spacer>
@@ -25,7 +26,7 @@
          </v-btn>
         </v-card-actions>
         <v-card-actions>
-        <v-text>ユーザー名：サメ</v-text>
+        <v-text>ユーザー名：{{name}}</v-text>
         </v-card-actions>
       </v-col>
       <v-col>
@@ -70,6 +71,16 @@ export default {
       input_image: null,
       uploadImageUrl: ''
     }
+  },
+  computed:{
+    name: {
+      get() {
+        return this.$store.getters.name;
+      },
+      set(value) {
+        this.$store.dispatch("updateName", value);
+      }
+    },
   },
   methods: {
     onImagePicked(file) {

@@ -27,7 +27,13 @@ export default {
         commit("setFollowingList", followingList);
         console.log("setFollowingListのActionsを呼び出しました");
     },
-    incrementOne: function(context){
-        context.commit('increment');
-    }
+    // increment(context, number){
+    //     context.commit('increment', number);
+    // }
+    increment({commit}, number){
+        commit("increment",number);
+    },
+    updateName({ commit }, newName) {
+        commit("updateName", newName);
+      }
 }

@@ -46,12 +46,9 @@
         </v-card-actions>
       </v-col>
     </v-row>
-<p>{{$store.state.message}}</p>
-<v-btn @click="increment">UP</v-btn>
-<h1>Count:{{count}}</h1>
-<ul>
-  <li v-for="user in users" :key="user">{{user.name}}</li>
-</ul>
+
+<v-btn @click="increment(2)">UP</v-btn>
+<h1>Count:{{doubleCount}}</h1>
 
 
     <v-row>
@@ -71,7 +68,9 @@ import ProfileChange from '../components/ProfileChange.vue';
 import Follow from '../components/Follow.vue';
 import Follower from '../components/Follower.vue';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
-// import {mapActions} from 'vuex';
+import {mapGetters} from 'vuex';
+import {mapMutations} from 'vuex';
+import {mapActions} from 'vuex';
 
   export default {
     name: "Mypage",
@@ -125,6 +124,8 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
     },
 
     computed:{
+      ...mapGetters(["doubleCount"]),
+     
       followingLength() {
         //自分がフォローしている人数
       var followingLength;
@@ -184,9 +185,9 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
 
   },
   methods:{
-    increment:function(){
-      return this.$store.commit('increment');
-    }
+    ...mapMutations('',['increment']),
+    ...mapActions('',['increment'])
+    
   }
     
   };

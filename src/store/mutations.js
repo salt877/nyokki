@@ -27,7 +27,10 @@ export default {
         state.followingList = followingList;
         console.log(("setFollowingListのmutationが呼ばれました"));
     },
-    increment:function(state){
-        state.count++;
-      },
+    increment(state,number){
+        state.count += number;
+    },
+    updateName(state, newName) {
+        state.name = newName;
+    }
 }
