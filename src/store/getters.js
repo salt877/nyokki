@@ -1,7 +1,7 @@
 export default {
 
   //名前変更に関すること
-  name: state => state.name,
+  name: state => state.loginUser.name,
 
   //フォロー人数に関すること
   followingLength(state) {
