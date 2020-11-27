@@ -93,11 +93,12 @@ export default new Vuex.Store({
     namespaced: true,
     state: {
         initializeState,
-        name: "",
-        count:2
     },
     mutations,
     getters,
     actions,
+    // modules: {
+    //     following
+    // },
     plugins: [createPersistedState()] // この行でvuexに「vuex-persistedstate」を追加
 });

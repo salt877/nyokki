@@ -30,6 +30,10 @@ export default {
     increment(state,number){
         state.count += number;
     },
+      
+    setCount(state,count){
+        state.count = count;
+    },
     updateName(state, newName) {
         state.name = newName;
     }

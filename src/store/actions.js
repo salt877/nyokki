@@ -33,6 +33,9 @@ export default {
     increment({commit}, number){
         commit("increment",number);
     },
+    setCount({commit}, count){
+        commit("setCount",count);
+    },
     updateName({ commit }, newName) {
         commit("updateName", newName);
       }

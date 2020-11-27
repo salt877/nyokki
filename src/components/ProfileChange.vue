@@ -21,7 +21,7 @@
         <v-spacer></v-spacer>
         <v-btn
               color="primary"
-              @click="changeName()"
+              @click="updateName()"
               >名前変更
          </v-btn>
         </v-card-actions>
@@ -65,6 +65,10 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+import {mapMutations} from 'vuex';
+import {mapActions} from 'vuex';
+
 export default {
   data() {
     return {
@@ -97,9 +101,6 @@ export default {
         this.uploadImageUrl = ''
       }
     },
-    changeName(){
-
-    }
   }
 }
 </script>
