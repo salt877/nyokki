@@ -22,7 +22,6 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <textarea v-model="aaa"></textarea>
             <v-btn color="warning" @click="copyToDo">コピー </v-btn>
             <v-btn color="error" @click="saveToDo">保存 </v-btn>
           </v-card-actions>
@@ -34,6 +33,7 @@
 
 <script>
 import axios from "axios";
+import { mapActions } from "vuex";
 export default {
   name: "RegisterToDo",
   data() {
@@ -44,6 +44,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["setTodoList"]),
     addToDoCard: function() {
       const newToDoCard = this.toDoCard;
       if (!newToDoCard) {
@@ -53,9 +54,17 @@ export default {
       this.toDoCard = "";
     },
     saveToDo() {
-      axios.post("/get/registerToDo", { todos: this.todos, loginUser: this.$store.state.loginUser });
-      console.log(typeof this.todos);
-      console.log(this.$store.state.loginUser);
+      axios
+        .post("/get/registerToDo", { todos: this.todos, loginUser: this.$store.state.loginUser })
+        .then((res) => {
+          this.setTodoList(res.data);
+          alert("登録完了");
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          alert("登録失敗");
+          console.log("登録失敗" + error);
+        });
     },
     copyToDo() {
       console.log("保存");
