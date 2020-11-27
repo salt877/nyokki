@@ -11,9 +11,9 @@ const defaultState = () => {
     return {
         // ログインしているユーザの情報
         loginUser: {
-            userId: null,
-            userName: '',
-            userGmail: '',
+            id: null,
+            name: '',
+            gmail: '',
             continuationDays: null,
             firstdayContinuation: null,
             levelAchevement: null
@@ -22,9 +22,9 @@ const defaultState = () => {
         // DBに登録されているユーザ情報一覧
         userList: [
             {
-                userId: null,
-                userName: '',
-                userGmail: '',
+                id: null,
+                name: '',
+                gmail: '',
                 continuationDays: null,
                 firstdayContinuation: null,
                 levelAchevement: null 
@@ -34,7 +34,7 @@ const defaultState = () => {
         // タスク一覧
         todoList: [
             {
-                todoId: null,
+                id: null,
                 userId: null,
                 task: '',
                 status: null,
@@ -44,7 +44,7 @@ const defaultState = () => {
 
         //日報情報
         dailyReport: {
-            dairyreportId: null,
+            id: null,
             userId: null,
             todoId: null,
             todayReport: '',
@@ -55,18 +55,18 @@ const defaultState = () => {
 
         // 月報情報
         monthlyReport: {
-            monthlyReportId: null,
+            id: null,
             userId: null,
             objectiveId: null,
             thisMonthObjective: '',
             impressions: '',
             nextMonthObjective: '',
-            registration_date: null
+            registrationDate: null
         },
 
         // 目標情報
         objective: {
-            objectiveId: null,
+            id: null,
             userId: null,
             objective: '',
             objectiveMonth: null
@@ -75,7 +75,7 @@ const defaultState = () => {
         // フォロー一覧
         followingList: [
             {
-                followId: null,
+                id: null,
                 followFlag: null,
                 followingId: null,
                 followedId: null
@@ -88,7 +88,10 @@ const defaultState = () => {
 var initializeState = defaultState();
 
 export default new Vuex.Store({
-    state: initializeState,
+    state: {
+        initializeState,
+        count : 0
+    },
     mutations,
     getters,
     actions,

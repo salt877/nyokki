@@ -2,23 +2,9 @@
   <div class="back-ground">
     <div class="box">
       <h3>毎日書いてにょきにょき育てる</h3>
-      <v-btn class="loginButton" color="green" @click="signIn"><v-icon>mdi-flower</v-icon>サインイン</v-btn>
-      <v-btn class="loginButton" color="green" @click="signIn2"><v-icon>mdi-flower</v-icon>サインイン2</v-btn>
-      <v-btn class="loginButton" color="green" @click="getData"><v-icon>mdi-flower</v-icon>ログインデータ取得</v-btn>
-      <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>
-
-      <div>登録日時：{{ getLoginUserFirstDay }}</div>
-      <div>ログインユーザ<br />{{ getloginUser }}</div>
-      <div>ユーザリスト<br />{{ getUserList }}</div>
-      <div>Todoリスト<br />{{ getTodoList }}</div>
-      <div>日報情報<br />{{ getDailyReport }}</div>
-      <div>月報情報<br />{{ getMonthlyReport }}</div>
-      <div>目標情報<br />{{ getObjective }}</div>
-      <div>フォローリスト<br />{{ getFollowingList }}</div>
 
       <v-img src="../images/logo.jpg"></v-img>
       <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>
-      <v-btn class="loginButton" color="green" @click="logout"><v-icon>mdi-flower</v-icon>ログアウト</v-btn>
     </div>
   </div>
 </template>
@@ -27,8 +13,8 @@
 import axios from "axios";
 import firebase from "firebase";
 import { mapActions } from "vuex";
-import moment from "moment";
-// import router from '../router'
+// import moment from "moment";
+import router from '../router'
 
 export default {
   name: "SignIn",
@@ -91,55 +77,36 @@ export default {
               console.log("既存ログイン失敗" + error);
             });
           console.log("つつがなく成功");
-          // router.push('/');
+          router.push('/');
         });
     },
-
-    // ログアウト処理
-    logout() {
-      if (confirm("ログアウトしてもよろしいですか？")) {
-        firebase
-          .auth()
-          .signOut()
-          .then(() => {
-            // ログアウト時にローカルストレージのストアの中身を消去
-            localStorage.removeItem("vuex");
-            console.log("ログアウト成功！");
-            alert("ログアウトに成功しました。");
-          })
-          .catch((error) => {
-            console.log("ログアウト失敗" + error);
-            alert("ログアウトに失敗しました");
-          });
-      }
-    },
   },
-  computed: {
-    getloginUser() {
-      return this.$store.state.loginUser;
-    },
-    getUserList() {
-      return this.$store.state.userList;
-    },
-    getTodoList() {
-      return this.$store.state.todoList;
-    },
-    getDailyReport() {
-      return this.$store.state.dailyReport;
-    },
-    getMonthlyReport() {
-      return this.$store.state.monthlyReport;
-    },
-    getObjective() {
-      return this.$store.state.objective;
-    },
-    getFollowingList() {
-      return this.$store.state.followingList;
-    },
-    getLoginUserFirstDay() {
-      return moment(this.$store.state.loginUser.firstdayContinuation).format("YYYY/MM/DD HH:mm:ss");
-    },
-  },
+  // computed: {
+  //   getloginUser() {
+  //     return this.$store.state.loginUser;
+  //   },
+  //   getUserList() {
+  //     return this.$store.state.userList;
+  //   },
+  //   getTodoList() {
+  //     return this.$store.state.todoList;
+  //   },
+  //   getDailyReport() {
+  //     return this.$store.state.dailyReport;
+  //   },
+  //   getMonthlyReport() {
+  //     return this.$store.state.monthlyReport;
+  //   },
+  //   getObjective() {
+  //     return this.$store.state.objective;
+  //   },
+  //   getFollowingList() {
+  //     return this.$store.state.followingList;
+  //   },
+  //   getLoginUserFirstDay() {
+  //     return moment(this.$store.state.loginUser.firstdayContinuation).format("YYYY/MM/DD HH:mm:ss");
+  //   },
+  // },
 };
 </script>
 

@@ -27,12 +27,20 @@
               <v-list-item-title>{{ nav_list.name }}</v-list-item-title> 
             </v-list-item-content>
           </v-list-item>
+
+          <v-list-item @click="logout()">
+            <v-list-item-icon>
+              <v-icon> mdi-logout </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title> ログアウト </v-list-item-title>
+          </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    </div>
+  </div>
 </template>
 
 <script>
+import firebase from 'firebase'
 
 export default {
   name: 'Sidebar',
@@ -50,9 +58,29 @@ export default {
         { name: 'カレンダー' ,icon: 'mdi-calendar-text', link: '/calendar'},
         { name: 'みんなの達成度' ,icon: 'mdi-account-multiple-outline', link: '/levelForAchivement'},
         { name: 'FAQ' ,icon: 'mdi-help', link: '/faq'},
-        { name: 'ログアウト' ,icon: 'mdi-logout', link: ''}
       ]
     }
+  },
+  methods: {
+    // ログアウト処理
+    logout() {
+      if (confirm("ログアウトしてもよろしいですか？")) {
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            // ログアウト時にローカルストレージのストアの中身を消去
+            localStorage.removeItem("vuex");
+            console.log("ログアウト成功！");
+            alert("ログアウトしました。");
+            this.$router.push("/signIn");
+          })
+          .catch((error) => {
+            console.log("ログアウト失敗" + error);
+            alert("ログアウトに失敗しました");
+          });
+      }
+    },
   }
 };
 </script>

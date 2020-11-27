@@ -26,5 +26,12 @@ export default {
     setFollowingList(state, followingList){
         state.followingList = followingList;
         console.log(("setFollowingListのmutationが呼ばれました"));
+    },
+    increment:function(state){
+        state.count++;
+      },
+    increment2(state, number){
+        state.count += number;
+        console.log("mutationが呼ばれた！"+number+"を渡す");
     }
 }
