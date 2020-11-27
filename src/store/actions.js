@@ -33,5 +33,17 @@ export default {
     increment(context, number){
         context.commit('increment2',number);
         console.log("actionsが呼ばれた！"+number+"が渡された！");
-    }
+    },
+    // increment(context, number){
+    //     context.commit('increment', number);
+    // }
+    // increment({commit}, number){
+    //     commit("increment",number);
+    // },
+    setCount({commit}, count){
+        commit("setCount",count);
+    },
+    updateName({ commit }, newName) {
+        commit("updateName", newName);
+      }
 }

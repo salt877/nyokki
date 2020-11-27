@@ -46,12 +46,12 @@
         </v-card-actions>
       </v-col>
     </v-row>
-<p>{{$store.state.message}}</p>
-<v-btn @click="increment">UP</v-btn>
+
+<v-btn @click="increment2()">UP</v-btn>
+<v-btn @click="setCount2()">SET</v-btn>
+
+<h1>DoubleCount:{{doubleCount}}</h1>
 <h1>Count:{{count}}</h1>
-<ul>
-  <li v-for="user in users" :key="user">{{user.name}}</li>
-</ul>
 
 
     <v-row>
@@ -71,11 +71,15 @@ import ProfileChange from '../components/ProfileChange.vue';
 import Follow from '../components/Follow.vue';
 import Follower from '../components/Follower.vue';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
-// import {mapActions} from 'vuex';
+import {mapGetters} from 'vuex';
+import {mapMutations} from 'vuex';
+import {mapActions} from 'vuex';
 
   export default {
     name: "Mypage",
     data: () => ({
+    count:'',
+    doubleCount:'',
     componentName: ['Follow', 'Follower', 'ProfileChange'],
 
     // followingList:[
@@ -104,89 +108,34 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       NyokkiFlower
     },
     created(){
-      
-        this.followingList.id = this.$store.state.followingList.id
-        this.followingList.followFlag = this.$store.state.followingList.followFlag
-        this.followingList.followingId = this.$store.state.followingList.followingId
-        this.followingList.followedId = this.$store.state.followingList.followedId
-        // console.log("てすと:"+ this.$store.state.followingList);
-      
-      this.userList.id = this.$store.state.userList.id
-      this.userList.name = this.$store.state.userList.name
-      this.userList.gmail = this.$store.state.userList.gmail
-      this.userList.continuationDays = this.$store.state.userList.continuationDays
-      this.userList.firstdayContinuation = this.$store.state.userList.firstdayContinuation
-      this.userList.levelAchievement = this.$store.state.userList.levelAchievement
-
-
-
+  this.setCount(1);
 
 
     },
-
     computed:{
-      followingLength() {
-        //自分がフォローしている人数
-      var followingLength;
-      var followingLengthList = [];
-
-      for( var number in this.$store.state.followingList) {
-        for(var key in this.$store.state.followingList[number]){
-            if(key === 'followingId'){
-            // console.log(this.$store.state.followingList[number][key])
-
-            // ログインユーザーのIDが１のとき
-            if(this.$store.state.followingList[number][key] === 1){
-              followingLengthList.push(this.$store.state.followingList[number][key])
-            }
-
-            }
-        }
-      }
-      console.log(followingLengthList.length);
-
-      followingLength = followingLengthList.length;
-      return followingLength;
-    },
-
-
-    followedLength() {
-        //自分がフォローされている人数
-      var followedLength;
-      var followedLengthList = [];
-
-      for( var number2 in this.$store.state.followingList) {
-        for(var key2 in this.$store.state.followingList[number2]){
-            if(key2 === 'followedId'){
-              // console.log(this.$store.state.followingList[number][key])
-            // ログインユーザーのIDが１のとき
-            if(this.$store.state.followingList[number2][key2] === 1){
-              followedLengthList.push(this.$store.state.followingList[number2][key2])
-            }
-
-            }
-        }
-      }
-      console.log(followedLengthList.length);
-
-      followedLength = followedLengthList.length;
-      return followedLength;
-    },
-    users:function(){
-      return this.$store.getters.users;
-    },
-    // users:function(){
-    //   return this.$store.state.users.filter(user => user.age < 30);
-    // }
+      ...mapGetters(["doubleCount", "followingLength", "followedLength"]),
+  
     count:function(){
       return this.$store.getters.count;
     }
 
   },
   methods:{
-    increment:function(){
-      return this.$store.commit('increment');
+    ...mapMutations(['increment','setCount']),
+    ...mapActions(['increment','setCount']),
+
+    setCount2(){
+      this.setCount(1);
+      console.log('set呼ばれた')
+      this.count = this.$store.state.count
+    },
+    increment2(){
+      this.doubleCount = this.$store.getters.doubleCount;
+      console.log('increment2呼ばれた');
+      this.setCount(this.doubleCount);
+      this.count = this.$store.state.count;
     }
+    
   }
     
   };

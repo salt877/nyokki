@@ -13,25 +13,28 @@
       <v-col>
         
         <v-card-actions>
-        <v-text-field 
+        <v-text-field
+          v-model="newName"
           placeholder="新しい名前"
           >
         </v-text-field> 
         <v-spacer></v-spacer>
         <v-btn
               color="primary"
-              @click="changeName()"
+              @click="updateName2()"
               >名前変更
          </v-btn>
         </v-card-actions>
         <v-card-actions>
-        <v-text>ユーザー名：サメ</v-text>
+        <v-text>新しいユーザー名：{{newName}}</v-text>
+        </v-card-actions>
+        <v-card-actions>
+        <v-text>現在のユーザー名：{{this.$store.state.loginUser.name}}</v-text>
         </v-card-actions>
       </v-col>
       <v-col>
       </v-col>
     </v-row>
-    <p>{{$store.state.message}}</p>
 
     <v-row justify="center">
     <v-col sm="12" md="11" lg="9" xl="6">
@@ -58,20 +61,50 @@
         >変更を保存する
       </v-btn> 
     </v-row>
-  
+
 
 </v-container>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+import {mapMutations} from 'vuex';
+import {mapActions} from 'vuex';
+
 export default {
+  props: {
+    searchText: String
+  },
   data() {
     return {
+      newName:'',
       input_image: null,
       uploadImageUrl: ''
+   }
+  },
+  computed:{
+    ...mapGetters(["updateName"]),
+    // updateName2: {
+    //   get() {
+    //    return this.$store.getters.name;
+    //   },
+    //   set(value) {
+    //    this.$store.dispatch("updateName", value);
+    //   }
+    // },
+    innerSearchText: {
+      get () {
+        return this.$props.searchText
+      },
+      set (value) {
+        this.$emit('change', value)
+      }
     }
   },
   methods: {
+    ...mapMutations(['updateName']),
+    ...mapActions(['updateName']),
+
     onImagePicked(file) {
       if (file !== undefined && file !== null) {
         if (file.name.lastIndexOf('.') <= 0) {
@@ -86,9 +119,14 @@ export default {
         this.uploadImageUrl = ''
       }
     },
-    changeName(){
 
+    // updateName(){
+    //   this.name = this.$store.state.loginUser.name;
+    // },
+    updateName2() {
+      this.updateName2(this.newName);
     }
+
   }
 }
 </script>

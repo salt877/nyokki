@@ -87,6 +87,8 @@ const defaultState = () => {
 
 var initializeState = defaultState();
 
+
+
 export default new Vuex.Store({
     state: {
         initializeState,
@@ -95,5 +97,8 @@ export default new Vuex.Store({
     mutations,
     getters,
     actions,
+    // modules: {
+    //     following
+    // },
     plugins: [createPersistedState()] // この行でvuexに「vuex-persistedstate」を追加
 });
