@@ -4,7 +4,10 @@
       <h3>毎日書いてにょきにょき育てる</h3>
 
       <v-img src="../images/logo.jpg"></v-img>
-      <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>
+      <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>&emsp; 
+      <v-btn class="loginButton" color="primary" @click="getSample1"><v-icon>mdi-flower</v-icon>same</v-btn>&emsp; 
+      <v-btn class="loginButton" color="primary" @click="getSample2"><v-icon>mdi-flower</v-icon>same2</v-btn>&emsp;
+      <v-btn class="loginButton" color="primary" @click="getSample3"><v-icon>mdi-flower</v-icon>same3</v-btn>&emsp;  
     </div>
   </div>
 </template>
@@ -18,6 +21,11 @@ import router from '../router'
 
 export default {
   name: "SignIn",
+  data(){
+    return {
+      // email
+    }
+  },
   methods: {
     ...mapActions(["setLoginUser", "setUserList", "setTodoList", "setDailyReport", "setMonthlyReport", "setObjective", "setFollowingList"]),
     // Googleログイン
@@ -80,6 +88,34 @@ export default {
           router.push('/');
         });
     },
+    // 以下、サンプル取得用(のち削除)
+    getSample1(){
+      axios
+        .get("/get/Information")
+        .then((res) => {
+          console.log("データの取得成功");
+          console.log(res.data);
+          // storeに保存
+          Promise.resolve().then(() => {
+            this.setLoginUser(res.data.loginUser);
+            this.setUserList(res.data.userList);
+            this.setTodoList(res.data.todoList);
+            this.setDailyReport(res.data.dailyReport);
+            this.setMonthlyReport(res.data.monthlyReport);
+            this.setObjective(res.data.objective);
+            this.setFollowingList(res.data.followingList);
+          });
+        })
+        .catch((error) => {
+          console.log("既存ログイン失敗" + error);
+        });
+    },
+    getSample2(){
+
+    },
+    getSample3(){
+
+    }
   },
   // computed: {
   //   getloginUser() {
