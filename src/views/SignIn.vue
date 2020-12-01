@@ -4,10 +4,7 @@
       <h3>毎日書いてにょきにょき育てる</h3>
 
       <v-img src="../images/logo.jpg"></v-img>
-      <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>&emsp; 
-      <v-btn class="loginButton" color="primary" @click="getSample1"><v-icon>mdi-flower</v-icon>same</v-btn>&emsp; 
-      <v-btn class="loginButton" color="primary" @click="getSample2"><v-icon>mdi-flower</v-icon>same2</v-btn>&emsp;
-      <v-btn class="loginButton" color="primary" @click="getSample3"><v-icon>mdi-flower</v-icon>same3</v-btn>&emsp;  
+      <v-btn class="loginButton" color="green" @click="googleLogin"><v-icon>mdi-flower</v-icon>Googleログイン</v-btn>&emsp; <v-btn class="loginButton" color="primary" @click="getSample1"><v-icon>mdi-flower</v-icon>same</v-btn>&emsp; <v-btn class="loginButton" color="primary" @click="getSample2"><v-icon>mdi-flower</v-icon>same2</v-btn>&emsp; <v-btn class="loginButton" color="primary" @click="getSample3"><v-icon>mdi-flower</v-icon>same3</v-btn>&emsp;
     </div>
   </div>
 </template>
@@ -17,7 +14,7 @@ import axios from "axios";
 import firebase from "firebase";
 import { mapActions } from "vuex";
 import moment from "moment";
-import router from '../router'
+import router from "../router";
 
 export default {
   name: "SignIn",
@@ -80,16 +77,16 @@ export default {
               console.log("既存ログイン失敗" + error);
             });
           console.log("つつがなく成功");
-          router.push('/');
+          router.push("/");
         });
     },
     // 以下、サンプル取得用(のち削除)
-    getSample1(){
+    getSample1() {
       axios
-        .get("/get/Information",{
+        .get("/get/Information", {
           params: {
-            gmail: 'same@gmail.com'
-          }
+            gmail: "same@gmail.com",
+          },
         })
         .then((res) => {
           console.log("サンプル1のデータの取得成功");
@@ -109,14 +106,14 @@ export default {
           console.log("既存ログイン失敗" + error);
         });
       console.log("すべて成功");
-      router.push('/');
+      router.push("/");
     },
-    getSample2(){
+    getSample2() {
       axios
-        .get("/get/Information",{
+        .get("/get/Information", {
           params: {
-            gmail: 'same2@gmail.com'
-          }
+            gmail: "same2@gmail.com",
+          },
         })
         .then((res) => {
           console.log("サンプル2のデータの取得成功");
@@ -136,14 +133,14 @@ export default {
           console.log("既存ログイン失敗" + error);
         });
       console.log("すべて成功");
-      router.push('/');
+      router.push("/");
     },
-    getSample3(){
+    getSample3() {
       axios
-        .get("/get/Information",{
+        .get("/get/Information", {
           params: {
-            gmail: 'same3@gmail.com'
-          }
+            gmail: "same3@gmail.com",
+          },
         })
         .then((res) => {
           console.log("サンプル3のデータの取得成功");
@@ -163,8 +160,8 @@ export default {
           console.log("既存ログイン失敗" + error);
         });
       console.log("すべて成功");
-      router.push('/');
-    }
+      router.push("/");
+    },
   },
   computed: {
     getloginUser() {

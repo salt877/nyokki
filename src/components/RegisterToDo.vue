@@ -13,7 +13,7 @@
             今日のToDo
           </v-card-title>
           <v-card-text v-for="todo in todos" :key="todo.id">
-            {{ todo.text }}
+            {{ todo.task }}
             <v-btn elevation="2" fab x-small color="gray">
               <v-icon>
                 mdi-minus
@@ -34,13 +34,13 @@
 <script>
 import axios from "axios";
 import { mapActions } from "vuex";
+import router from "../router";
 export default {
   name: "RegisterToDo",
   data() {
     return {
       toDoCard: "",
       todos: [],
-      aaa: "",
     };
   },
   methods: {
@@ -50,16 +50,18 @@ export default {
       if (!newToDoCard) {
         return;
       }
-      this.todos.push({ text: newToDoCard });
+      this.todos.push({ task: newToDoCard });
       this.toDoCard = "";
     },
     saveToDo() {
+      console.log(this.$store.state.loginUser);
       axios
         .post("/get/registerToDo", { todos: this.todos, loginUser: this.$store.state.loginUser })
         .then((res) => {
           this.setTodoList(res.data);
           alert("登録完了");
-          this.$router.push("/");
+          router.push("/");
+          this.todos = [];
         })
         .catch((error) => {
           alert("登録失敗");
@@ -69,6 +71,11 @@ export default {
     copyToDo() {
       console.log("保存");
     },
+  },
+  created() {
+    // for (var num in this.$store.state.todoList) {
+    //   this.todos.push(this.$store.state.todoList[num]);
+    // }
   },
 };
 </script>

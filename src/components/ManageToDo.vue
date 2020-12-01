@@ -32,21 +32,40 @@ export default {
     return {
       incompletes: [],
       completes: [],
+      todos: [],
     };
   },
   created() {
     for (var num in this.$store.state.todoList) {
-      this.incompletes.push(this.$store.state.todoList[num]);
+      if (this.$store.state.todoList[num].status === 1) {
+        this.incompletes.push(this.$store.state.todoList[num]);
+      } else if (this.$store.state.todoList[num].status === 2) {
+        this.completes.push(this.$store.state.todoList[num]);
+      }
     }
   },
   methods: {
     ...mapActions(["setTodoList"]),
     finishTodo() {
-      axios.post("/get/updateToDo", { todos: this.completes, loginUser: this.$store.state.loginUser }).then((res) => {
-        this.setTodoList(res.data);
-        
-        alert("登録完了");
-      });
+      for (var num in this.incompletes) {
+        this.incompletes[num].status = 1;
+        this.todos.push(this.incompletes[num]);
+      }
+      for (var num2 in this.completes) {
+        this.completes[num2].status = 2;
+        this.todos.push(this.completes[num2]);
+      }
+      console.log(this.todos);
+      axios
+        .post("/get/updateToDo", { todos: this.todos, loginUser: this.$store.state.loginUser })
+        .then((res) => {
+          this.setTodoList(res.data);
+          alert("編集完了");
+        })
+        .catch((error) => {
+          alert("編集失敗");
+          console.log("編集失敗" + error);
+        });
     },
   },
 };
