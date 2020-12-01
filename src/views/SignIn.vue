@@ -16,16 +16,11 @@
 import axios from "axios";
 import firebase from "firebase";
 import { mapActions } from "vuex";
-// import moment from "moment";
+import moment from "moment";
 import router from '../router'
 
 export default {
   name: "SignIn",
-  data(){
-    return {
-      // email
-    }
-  },
   methods: {
     ...mapActions(["setLoginUser", "setUserList", "setTodoList", "setDailyReport", "setMonthlyReport", "setObjective", "setFollowingList"]),
     // Googleログイン
@@ -91,9 +86,13 @@ export default {
     // 以下、サンプル取得用(のち削除)
     getSample1(){
       axios
-        .get("/get/Information")
+        .get("/get/Information",{
+          params: {
+            gmail: 'same@gmail.com'
+          }
+        })
         .then((res) => {
-          console.log("データの取得成功");
+          console.log("サンプル1のデータの取得成功");
           console.log(res.data);
           // storeに保存
           Promise.resolve().then(() => {
@@ -109,40 +108,90 @@ export default {
         .catch((error) => {
           console.log("既存ログイン失敗" + error);
         });
+      console.log("すべて成功");
+      router.push('/');
     },
     getSample2(){
-
+      axios
+        .get("/get/Information",{
+          params: {
+            gmail: 'same2@gmail.com'
+          }
+        })
+        .then((res) => {
+          console.log("サンプル2のデータの取得成功");
+          console.log(res.data);
+          // storeに保存
+          Promise.resolve().then(() => {
+            this.setLoginUser(res.data.loginUser);
+            this.setUserList(res.data.userList);
+            this.setTodoList(res.data.todoList);
+            this.setDailyReport(res.data.dailyReport);
+            this.setMonthlyReport(res.data.monthlyReport);
+            this.setObjective(res.data.objective);
+            this.setFollowingList(res.data.followingList);
+          });
+        })
+        .catch((error) => {
+          console.log("既存ログイン失敗" + error);
+        });
+      console.log("すべて成功");
+      router.push('/');
     },
     getSample3(){
-
+      axios
+        .get("/get/Information",{
+          params: {
+            gmail: 'same3@gmail.com'
+          }
+        })
+        .then((res) => {
+          console.log("サンプル3のデータの取得成功");
+          console.log(res.data);
+          // storeに保存
+          Promise.resolve().then(() => {
+            this.setLoginUser(res.data.loginUser);
+            this.setUserList(res.data.userList);
+            this.setTodoList(res.data.todoList);
+            this.setDailyReport(res.data.dailyReport);
+            this.setMonthlyReport(res.data.monthlyReport);
+            this.setObjective(res.data.objective);
+            this.setFollowingList(res.data.followingList);
+          });
+        })
+        .catch((error) => {
+          console.log("既存ログイン失敗" + error);
+        });
+      console.log("すべて成功");
+      router.push('/');
     }
   },
-  // computed: {
-  //   getloginUser() {
-  //     return this.$store.state.loginUser;
-  //   },
-  //   getUserList() {
-  //     return this.$store.state.userList;
-  //   },
-  //   getTodoList() {
-  //     return this.$store.state.todoList;
-  //   },
-  //   getDailyReport() {
-  //     return this.$store.state.dailyReport;
-  //   },
-  //   getMonthlyReport() {
-  //     return this.$store.state.monthlyReport;
-  //   },
-  //   getObjective() {
-  //     return this.$store.state.objective;
-  //   },
-  //   getFollowingList() {
-  //     return this.$store.state.followingList;
-  //   },
-  //   getLoginUserFirstDay() {
-  //     return moment(this.$store.state.loginUser.firstdayContinuation).format("YYYY/MM/DD HH:mm:ss");
-  //   },
-  // },
+  computed: {
+    getloginUser() {
+      return this.$store.state.loginUser;
+    },
+    getUserList() {
+      return this.$store.state.userList;
+    },
+    getTodoList() {
+      return this.$store.state.todoList;
+    },
+    getDailyReport() {
+      return this.$store.state.dailyReport;
+    },
+    getMonthlyReport() {
+      return this.$store.state.monthlyReport;
+    },
+    getObjective() {
+      return this.$store.state.objective;
+    },
+    getFollowingList() {
+      return this.$store.state.followingList;
+    },
+    getLoginUserFirstDay() {
+      return moment(this.$store.state.loginUser.firstdayContinuation).format("YYYY/MM/DD HH:mm:ss");
+    },
+  },
 };
 </script>
 
