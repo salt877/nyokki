@@ -14,7 +14,7 @@ import axios from "axios";
 import firebase from "firebase";
 import { mapActions } from "vuex";
 // import moment from "moment";
-import router from '../router'
+import router from "../router";
 
 export default {
   name: "SignIn",
@@ -77,7 +77,7 @@ export default {
               console.log("既存ログイン失敗" + error);
             });
           console.log("つつがなく成功");
-          router.push('/');
+          router.push("/");
         });
     },
   },
