@@ -10,13 +10,14 @@
     <v-col>
       <v-card>
         <h2>今月の自己達成度</h2>
-        <Chart></Chart>
+        <Chart></Chart>     
       </v-card>
       <v-col>
-                <NyokkiFlower></NyokkiFlower>
+      <NyokkiFlower></NyokkiFlower>
     </v-col>
     </v-col>    
   </v-row>
+  <!-- <p>{{this.$store.state.dailyReport.levelAchievementlevelAchievement}}</p> -->
 </v-container>
 </template>
 
