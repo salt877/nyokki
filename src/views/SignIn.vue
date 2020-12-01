@@ -35,6 +35,29 @@ export default {
           };
           console.log(loginUserData);
 
+          // IDトークンの取得
+          firebase.auth().currentUser.getIdToken(true)
+            .then(function(idToken) {
+              console.log("IDトークン発行成功" + idToken);
+              // サーバー側にIDトークンを送信
+              axios
+                .post("/users/loginCheck", {
+                  params: {
+                    idToken: idToken
+                  }
+                })
+                .then(() => {
+
+                })
+                .catch((err) => {
+                  console.log("エラーです：" + err);
+                })
+            })
+            .catch(function(err) {
+              console.log("idTokenのエラー：" + err);
+            })
+          
+
           if (res.additionalUserInfo.isNewUser) {
             // 新規ログインするユーザの処理
             console.log("新しく登録");
