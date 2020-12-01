@@ -21,7 +21,7 @@
         <v-spacer></v-spacer>
         <v-btn
               color="primary"
-              @click="updateName2()"
+              @click="updateName"
               >名前変更
          </v-btn>
         </v-card-actions>
@@ -57,10 +57,20 @@
       <v-btn
         class="save-button"
         color="error"
-        @click="saveMonthlyReport"
+        @click="updateName"
         >変更を保存する
       </v-btn> 
     </v-row>
+
+    <!-- <div class="child">
+    <label>
+      果物:
+      <input v-model="msg">
+    </label>
+    <div>
+      <button @click="onClickButton">反映↓</button>
+    </div>
+  </div> -->
 
 
 </v-container>
@@ -72,11 +82,13 @@ import {mapMutations} from 'vuex';
 import {mapActions} from 'vuex';
 
 export default {
+  name:'ProfileChange',
   props: {
-    searchText: String
+    value2: String
   },
   data() {
     return {
+      msg: "",
       newName:'',
       input_image: null,
       uploadImageUrl: ''
@@ -92,14 +104,7 @@ export default {
     //    this.$store.dispatch("updateName", value);
     //   }
     // },
-    innerSearchText: {
-      get () {
-        return this.$props.searchText
-      },
-      set (value) {
-        this.$emit('change', value)
-      }
-    }
+    
   },
   methods: {
     ...mapMutations(['updateName']),
@@ -123,10 +128,27 @@ export default {
     // updateName(){
     //   this.name = this.$store.state.loginUser.name;
     // },
-    updateName2() {
-      this.updateName2(this.newName);
+    // updateName2() {
+    //   this.updateName2(this.newName);
+    // },
+
+    updateName: function() {
+      this.$emit("input", this.newName);
+    },
+
+
+     onClickButton: function() {
+      this.$emit("input", this.msg);
     }
 
+  },
+  watch: {
+    value: function(newValue) {
+      this.msg = newValue;
+    },
+    value2: function(newValue2) {
+      this.newName = newValue2;
+    }
   }
 }
-</script>
+</script>_

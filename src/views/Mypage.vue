@@ -9,7 +9,10 @@
          <img src="../images/same.jpeg">
         </v-avatar>
         <v-card-actions>
-        <v-text>ユーザー名：サメ</v-text>
+           <div class="mypage">
+           <!-- <ProfileChange :value="newName" @input="newName = $event"/> -->
+        <v-text :value2="newName" @input="newName = $event">ユーザー名：{{ newName }}</v-text>
+          </div>
         </v-card-actions>
       </v-col>
       <v-col>
@@ -53,6 +56,12 @@
 <h1>DoubleCount:{{doubleCount}}</h1>
 <h1>Count:{{count}}</h1>
 
+ <!-- <div class="mypage">
+    <ProfileChange :value="parentMsg" @input="parentMsg = $event"/>
+    <div>入力内容: {{ parentMsg }}</div>
+    <button @click="onClickRandomButton">ランダム</button>
+  </div> -->
+
 
     <v-row>
       <v-col>
@@ -80,6 +89,17 @@ import {mapActions} from 'vuex';
     data: () => ({
     count:'',
     doubleCount:'',
+    newName:"",
+     parentMsg: "",
+      fruits: [
+        "オレンジ",
+        "バナナ",
+        "グレープフルーツ",
+        "クランベリー",
+        "レモン",
+        "マンゴー",
+        "キウイフルーツ"
+      ],
     componentName: ['Follow', 'Follower', 'ProfileChange'],
 
     // followingList:[
@@ -134,6 +154,10 @@ import {mapActions} from 'vuex';
       console.log('increment2呼ばれた');
       this.setCount(this.doubleCount);
       this.count = this.$store.state.count;
+    },
+    onClickRandomButton: function() {
+      const randomIndex = Math.floor(Math.random() * this.fruits.length);
+      this.parentMsg = this.fruits[randomIndex];
     }
     
   }

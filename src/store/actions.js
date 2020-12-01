@@ -45,5 +45,5 @@ export default {
     },
     updateName({ commit }, newName) {
         commit("updateName", newName);
-      }
+    }
 }
