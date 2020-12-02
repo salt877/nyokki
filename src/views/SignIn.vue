@@ -35,6 +35,34 @@ export default {
           };
           console.log(loginUserData);
 
+          // IDトークン(JWT)の取得
+          firebase.auth().currentUser.getIdToken(true)
+            .then(function(idToken) {
+              console.log("IDトークン発行成功：" + idToken);
+
+              // ローカルストレージに保存
+              localStorage.setItem('idtoken', idToken);
+
+              // ローカルストレージにトークンがあれば、リクエストヘッダ（Authorization）に付与
+              axios.defaults.headers.common["Authorization"] = "Bearer" + idToken;
+              console.log("-----セットされたAuthorizationヘッダ-----");
+              console.log(axios.defaults.headers.common["Authorization"]);
+
+              //サーバー側でトークン(JWT)を確認するための送信
+              axios
+                .get("verify_token")
+                .then(() => {
+                  console.log("idToken送信成功");
+                })
+                .catch((err) => {
+                  console.log("エラーです：" + err);
+                })
+            })
+            .catch(function(err) {
+              console.log("idTokenのエラー：" + err);
+            })
+          
+
           if (res.additionalUserInfo.isNewUser) {
             // 新規ログインするユーザの処理
             console.log("新しく登録");
