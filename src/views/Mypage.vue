@@ -11,7 +11,7 @@
         <v-card-actions>
            <div class="mypage">
            <!-- <ProfileChange :value="newName" @input="newName = $event"/> -->
-        <v-text :value2="newName" @input="newName = $event">ユーザー名：{{ newName }}</v-text>
+        <v-text :value2="newName" @input="newName = $event">ユーザー名：{{ this.$store.state.loginUser.name }}</v-text>
           </div>
         </v-card-actions>
       </v-col>

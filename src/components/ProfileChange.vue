@@ -57,7 +57,7 @@
       <v-btn
         class="save-button"
         color="error"
-        @click="updateName"
+        @click="updateUserName"
         >変更を保存する
       </v-btn> 
     </v-row>
@@ -80,6 +80,7 @@
 import {mapGetters} from 'vuex';
 import {mapMutations} from 'vuex';
 import {mapActions} from 'vuex';
+import axios from "axios";
 
 export default {
   name:'ProfileChange',
@@ -108,7 +109,7 @@ export default {
   },
   methods: {
     ...mapMutations(['updateName']),
-    ...mapActions(['updateName']),
+    ...mapActions(['setLoginUser','updateName']),
 
     onImagePicked(file) {
       if (file !== undefined && file !== null) {
@@ -131,6 +132,20 @@ export default {
     // updateName2() {
     //   this.updateName2(this.newName);
     // },
+
+    updateUserName(){
+      axios.post("/get/updateUserName", {loginUser : this.$store.state.loginUser, name: this.newName})
+      .then((res) => {
+          this.setLoginUser(res.data);
+          alert("編集完了");
+          this.newName = '';
+        })
+        .catch((error) => {
+          alert("編集失敗");
+          console.log("編集失敗" + error);
+        });
+
+    },
 
     updateName: function() {
       this.$emit("input", this.newName);
