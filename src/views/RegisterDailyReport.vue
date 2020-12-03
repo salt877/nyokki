@@ -33,10 +33,10 @@
           <v-card-title>
             今日の達成度
           </v-card-title>
-          <v-radio-group name="" row>
-            <v-radio label="😊 よくできた" value="1"></v-radio>
-            <v-radio label="😐 まあまあできた" value="2"></v-radio>
-            <v-radio label="😢 できなかった" value="3"></v-radio>
+          <v-radio-group v-model="levelAchievementlevelAchievement" row>
+            <v-radio label="😊 よくできた" :value="1"></v-radio>
+            <v-radio label="😐 まあまあできた" :value="2"></v-radio>
+            <v-radio label="😢 できなかった" :value="3"></v-radio>
           </v-radio-group>
         </v-card>
       </v-col>
@@ -47,7 +47,7 @@
           <v-card-title>
             所感
           </v-card-title>
-          <v-textarea class="mt-0" auto-grow rows="3" value="" v-model="impression" placeholder="今月の振り返りをしよう！"> </v-textarea>
+          <v-textarea class="mt-0" auto-grow rows="3" v-model="impression" placeholder="所感"> </v-textarea>
           <v-card-actions>
             <v-btn color="warning" @click="copyImpressions()">コピー </v-btn>
           </v-card-actions>
@@ -55,13 +55,16 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-btn class="save-button" color="error" @click="saveDailyReport()">保存する </v-btn>
+      <v-btn class="save-button" color="error" @click="registerDailyReport">保存する </v-btn>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import router from "../router";
+import { mapActions } from "vuex";
+
 export default {
   name: "RegisterDailyReport",
   data() {
@@ -70,9 +73,11 @@ export default {
       todos: [],
       completeTodoList: [],
       impression: "",
+      levelAchievementlevelAchievement: "",
     };
   },
   methods: {
+    ...mapActions(["setDailyReport"]),
     addNewCard: function() {
       const addCard = this.newCard;
       if (!addCard) {
@@ -81,11 +86,23 @@ export default {
       this.completeTodoList.push(addCard);
       this.newCard = "";
     },
-    saveDailyReport() {
-      console.log("aaaaaaaa");
-      axios.post("/get/saveDairyReport", {
-        loginUser: this.$store.state.loginUser,
-      });
+    registerDailyReport() {
+      axios
+        .post("/get/registerdailyReport", {
+          loginUser: this.$store.state.loginUser,
+          impression: this.impression,
+          completeTodoList: this.completeTodoList,
+          levelAchievementlevelAchievement: this.levelAchievementlevelAchievement,
+        })
+        .then((res) => {
+          console.log(res.data);
+          this.setDailyReport(res.data);
+          alert("日報を登録しました");
+          router.push("/");
+        })
+        .catch((error) => {
+          console.log("通信失敗" + error);
+        });
     },
   },
   created() {
@@ -104,6 +121,7 @@ export default {
     for (var num in this.$store.state.todoList) {
       this.todos.push(this.$store.state.todoList[num]);
     }
+    (this.impression = this.$store.state.dailyReport.impressions), (this.levelAchievementlevelAchievement = this.$store.state.dailyReport.levelAchievementlevelAchievement);
   },
 };
 </script>

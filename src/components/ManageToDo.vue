@@ -22,6 +22,7 @@
 import draggable from "vuedraggable";
 import axios from "axios";
 import { mapActions } from "vuex";
+import router from "../router";
 
 export default {
   name: "ManageToDo",
@@ -61,6 +62,7 @@ export default {
         .then((res) => {
           this.setTodoList(res.data);
           alert("編集完了");
+          router.push("/");
         })
         .catch((error) => {
           alert("編集失敗");
