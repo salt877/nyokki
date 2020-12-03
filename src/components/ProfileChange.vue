@@ -10,20 +10,31 @@
          <img src="../images/same.jpeg">
         </v-avatar>
       </v-col>
+
       <v-col>
-        
         <v-card-actions>
+
+        <v-form
+       ref="form"
+        v-model="valid"
+       >
         <v-text-field
           v-model="newName"
           placeholder="新しい名前"
+          :rules="[rules.required, rules.newName]"
+          name="newName"
+          type="text"
+          required
           >
         </v-text-field> 
-        <v-spacer></v-spacer>
+       
         <v-btn
               color="primary"
-              @click="updateName"
+              @click="updateUserName"
+             :disabled="!valid"
               >名前変更
          </v-btn>
+        </v-form>
         </v-card-actions>
         <v-card-actions>
         <v-text>新しいユーザー名：{{newName}}</v-text>
@@ -58,20 +69,12 @@
         class="save-button"
         color="error"
         @click="updateUserName"
+        
         >変更を保存する
       </v-btn> 
     </v-row>
 
-    <!-- <div class="child">
-    <label>
-      果物:
-      <input v-model="msg">
-    </label>
-    <div>
-      <button @click="onClickButton">反映↓</button>
-    </div>
-  </div> -->
-
+  
 
 </v-container>
 </template>
@@ -81,18 +84,35 @@ import {mapGetters} from 'vuex';
 import {mapMutations} from 'vuex';
 import {mapActions} from 'vuex';
 import axios from "axios";
+// import {extend, ValidationProvider, ValidationObserver } from 'vee-validate';
+import { required} from 'vee-validate/dist/rules';
+
+required.message = '必須項目です';
+
+
 
 export default {
   name:'ProfileChange',
+  components:{
+    // ValidationProvider,
+    // ValidationObserver
+  },
   props: {
     value2: String
   },
   data() {
     return {
+      valid: true,
       msg: "",
       newName:'',
       input_image: null,
-      uploadImageUrl: ''
+      uploadImageUrl: '',
+      rules:{
+        required: (value) => !!value || '変更したい名前を入力してください',
+        newName: (value) => {
+         return value.length <= 10 || "10文字以内で入力してください";
+      },
+      }
    }
   },
   computed:{
@@ -134,6 +154,9 @@ export default {
     // },
 
     updateUserName(){
+      const result = this.$refs.form.validate();
+      console.log('名前変更', result);
+
       axios.post("/get/updateUserName", {loginUser : this.$store.state.loginUser, name: this.newName})
       .then((res) => {
           this.setLoginUser(res.data);
@@ -143,8 +166,9 @@ export default {
         .catch((error) => {
           alert("編集失敗");
           console.log("編集失敗" + error);
-        });
-
+//         });
+// }
+  });
     },
 
     updateName: function() {
@@ -154,7 +178,8 @@ export default {
 
      onClickButton: function() {
       this.$emit("input", this.msg);
-    }
+    },
+
 
   },
   watch: {
