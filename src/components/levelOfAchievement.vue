@@ -1,40 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <v-container>
-    <h2 style="text-align: center">みんなの達成度</h2>
-    <v-row>
-      <v-col cols="12" sm="6" offset-sm="3">
-        <v-card>
-          <v-container>
-            <v-row>
-              <v-col>
-                <v-data-table :headers="headers" :items="userList">
-                  <template v-slot:[`item.name`]="{ item }">
-                    <router-link :to="{ name: 'userpage', params: { name: item.name } }">
-                      {{ item.name }}
-                    </router-link>
-                  </template>
-                  <template>
-                    {{ getContinuationDays }}
-                  </template>
-                  <template v-slot:[`item.id`]="{ item }">
-                    <v-btn v-if="followStatus === 0" color="light-green accent-2" @click="followRequest(item)">フォロー申請</v-btn>
-                    <v-btn v-else-if="followStatus === 1" color="light-green" @click="applying(item)">申請中</v-btn>
-                    <v-btn v-else-if="followStatus === 2" color="light-green accent-1" @click="follow(item)">フォロー済み</v-btn>
-                  </template>
-                </v-data-table>
-
-                <div>
-                  <p>COUNT!!! : {{ doubleCount }}</p>
-                  <v-btn @click="increment2(2)">+2</v-btn>
-                </div>
-              </v-col>
-            </v-row>
-          </v-container>
-
-          <NyokkiFlower></NyokkiFlower>
-
-=======
 <v-container>
   <h2 style="text-align: center">みんなの達成度</h2>
   <v-row>
@@ -79,7 +43,6 @@
   
         <NyokkiFlower></NyokkiFlower> 
        
->>>>>>> levelOfAchivement
           <!-- <v-list two-line>
           <template v-for="(item, index) in items.slice(0, 6)" :to="user.link">
             <v-subheader
@@ -188,17 +151,15 @@ export default {
         })
         return followingList;
       },
-    },
+    }
+  },
     created() {
       console.log("ログインユーザーID" +JSON.stringify(this.$store.state.loginUser))
       axios.post("/get/allUserInformation",{ loginUser: this.$store.state.loginUser }).then(res => {
        
         this.serverUserList = res.data;
         console.log("resData:"+ JSON.stringify(this.serverUserList));
-        
-
-
-
+      
       })
     },
     methods: {
@@ -250,5 +211,5 @@ export default {
       ]
     })
   }
-}
+
 </script>

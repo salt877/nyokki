@@ -92,20 +92,14 @@ export default {
 
   // doubleCount:state => state.count * 2
   },
-
-
-
-
-    // doubleCount: state => state.count * 2
+  getFollowList(state){
+      console.log("gettersのgetFollowListが呼ばれた、ログインユーザのID:"+state.loginUser.id);
+      console.log("gettersのgetFollowListが呼ばれた、followingId:"+state.followingList.followingId)
+      return state.followingList;         
+  }
     
 }
-    doubleCount: state => state.count * 2,
 
-    getFollowList(state){
-        console.log("gettersのgetFollowListが呼ばれた、ログインユーザのID:"+state.loginUser.id);
-        console.log("gettersのgetFollowListが呼ばれた、followingId:"+state.followingList.followingId)
-        return state.followingList;         
-    }
 
 
 
