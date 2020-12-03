@@ -7,30 +7,35 @@
         <v-container>
           <v-row>
             <v-col> 
-              <v-data-table
-                :headers="headers"
-                :items="userList"
-              >
-                <template v-slot:[`item.name`]="{ item }">
-                  <router-link :to="{name: 'userpage', params: {name: item.name}}">
-                    {{ item.name }}
+              <v-data-table :headers="headers" :items="followingList">
+
+                <template v-slot:[`item.userName`]="{ item }">
+                  <router-link :to="{name: 'userpage', params: {name: item.userName}}">
+                    {{ item.userId }}
+                    {{ item.userName }}
                   </router-link>
                 </template>
+
                 <template>
-                  {{ getContinuationDays }}
+                  {{ item.continuationDays }}
                 </template>
-                <template v-slot:[`item.id`]="{ item }">
-                  <v-btn
-                    color="light-green accent-2"
-                    @click="follow(item)"
-                  >
-                    フォロー申請
-                  </v-btn>
-                </template> 
+                
+                <template v-slot:[`item.userId`]="{ item }">
+                    <v-btn v-if="item.followFlag==null" color="light-green accent-2" @click="followRequest(item)">フォロー申請</v-btn>
+                    <v-btn v-else-if="!item.followFlag" color="light-green" >申請中</v-btn>
+                    <v-btn v-else-if="item.followFlag" color="light-green accent-1">フォロー済み</v-btn>
+                </template>
+
               </v-data-table>
-            <div>
-              <p>COUNT!!! : {{ doubleCount }}</p>
-              <v-btn @click="increment2(2)">+2</v-btn>
+             <!-- <div>
+              <p>ログイン中ユーザーで絞り込んだフォローテーブルのデータ : {{ followingList }}</p>
+            </div> -->
+            <div v-for="user in serverUserList" :key="user.id">
+              <p>このユーザーがフォロー申請してる人</p>
+              <p>id : {{ user.id }}</p>
+              <p>名前 : {{ user.name }}</p>
+              <p>フラグ : {{ user.followFlag }}</p>
+              <hr>
             </div>
             </v-col>
           </v-row> 
@@ -92,10 +97,9 @@
 </template>
 
 <script>
+import axios from 'axios';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
 import { mapGetters } from 'vuex';
-import { mapMutations } from 'vuex';
-//import { mapActions } from 'vuex';
 
   export default {
     components:{
@@ -106,40 +110,65 @@ import { mapMutations } from 'vuex';
     },
     computed: {
       ...mapGetters(["doubleCount","getContinuationDays"]),
-      userList(){
-          return this.$store.state.userList
-      },
       getContinuationDays(){
         return this.$store.getters.getContinuationDays;
       },
-      getUserInfomation (){
+      getUserInfomation(){
         return this.$store.getters.getUserInfomation;
-      }
-      // doubleCount(){
-      //   return this.$store.getters.doubleCount;
-      // }
-    }
-    ,
-    methods: {
-      // increment(){
-      //   this.$store.commit('increment',10);
-      // }
-      ...mapMutations(["increment2"]),
-      increment(){
-        this.$store.dispatch("increment2",2);
       },
-      //...mapActions(["increment"])
-      follow(item){
-        console.log("フォローボタンをクリック！"+JSON.stringify(item.id));
+      followingList(){
+        console.log("フォローテーブルの中身"+this.$store.getters.getFollowList);
+        const userList = this.$store.state.userList;
+        const loginUserId = this.$store.state.loginUser.id;
+        const followingList = [];
 
-        alert("フォロー申請を送ります")
-      }
+        userList.forEach(user => {
+          if(user.id !== loginUserId){
+            let followFlag = null;
+            this.$store.getters.getFollowList.some(following => {
+              console.log(following);
+
+              if(following.followingId === loginUserId && user.id === following.followedId){
+                followFlag = following.followFlag;
+                return true;
+              }
+            })
+            const following = 
+              { userId : user.id, 
+                userName: user.name, 
+                continuationDays: this.$store.getters.getContinuationDays, 
+                followFlag: followFlag
+              };
+            followingList.push(following);
+          }
+        })
+        return followingList;
+      },
+    },
+    created() {
+      console.log("ログインユーザーID" +JSON.stringify(this.$store.state.loginUser))
+      axios.post("/get/allUserInformation",{ loginUser: this.$store.state.loginUser }).then(res => {
+       
+        this.serverUserList = res.data;
+        console.log("resData:"+ JSON.stringify(this.serverUserList));
+        
+
+
+
+      })
+    },
+    methods: {
+      followRequest(item){
+        axios.post("/get/followRequest", { loginUser: this.$store.state.loginUser, followedId: item.userId });
+        alert("フォローするユーザID"+JSON.stringify(item.userId));
+        item.followFlag = false;
+      },
     },
     data: () => ({
       headers: [
         {
           text: 'ユーザー名',
-          value: 'name'
+          value: 'userName'
         }, 
         {
           text: '咲かせた花数🌷',
@@ -147,28 +176,31 @@ import { mapMutations } from 'vuex';
         },
         {
           text: 'フォロー',
-          value: 'id'
+          value: 'userId',
+          sortable: false,
+         
         }
-        
       ],
-      items: [
+      item: [],
+      serverUserList: [],
+      // items: [
 
-       { header: 'たくさんお花を育てているお友達をリスペクトしよう🌱' },
-        { 
-          title: 'ユーザーA',
-          subtitle: '咲かせた花数🌷：10🌸'
-        },
-        { divider: true, inset: true },
-        { 
-          title:  'ユーザーB', 
-          subtitle: '咲かせた花数🌷：50🌸'
-        },
-        { divider: true, inset: true },
-        { 
-          title: 'ユーザーC', 
-          subtitle: '咲かせた花数🌷：100🌸',
-        },
-      ],
+      //  { header: 'たくさんお花を育てているお友達をリスペクトしよう🌱' },
+      //   { 
+      //     title: 'ユーザーA',
+      //     subtitle: '咲かせた花数🌷：10🌸'
+      //   },
+      //   { divider: true, inset: true },
+      //   { 
+      //     title:  'ユーザーB', 
+      //     subtitle: '咲かせた花数🌷：50🌸'
+      //   },
+      //   { divider: true, inset: true },
+      //   { 
+      //     title: 'ユーザーC', 
+      //     subtitle: '咲かせた花数🌷：100🌸',
+      //   },
+      // ],
       user:[
         {name: '詳細' ,icon: 'mdi-account-multiple-outline',link: 'userpage'}
       ]
