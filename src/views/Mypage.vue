@@ -11,7 +11,7 @@
         <v-card-actions>
            <div class="mypage">
            <!-- <ProfileChange :value="newName" @input="newName = $event"/> -->
-        <v-text :value2="newName" @input="newName = $event">ユーザー名：{{ newName }}</v-text>
+        <v-text :value2="newName" @input="newName = $event">ユーザー名：{{ this.$store.state.loginUser.name }}</v-text>
           </div>
         </v-card-actions>
       </v-col>
@@ -50,17 +50,12 @@
       </v-col>
     </v-row>
 
-<v-btn @click="increment2()">UP</v-btn>
+<!-- <v-btn @click="increment2()">UP</v-btn>
 <v-btn @click="setCount2()">SET</v-btn>
 
 <h1>DoubleCount:{{doubleCount}}</h1>
-<h1>Count:{{count}}</h1>
+<h1>Count:{{count}}</h1> -->
 
- <!-- <div class="mypage">
-    <ProfileChange :value="parentMsg" @input="parentMsg = $event"/>
-    <div>入力内容: {{ parentMsg }}</div>
-    <button @click="onClickRandomButton">ランダム</button>
-  </div> -->
 
 
     <v-row>
@@ -90,16 +85,6 @@ import {mapActions} from 'vuex';
     count:'',
     doubleCount:'',
     newName:"",
-     parentMsg: "",
-      fruits: [
-        "オレンジ",
-        "バナナ",
-        "グレープフルーツ",
-        "クランベリー",
-        "レモン",
-        "マンゴー",
-        "キウイフルーツ"
-      ],
     componentName: ['Follow', 'Follower', 'ProfileChange'],
 
     // followingList:[
@@ -155,10 +140,7 @@ import {mapActions} from 'vuex';
       this.setCount(this.doubleCount);
       this.count = this.$store.state.count;
     },
-    onClickRandomButton: function() {
-      const randomIndex = Math.floor(Math.random() * this.fruits.length);
-      this.parentMsg = this.fruits[randomIndex];
-    }
+    
     
   }
     
