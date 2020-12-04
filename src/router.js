@@ -34,7 +34,8 @@ export default new Router({
         children: [
             { path: '/nyokkiFlower', component: NyokkiFlower }
             ]},
-        { name: 'userpage', path: '/userpage/:name', component: Userpage },
+        { name: 'userpage', path: '/userpage/:name', component: Userpage , 
+            props: route => ({ name: String(route.params.name) })}, 
 
         { path: '/manageToDo', component: ManageToDo },
         { path: '/mypage', component: Mypage,

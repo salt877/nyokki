@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <h2>{{ $route.params.name }}さんのページ</h2>
+        <h2>{{ name }}さんのページ</h2>
         
         <v-row>
             <v-col>
@@ -9,15 +9,17 @@
                 </v-avatar>
             </v-col>
             <v-col>
-                <p>咲かせた花数🌷：10🌸 +</p>
+                <p>咲かせた花数🌷：10+</p>
                     <v-avatar size="150" class="userpage-flower">
                         <NyokkiFlower></NyokkiFlower>
                     </v-avatar>
             </v-col>
             <v-col>
                 <v-btn color="light-green accent-2">フォロー申請</v-btn>
-                <!-- フォロー済の場合-->
-                <!-- <v-btn color="green">フォロー中</v-btn> -->
+                <!-- フォロー申請中の場合 -->
+                <v-btn color="light-green" @click="applying(item)">申請中</v-btn>
+                <!-- フォロー済みの場合 -->
+                <v-btn color="light-green accent-1" @click="follow(item)">フォロー済み</v-btn>
             </v-col>
         </v-row>
         <v-row>
@@ -49,6 +51,9 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       CalendarComponent,
       NyokkiFlower
     },
+    props: {
+        name: String
+    }
   };
 </script>
 

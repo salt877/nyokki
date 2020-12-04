@@ -5,6 +5,7 @@ import vuetify from './plugins/vuetify';
 import axios from 'axios'
 import store from './store';
 import firebase from 'firebase';
+// import VeeValidate from 'vee-validate';
 
 Vue.config.productionTip = false
 
@@ -27,5 +28,6 @@ new Vue({
   router: router,
   store,
   vuetify,
+  // VeeValidate,
   render: h => h(App),
 }).$mount('#app')
