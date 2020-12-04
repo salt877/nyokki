@@ -14,7 +14,7 @@
           </v-card-title>
           <v-card-text v-for="todo in todos" :key="todo.id">
             {{ todo.task }}
-            <v-btn elevation="2" fab x-small color="gray">
+            <v-btn elevation="2" fab x-small color="gray" @click="daleteTodo(todo.task)">
               <v-icon>
                 mdi-minus
               </v-icon>
@@ -61,6 +61,7 @@ export default {
           this.setTodoList(res.data);
           alert("登録完了");
           router.push("/");
+
           this.todos = [];
         })
         .catch((error) => {
@@ -70,6 +71,16 @@ export default {
     },
     copyToDo() {
       console.log("保存");
+    },
+    daleteTodo(task) {
+      console.log(task);
+
+      for (var num in this.todos) {
+        if (this.todos[num].task === task) {
+          this.todos.splice(num, 1);
+        }
+      }
+      console.log("削除");
     },
   },
   created() {
