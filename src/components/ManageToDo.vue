@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h2>ToDo管理</h2>
-    <h3>達成率：○○％</h3>
+    <h3>達成率：{{ achievementRate }}％</h3>
     <div id="box1" class="task-box">
       <draggable tag="ul" :options="{ group: 'ITEMS' }" v-model="incompletes">
         <li v-for="incomplete in incompletes" :key="incomplete.no">{{ incomplete.task }}</li>
@@ -40,10 +40,18 @@ export default {
     for (var num in this.$store.state.todoList) {
       if (this.$store.state.todoList[num].status === 1) {
         this.incompletes.push(this.$store.state.todoList[num]);
-      } else if (this.$store.state.todoList[num].status === 2) {
+      } else {
         this.completes.push(this.$store.state.todoList[num]);
       }
     }
+    console.log("未完了" + this.incompletes);
+    console.log("完了" + this.completes);
+  },
+  computed: {
+    achievementRate() {
+      var rate = (this.completes.length / (this.incompletes.length + this.completes.length)) * 100;
+      return Math.round(rate);
+    },
   },
   methods: {
     ...mapActions(["setTodoList"]),
