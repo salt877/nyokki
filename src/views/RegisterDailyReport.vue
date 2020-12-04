@@ -50,7 +50,7 @@
             <v-card-title>
               所感
             </v-card-title>
-            <ValidationProvider v-slot="{ errors }" name="impression" rules="required">
+            <ValidationProvider v-slot="{ errors }" name="impression" rules="selectRequired">
               <v-textarea class="mt-0" auto-grow rows="3" v-model="impression" placeholder="所感" :error-messages="errors"> </v-textarea>
             </ValidationProvider>
             <v-card-actions>
@@ -70,9 +70,39 @@
 import axios from "axios";
 import router from "../router";
 import { mapActions } from "vuex";
+import { ValidationProvider, ValidationObserver } from "vee-validate";
+import { extend } from "vee-validate";
+
+//バリデーションルール
+//（未選択）
+extend("selectRequired", {
+  validate(value) {
+    return {
+      required: true,
+      valid: ["", null, undefined].indexOf(value) === -1,
+    };
+  },
+  message: "選択必須です",
+  computesRequired: true,
+});
+//(未入力)
+extend("required", {
+  validate(value) {
+    return {
+      required: true,
+      valid: ["", null, undefined].indexOf(value) === -1,
+    };
+  },
+  message: "入力必須です",
+  computesRequired: true,
+});
 
 export default {
   name: "RegisterDailyReport",
+  components: {
+    ValidationProvider,
+    ValidationObserver,
+  },
   data() {
     return {
       errors: "",
