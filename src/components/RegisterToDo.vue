@@ -73,14 +73,12 @@ export default {
       console.log("保存");
     },
     daleteTodo(task) {
-      console.log(task);
-
       for (var num in this.todos) {
         if (this.todos[num].task === task) {
           this.todos.splice(num, 1);
         }
       }
-      console.log("削除");
+      console.log(this.todos);
     },
   },
   created() {
