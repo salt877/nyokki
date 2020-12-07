@@ -21,13 +21,12 @@
                 </template>
                 
                 <template v-slot:[`item.userId`]="{ item }">
-                    <v-btn v-if="item.followFlag==null" color="light-green accent-4" @click="followRequest(item)">フォロー申請</v-btn>
+                    <v-btn v-if="item.followFlag==null" color="light-green accent-1" @click="followRequest(item)">フォロー申請</v-btn>
                     <v-btn v-else-if="!item.followFlag" color="light-green" >申請中</v-btn>
-                    <v-btn v-else-if="item.followFlag" color="light-green accent-2">フォロー済み</v-btn>
+                    <v-btn v-else-if="item.followFlag" color="light-green accent-2" disabled>フォロー済み</v-btn>
                 </template>
 
               </v-data-table>
-             <p>{{ newUserList }}</p>
             <p>全ユーザーリスト</p>
             <div v-for="user in newUserList" :key="user.id">
               <p>ユーザID : {{ user.userId }}</p>
@@ -118,12 +117,7 @@ export default {
     getUserInfomation(){
       return this.$store.getters.getUserInfomation;
     },
-    // allUserList(){
-    //   console.log("allUserListが呼ばれた");
-    //   let allUserList = this.$created();
-    //   console.log("allUserList"+JSON.stringify(allUserList));
-
-
+ 
     //   return this.userList;
     // }
       // followingList(){
@@ -167,11 +161,18 @@ export default {
         console.log("ログインユーザID:"+ loginUserId);
 
         this.allUserList.some(user => {
-          
+
+          let flowerCount = user.continuationDays / 32;
+          if( flowerCount < 1){
+            flowerCount = 0;
+          } else if(flowerCount >= 1){
+            Math.floor(flowerCount);
+          }
+
           const createUserList = {
             userId: user.id,
             userName: user.name,
-            continuationDays: user.continuationDays,
+            continuationDays: flowerCount,
             followFlag: user.followFlag,
             followingId: user.followingId,
             followedId: user.followedId
