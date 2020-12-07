@@ -1,4 +1,7 @@
 export default {
+  resetState({ commit }) {
+    commit("resetState");
+  },
   setLoginUser({ commit }, loginUser) {
     commit("setLoginUser", loginUser);
     console.log("setLoginUserのActionsを呼び出しました");

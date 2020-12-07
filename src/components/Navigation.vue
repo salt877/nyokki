@@ -41,7 +41,7 @@
 
 <script>
 import firebase from "firebase";
-
+import { mapActions } from "vuex";
 export default {
   name: "Sidebar",
   data() {
@@ -62,6 +62,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["resetState"]),
     // ログアウト処理
     logout() {
       if (confirm("ログアウトしてもよろしいですか？")) {
@@ -70,15 +71,16 @@ export default {
           .signOut()
           .then(() => {
             // ログアウト時にローカルストレージのストアの中身を消去
+            this.resetState();
             localStorage.removeItem("vuex");
             console.log("ログアウト成功！");
             alert("ログアウトしました。");
             this.$router.push("/signIn");
-          })
-          .catch((error) => {
-            console.log("ログアウト失敗" + error);
-            alert("ログアウトに失敗しました");
           });
+        // .catch((error) => {
+        //   console.log("ログアウト失敗" + error);
+        //   alert("ログアウトに失敗しました");
+        // });
       }
     },
   },

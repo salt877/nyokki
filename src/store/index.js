@@ -89,7 +89,6 @@ var initializeState = defaultState();
 export default new Vuex.Store({
   state: {
     initializeState,
-    count: 0,
   },
   mutations,
   getters,

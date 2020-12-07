@@ -1,4 +1,7 @@
 export default {
+  resetState(state) {
+    Object.assign(state, state.initializeState);
+  },
   setLoginUser(state, loginUser) {
     state.loginUser = loginUser;
     console.log("setLoginUserのmutationが呼ばれました");
