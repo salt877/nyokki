@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import moment from 'moment';
 import MonthlyReport from './MonthlyReport';
 import DailyReport from './DailyReport';
@@ -65,6 +66,10 @@ export default {
     viewDay({ date }) {
       alert(`date: ${date}`);
       this.componentName = 'DailyReport';
+
+      axios.get("/get/showDailyReports",{params: date}).then(res => {
+        console.log("カレンダー通信成功"+res.data);
+      })
     },
     getEvents() {
       const events = [
