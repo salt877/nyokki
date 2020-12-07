@@ -30,7 +30,7 @@
           <v-card-actions>
             <v-btn color="warning" @click="componentName='Follow'">フォロー一覧</v-btn>
         <v-card-actions>
-        <v-text>フォロー数：{{followingLength}}人</v-text>
+        <v-text>フォロー数：{{ followingLength }}人</v-text>
         </v-card-actions>
         </v-card-actions>
           
@@ -86,7 +86,6 @@ import {mapActions} from 'vuex';
     doubleCount:'',
     newName:"",
     componentName: ['Follow', 'Follower', 'ProfileChange'],
-
     // followingList:[
     //   {
     //   id:"",
@@ -113,16 +112,29 @@ import {mapActions} from 'vuex';
       NyokkiFlower
     },
     created(){
-  this.setCount(1);
+    this.setCount(1);
 
 
     },
     computed:{
       ...mapGetters(["doubleCount", "followingLength", "followedLength"]),
+      //フォロー中の人数を表示
+      followingLength(){
+        let allFollowingList = this.$store.state.followingList;
+        let followingList = [];
+
+        allFollowingList.forEach(follow => {
+          const followFlag = follow.followFlag;
+          if(followFlag === true){
+            followingList.push(this.allFollowingList);
+          }
+        })
+        return followingList.length;
+      },
   
     count:function(){
       return this.$store.getters.count;
-    }
+    },
 
   },
   methods:{
@@ -140,7 +152,6 @@ import {mapActions} from 'vuex';
       this.setCount(this.doubleCount);
       this.count = this.$store.state.count;
     },
-    
     
   }
     

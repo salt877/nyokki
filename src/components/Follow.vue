@@ -1,5 +1,13 @@
 <template>
 <v-container>
+  <div v-for="user in newUserList" :key="user.userId">
+    <p>ユーザID : {{ user.userId }}</p>
+    <p>名前 : {{ user.userName }}</p>
+    <p>フラグ : {{ user.followFlag }}</p>
+    <p>フォローする側のユーザID（ログインユーザID）: {{ user.followingId }}</p>
+    <p>フォローされるID（ユーザIDと一致のはず）:{{ user.followedId}}</p>
+    <hr>
+  </div>
   <h2 style="text-align: center">フォローしている人</h2>
   <v-row>
     <v-col
@@ -9,7 +17,7 @@
     >
       <v-card>
         <v-list two-line>
-          <template v-for="(item, index) in items.slice(0, 6)">
+          <template v-for="(item, index) in newUserList.slice(0, 6)">
             <v-subheader
               v-if="item.header"
               :key="item.header"
@@ -31,8 +39,9 @@
               </v-list-item-avatar>
                 </v-col>
               <v-list-item-content>
-                <v-list-item-title v-html="item.title"></v-list-item-title>
-                <v-list-item-subtitle v-html="item.subtitle">
+                <v-list-item-title v-html="item.userName"></v-list-item-title>
+                咲かせた花数🌷:
+                <v-list-item-subtitle v-html="item.continuationDays">
                 </v-list-item-subtitle>
                 <v-col></v-col>
                 <v-col>
@@ -42,16 +51,13 @@
                 </v-col>
               </v-list-item-content>
 
-
               <v-list-item-action>
                 <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
-
-              <v-btn
-                color="pink lighten-4"
-                @click="addNewCard()"
-               >フォロー解除😇</v-btn>
+                <v-btn
+                  color="pink lighten-4"
+                  @click="addNewCard()"
+                >フォロー解除😇</v-btn>
               </v-list-item-action>
-
             </v-list-item>
           </template>
         </v-list>
@@ -63,6 +69,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
 
   export default {
@@ -76,13 +83,63 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
         title: 'ユーザーD',
         subtitle: '咲かせた花数🌷：10🌸'},
         { divider: true, inset: true },
-        { 
-        title: 'ユーザーE', subtitle: '咲かせた花数🌷：50🌸'},
-        { divider: true, inset: true },
-        { title: 'ユーザーF', 
-        subtitle: '咲かせた花数🌷：100🌸',
-         },
       ],
+       newUserList: [],
     }),
+    created() {
+      console.log("マイページのフォローコンポーネントを開いた");
+
+       axios.post("/get/followList",{ loginUser: this.$store.state.loginUser }).then(res=> {
+
+        this.allUserList = res.data;
+        const loginUserId = this.$store.state.loginUser.id;
+        const newUserList = [];
+
+        this.allUserList.some(user => {
+
+          let flowerCount = user.continuationDays / 32;
+          if( flowerCount < 1){
+            flowerCount = 0;
+          } else if(flowerCount >= 1){
+            Math.floor(flowerCount);
+          }
+
+          const createUserList = {
+            userId: user.id,
+            userName: user.name,
+            continuationDays: flowerCount,
+            followFlag: user.followFlag,
+            followingId: user.followingId,
+            followedId: user.followedId
+          };
+          if(user.followingId === null || user.followedId){
+            user.followingId = null;
+            user.followedId = null;
+          }
+          
+        //followingIdとloginUserIdが一致しないなら
+        if(user.followingId !== loginUserId){
+          user.followFlag = null;
+
+        //followingIdとLoginUserIdが一致してfollowFlagがfalse
+        } else if(user.followingId === loginUserId && user.followFlag === false){
+          user.followFlag = false;
+          
+        }
+       //loginUserのデータは表示しない
+       if(user.id === loginUserId){
+         console.log("ログインユーザーとIDが一致したものは表示したくない:"+loginUserId)
+      
+        } else {
+          newUserList.push(createUserList); 
+
+        }
+        console.log("表示したいユーザー:"+JSON.stringify(createUserList));
+        
+        })
+        console.log("このuserListを返す"+JSON.stringify(newUserList));
+        this.newUserList = newUserList;
+      })
+    }
   }
 </script>

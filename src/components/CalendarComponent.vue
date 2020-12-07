@@ -64,10 +64,10 @@ export default {
       alert(`clicked ${event.name}`);
     },
     viewDay({ date }) {
-      alert(`date: ${date}`);
+      alert(`date: ${date}` + this.userId);
       this.componentName = 'DailyReport';
 
-      axios.get("/get/showDailyReports",{params: date}).then(res => {
+      axios.get("/get/showDailyReports",{params:date }).then(res => {
         console.log("カレンダー通信成功"+res.data);
       })
     },
