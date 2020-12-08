@@ -9,7 +9,7 @@
     >
       <v-card>
         <v-list two-line>
-          <template v-for="(item, index) in newUserList.slice(0, 6)">
+          <template v-for="(item, index) in followUserList.slice(0, 6)">
             <v-subheader
               v-if="item.header"
               :key="item.header"
@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
 
   export default {
@@ -76,19 +75,18 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
         subtitle: '咲かせた花数🌷：10🌸'},
         { divider: true, inset: true },
       ],
-       newUserList: [],
+      followUserList:[]
     }),
-    created() {
-      console.log("マイページのフォローコンポーネントを開いた");
+    props: ["number","newUserList"],
+      created(){
 
-       axios.post("/get/followList",{ loginUser: this.$store.state.loginUser }).then(res=> {
+        console.log("aaa:"+JSON.stringify(this.newUserList));
 
-        this.allUserList = res.data;
-        const loginUserId = this.$store.state.loginUser.id;
-        const newUserList = [];
+        let followUserList = [];
 
-        this.allUserList.some(user => {
-
+        this.newUserList.forEach(user => {
+          
+          console.log("名前"+ user.userName);
           let flowerCount = user.continuationDays / 32;
           if( flowerCount < 1){
             flowerCount = 0;
@@ -97,41 +95,82 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
           }
 
           const createUserList = {
-            userId: user.id,
-            userName: user.name,
+            userId: user.userId,
+            userName: user.userName,
             continuationDays: flowerCount,
             followFlag: user.followFlag,
             followingId: user.followingId,
             followedId: user.followedId
           };
-          if(user.followingId === null || user.followedId){
-            user.followingId = null;
-            user.followedId = null;
+          if(user.followFlag === false){
+            console.log("フラグがfalse!"+ user.userName);
+            return ;
+          } else if(user.followFlag === true) {
+            followUserList.push(createUserList); 
           }
-          
-        //followingIdとloginUserIdが一致しないなら
-        if(user.followingId !== loginUserId){
-          user.followFlag = null;
-
-        //followingIdとLoginUserIdが一致してfollowFlagがfalse
-        } else if(user.followingId === loginUserId && user.followFlag === false){
-          user.followFlag = false;
-          
-        }
-       //loginUserのデータは表示しない
-       if(user.id === loginUserId){
-         console.log("ログインユーザーとIDが一致したものは表示したくない:"+loginUserId)
-      
-        } else {
-          newUserList.push(createUserList); 
-
-        }
+       
         console.log("表示したいユーザー:"+JSON.stringify(createUserList));
         
         })
-        console.log("このuserListを返す"+JSON.stringify(newUserList));
-        this.newUserList = newUserList;
-      })
+        console.log("このuserListを返す"+JSON.stringify(followUserList));
+        this.followUserList = followUserList;
+    
+      
     }
+    // created() {
+    //   console.log("マイページのフォローコンポーネントを開いた");
+
+    //    axios.post("/get/followList",{ loginUser: this.$store.state.loginUser }).then(res=> {
+
+    //     this.allUserList = res.data;
+    //     const loginUserId = this.$store.state.loginUser.id;
+    //     const newUserList = [];
+
+    //     this.allUserList.some(user => {
+
+    //       let flowerCount = user.continuationDays / 32;
+    //       if( flowerCount < 1){
+    //         flowerCount = 0;
+    //       } else if(flowerCount >= 1){
+    //         Math.floor(flowerCount);
+    //       }
+
+    //       const createUserList = {
+    //         userId: user.id,
+    //         userName: user.name,
+    //         continuationDays: flowerCount,
+    //         followFlag: user.followFlag,
+    //         followingId: user.followingId,
+    //         followedId: user.followedId
+    //       };
+    //       if(user.followingId === null || user.followedId){
+    //         user.followingId = null;
+    //         user.followedId = null;
+    //       }
+          
+    //     //followingIdとloginUserIdが一致しないなら
+    //     if(user.followingId !== loginUserId){
+    //       user.followFlag = null;
+
+    //     //followingIdとLoginUserIdが一致してfollowFlagがfalse
+    //     } else if(user.followingId === loginUserId && user.followFlag === false){
+    //       user.followFlag = false;
+          
+    //     }
+    //    //loginUserのデータは表示しない
+    //    if(user.id === loginUserId){
+    //      console.log("ログインユーザーとIDが一致したものは表示したくない:"+loginUserId)
+      
+    //     } else {
+    //       newUserList.push(createUserList); 
+
+    //     }
+    //     console.log("表示したいユーザー:"+JSON.stringify(createUserList));
+        
+    //     })
+    //     console.log("このuserListを返す"+JSON.stringify(newUserList));
+    //     this.newUserList = newUserList;
+    //   })
+    // }
   }
 </script>

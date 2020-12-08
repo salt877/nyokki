@@ -20,16 +20,15 @@
         <NyokkiFlower></NyokkiFlower>
         </v-list-item-avatar>
       </v-col>
-      <v-col>
-      </v-col>
+    
     </v-row>
     <br>
     <br>
     <v-row>
       <v-col>
-          <v-card-actions>
+          <v-card-actions >
             <v-btn color="warning" @click="componentName='Follow'">フォロー一覧</v-btn>
-        <v-card-actions>
+        <v-card-actions> 
         <v-text>フォロー数：{{ followingLength }}人</v-text>
         </v-card-actions>
         </v-card-actions>
@@ -37,7 +36,7 @@
       </v-col>
       <v-col>
         <v-card-actions>
-            <v-btn color="warning" @click="componentName='Follower'">フォロワー一覧</v-btn>
+            <v-btn color="warning" @click="componentName='Follower'" >フォロワー一覧</v-btn>
         <v-card-actions>
         <v-text>フォロワー数：{{ followedLength }}人</v-text>
         </v-card-actions>
@@ -61,7 +60,7 @@
     <v-row>
       <v-col>
         <v-card>
-           <component :is="componentName"></component>
+           <component :is="componentName" :number="number" :newUserList="newUserList"></component>
         </v-card>
       </v-col>
     </v-row>
@@ -71,6 +70,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import ProfileChange from '../components/ProfileChange.vue';
 import Follow from '../components/Follow.vue';
 import Follower from '../components/Follower.vue';
@@ -82,26 +82,18 @@ import {mapActions} from 'vuex';
   export default {
     name: "Mypage",
     data: () => ({
-    count:'',
-    doubleCount:'',
-    newName:"",
-    componentName: ['Follow', 'Follower', 'ProfileChange'],
-    // followingList:[
-    //   {
-    //   id:"",
-    //   followFlag:"",
-    //   followingId:"",
-    //   followedId:""
-    // }
-    // ],
-     userList:[
+      count: '',
+      doubleCount: '',
+      newName: "",
+      componentName: ['Follow', 'Follower', 'ProfileChange'],
+      newUserList:[
       {
-        id:"",
-        name:"",
-        gmail:"",
-        continuationDays:"",
-        firstdayContinuation: "",
-        levelAchievement:"",
+        userId: "",
+        userName: "",
+        continuationDays: "",
+        followFlag: "",
+        followingId: "",
+        followedId: ""
       }
     ],
   }),
@@ -114,6 +106,53 @@ import {mapActions} from 'vuex';
     created(){
     this.setCount(1);
 
+       console.log("マイページを開いた");
+
+       axios.post("/get/followList",{ loginUser: this.$store.state.loginUser }).then(res=> {
+
+        this.allUserList = res.data;
+        console.log("マイページ:"+JSON.stringify(this.allUserList));
+        const loginUserId = this.$store.state.loginUser.id;
+        const newUserList = [];
+
+        this.allUserList.some(user => {
+
+          const createUserList = {
+            userId: user.id,
+            userName: user.name,
+            continuationDays: user.continuationDays,
+            followFlag: user.followFlag,
+            followingId: user.followingId,
+            followedId: user.followedId
+          };
+          if(user.followingId === null || user.followedId){
+            user.followingId = null;
+            user.followedId = null;
+          }
+          
+        //followingIdとloginUserIdが一致しないなら
+        if(user.followingId !== loginUserId){
+          user.followFlag = null;
+
+        //followingIdとLoginUserIdが一致してfollowFlagがfalse
+        } else if(user.followingId === loginUserId && user.followFlag === false){
+          user.followFlag = false;
+          
+        }
+       //loginUserのデータは表示しない
+       if(user.id === loginUserId){
+         console.log("ログインユーザーとIDが一致したものは表示したくない:"+loginUserId)
+      
+        } else {
+          newUserList.push(createUserList); 
+
+        }
+        console.log("表示したいユーザー:"+JSON.stringify(createUserList));
+        
+        })
+        console.log("このuserListを返す"+JSON.stringify(newUserList));
+        this.newUserList = newUserList;
+      })
 
     },
     computed:{
