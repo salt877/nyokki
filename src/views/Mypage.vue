@@ -39,7 +39,7 @@
         <v-card-actions>
             <v-btn color="warning" @click="componentName='Follower'">フォロワー一覧</v-btn>
         <v-card-actions>
-        <v-text>フォロワー数：{{followedLength}}人</v-text>
+        <v-text>フォロワー数：{{ followedLength }}人</v-text>
         </v-card-actions>
         </v-card-actions>
       </v-col>
@@ -126,6 +126,18 @@ import {mapActions} from 'vuex';
         allFollowingList.forEach(follow => {
           const followFlag = follow.followFlag;
           if(followFlag === true){
+            followingList.push(this.allFollowingList);
+          }
+        })
+        return followingList.length;
+      },
+       followedLength(){
+        let allFollowingList = this.$store.state.followingList;
+        let followingList = [];
+
+        allFollowingList.forEach(follow => {
+          const followFlag = follow.followFlag;
+          if(followFlag === false){
             followingList.push(this.allFollowingList);
           }
         })

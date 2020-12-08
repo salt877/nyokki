@@ -1,13 +1,5 @@
 <template>
 <v-container>
-  <div v-for="user in newUserList" :key="user.userId">
-    <p>ユーザID : {{ user.userId }}</p>
-    <p>名前 : {{ user.userName }}</p>
-    <p>フラグ : {{ user.followFlag }}</p>
-    <p>フォローする側のユーザID（ログインユーザID）: {{ user.followingId }}</p>
-    <p>フォローされるID（ユーザIDと一致のはず）:{{ user.followedId}}</p>
-    <hr>
-  </div>
   <h2 style="text-align: center">フォローしている人</h2>
   <v-row>
     <v-col

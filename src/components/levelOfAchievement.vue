@@ -27,15 +27,6 @@
                 </template>
 
               </v-data-table>
-            <p>全ユーザーリスト</p>
-            <div v-for="user in newUserList" :key="user.id">
-              <p>ユーザID : {{ user.userId }}</p>
-              <p>名前 : {{ user.userName }}</p>
-              <p>フラグ : {{ user.followFlag }}</p>
-              <p>フォローする側のユーザID（ログインユーザID）: {{ user.followingId }}</p>
-              <p>フォローされるID（ユーザIDと一致のはず）:{{ user.followedId}}</p>
-              <hr>
-            </div>
             </v-col>
           </v-row> 
     </v-container>
@@ -197,7 +188,6 @@ export default {
       
         } else {
           newUserList.push(createUserList); 
-
         }
         console.log("表示したいユーザー:"+JSON.stringify(createUserList));
         
