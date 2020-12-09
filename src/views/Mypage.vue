@@ -60,7 +60,7 @@
     <v-row>
       <v-col>
         <v-card>
-           <component :is="componentName" :number="number" :newUserList="newUserList"></component>
+           <component :is="componentName" :followList="followList" :followerList="followerList"></component>
         </v-card>
       </v-col>
     </v-row>
@@ -86,16 +86,6 @@ import {mapActions} from 'vuex';
       doubleCount: '',
       newName: "",
       componentName: ['Follow', 'Follower', 'ProfileChange'],
-      newUserList:[
-      {
-        userId: "",
-        userName: "",
-        continuationDays: "",
-        followFlag: "",
-        followingId: "",
-        followedId: ""
-      }
-    ],
   }),
     components:{
       ProfileChange,
@@ -108,52 +98,14 @@ import {mapActions} from 'vuex';
 
        console.log("マイページを開いた");
 
-       axios.post("/get/followList",{ loginUser: this.$store.state.loginUser }).then(res=> {
+       axios.post("/get/followAndFollowerList",{ loginUser: this.$store.state.loginUser }).then(res=> {
 
-        this.allUserList = res.data;
-        console.log("マイページ:"+JSON.stringify(this.allUserList));
-        const loginUserId = this.$store.state.loginUser.id;
-        const newUserList = [];
+        const followList = res.data.followList;
+        const followerList = res.data.followerList;
 
-        this.allUserList.some(user => {
-
-          const createUserList = {
-            userId: user.id,
-            userName: user.name,
-            continuationDays: user.continuationDays,
-            followFlag: user.followFlag,
-            followingId: user.followingId,
-            followedId: user.followedId
-          };
-          if(user.followingId === null || user.followedId){
-            user.followingId = null;
-            user.followedId = null;
-          }
-          
-        //followingIdとloginUserIdが一致しないなら
-        if(user.followingId !== loginUserId){
-          user.followFlag = null;
-
-        //followingIdとLoginUserIdが一致してfollowFlagがfalse
-        } else if(user.followingId === loginUserId && user.followFlag === false){
-          user.followFlag = false;
-          
-        }
-       //loginUserのデータは表示しない
-       if(user.id === loginUserId){
-         console.log("ログインユーザーとIDが一致したものは表示したくない:"+loginUserId)
-      
-        } else {
-          newUserList.push(createUserList); 
-
-        }
-        console.log("表示したいユーザー:"+JSON.stringify(createUserList));
-        
-        })
-        console.log("このuserListを返す"+JSON.stringify(newUserList));
-        this.newUserList = newUserList;
-      })
-
+        this.followList = followList;
+        this.followerList = followerList;
+       })
     },
     computed:{
       ...mapGetters(["doubleCount", "followingLength", "followedLength"]),
