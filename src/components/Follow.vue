@@ -9,6 +9,7 @@
     >
       <v-card>
         <v-list two-line>
+          <p>新しいユーザーをフォローしよう！</p>
           <template v-for="(item, index) in followUserList.slice(0, 6)">
             <v-subheader
               v-if="item.header"
@@ -47,7 +48,7 @@
                 <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
                 <v-btn
                   color="pink lighten-4"
-                  @click="addNewCard()"
+                  @click="unfollow(item)"
                 >フォロー解除😇</v-btn>
               </v-list-item-action>
             </v-list-item>
@@ -62,6 +63,7 @@
 
 <script>
 import NyokkiFlower from '../components/NyokkiFlower.vue';
+import axios from 'axios';
 
   export default {
     components:{
@@ -78,8 +80,7 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       followList:[]
     }),
     props: ["followList"],
-      created(){
-     
+    created(){
         let followUserList = [];
 
         this.followList.forEach(user => {
@@ -95,17 +96,25 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
             userId: user.id,
             userName: user.name,
             continuationDays: flowerCount,
+            followingsId: user.followingsId,
             followFlag: user.followFlag,
             followingId: user.followingId,
             followedId: user.followedId
           };
           if(user.followFlag === false){
             return ;
-          } else if(user.followFlag === true) {
+          } else {
             followUserList.push(createUserList); 
           }
+           
         })
         this.followUserList = followUserList;
+    },
+    methods: {
+      unfollow(item){
+        axios.post("/get/unFollow",{followingsId: item.followingsId});
+          console.log(item.followingsId);
+      }
     }
   }
 </script>
