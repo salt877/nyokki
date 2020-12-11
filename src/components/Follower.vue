@@ -19,18 +19,18 @@
 
               <v-list-item-content>
                 <v-list-item-title v-html="item.userName"></v-list-item-title>
+                {{ item.followingsId }}
               </v-list-item-content>
 
               <v-list-item-action> 
                 <v-list-item-action-text></v-list-item-action-text>
                   <v-card-actions>
-                    <v-btn color="amber darken-1" v-if="item.followFlag==true" @click="addNewCard()">フォロー許可済</v-btn>
+                    <v-btn color="amber darken-1" v-if="item.followFlag===true" v-model="followFlag" disabled>フォロー許可済</v-btn>
                   </v-card-actions>
-                  <v-card-actions v-if="item.followFlag==false">
-                    <v-btn color="light-blue lighten-3"  @click="addNewCard()">承認⭕️</v-btn>
-                    <v-btn color="pink lighten-4" @click="addNewCard()">否認❌</v-btn>
+                  <v-card-actions v-if="item.followFlag===false" v-model="followFlag">
+                    <v-btn color="light-blue lighten-3"  @click="approve(item)">承認⭕️</v-btn>
+                    <v-btn color="pink lighten-4" @click="deny()">否認❌</v-btn>
                   </v-card-actions>
-                 
               </v-list-item-action>
             </v-list-item>
           </template>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import axios from 'axios';
   export default {
     data: () => ({
       // items: [
@@ -59,8 +60,10 @@
       //    },
       // ],
       item: [{
-        value: 'userId'
+        value: 'userId',
       }],
+      followFlag: true,
+      followerUserList:[],
     }),
     props: ["followerList"],
     created() {
@@ -71,15 +74,35 @@
           const createUserList = {
             userId: user.id,
             userName: user.name,
+            followingsId: user.followingsId,
             followFlag: user.followFlag,
             followingId: user.followingId,
             followedId: user.followedId
           };
-          
             followerUserList.push(createUserList); 
 
         })
         this.followerUserList = followerUserList;
+    },
+    methods: {
+      approve(item){
+        axios.post("/get/approveFollowRequest",{loginUser: this.$store.state.loginUser, followingsId: item.followingsId,followFlag: item.followFlag,
+          followingId: item.followingId,followedId: item.followedId });
+          alert("フォローを許可を承認しました。");
+          item.followFlag = true;
+          console.log(this.followerUserList);
+
+          let followedLength = [];
+
+          this.followerUserList.forEach(follower => {
+            if(follower.followFlag === false){
+              return;
+              } else if(follower.followFlag === true){
+              followedLength.push(follower);
+            }
+          })
+              this.$emit("followedLength", followedLength.length);
+      }
     }
   }
 </script>

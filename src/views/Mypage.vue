@@ -38,7 +38,7 @@
         <v-card-actions>
             <v-btn color="warning" @click="componentName='Follower'" >フォロワー一覧</v-btn>
         <v-card-actions>
-        <v-text>フォロワー数：{{ followedLength }}人</v-text>
+          <v-text>フォロワー数：{{ followedLength }}人</v-text>
         </v-card-actions>
         </v-card-actions>
       </v-col>
@@ -60,7 +60,7 @@
     <v-row>
       <v-col>
         <v-card>
-           <component :is="componentName" :followList="followList" :followerList="followerList"></component>
+           <component :is="componentName" :followList="followList" :followerList="followerList" @followedLength="followedLength=$event"></component>
         </v-card>
       </v-col>
     </v-row>
@@ -75,7 +75,7 @@ import ProfileChange from '../components/ProfileChange.vue';
 import Follow from '../components/Follow.vue';
 import Follower from '../components/Follower.vue';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
-import {mapGetters} from 'vuex';
+//import {mapGetters} from 'vuex';
 import {mapMutations} from 'vuex';
 import {mapActions} from 'vuex';
 
@@ -86,6 +86,8 @@ import {mapActions} from 'vuex';
       doubleCount: '',
       newName: "",
       componentName: ['Follow', 'Follower', 'ProfileChange'],
+      followingLength: [],
+      followedLength: []
   }),
     components:{
       ProfileChange,
@@ -96,49 +98,37 @@ import {mapActions} from 'vuex';
     created(){
     this.setCount(1);
 
-       console.log("マイページを開いた");
 
        axios.post("/get/followAndFollowerList",{ loginUser: this.$store.state.loginUser }).then(res=> {
-
+         
         const followList = res.data.followList;
         const followerList = res.data.followerList;
 
         this.followList = followList;
         this.followerList = followerList;
+
+        console.log("マイページを開いた"+JSON.stringify(this.followerList));
+        
+        //フォローしている人数
+        const followingLength = [];
+        this.followList.forEach(follow => {
+          followingLength.push(follow);
+        })
+
+        this.followingLength = followingLength.length;
+
+        //フォロワー人数
+        const followerLength = [];
+        this.followerList.forEach(follower => {
+          if(follower.followFlag === true){
+            followerLength.push(follower);
+          } 
+        })
+        console.log("フォロー"+JSON.stringify(followingLength));
+        console.log("フォロワーリスト"+JSON.stringify(followerLength));
+        
+        this.followedLength = followerLength.length;
        })
-    },
-    computed:{
-      ...mapGetters(["doubleCount", "followingLength", "followedLength"]),
-      //フォロー中の人数を表示
-      followingLength(){
-        let allFollowingList = this.$store.state.followingList;
-        let followingList = [];
-
-        allFollowingList.forEach(follow => {
-          const followFlag = follow.followFlag;
-          if(followFlag === true){
-            followingList.push(this.allFollowingList);
-          }
-        })
-        return followingList.length;
-      },
-       followedLength(){
-        let allFollowingList = this.$store.state.followingList;
-        let followingList = [];
-
-        allFollowingList.forEach(follow => {
-          const followFlag = follow.followFlag;
-          if(followFlag === false){
-            followingList.push(this.allFollowingList);
-          }
-        })
-        return followingList.length;
-      },
-  
-    count:function(){
-      return this.$store.getters.count;
-    },
-
   },
   methods:{
     ...mapMutations(['increment','setCount']),
