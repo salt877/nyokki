@@ -144,7 +144,7 @@ export default {
   },
   created() {
     axios
-      .get("/get/dairyReport", {
+      .post("/get/dairyReport", {
         loginUser: this.$store.state.loginUser,
       })
       .then((res) => {

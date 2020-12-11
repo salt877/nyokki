@@ -13,6 +13,8 @@ import RegisterToDo from './views/RegisterToDo.vue';
 import Userpage from './components/Userpage.vue';
 import CalendarComponent from './components/CalendarComponent.vue';
 import Chart from './components/Chart.vue';
+import ChartJs from './components/ChartJs.vue';
+import LineChart from './components/LineChart.vue';
 import ProfileChange from './components/ProfileChange.vue';
 import Follow from './components/Follow.vue';
 import Follower from './components/Follower.vue';
@@ -56,6 +58,10 @@ export default new Router({
             children: [
                 { path: '/calendarComponent', component: CalendarComponent },
                 { path: '/chart', component: Chart },
+                { path: '/chartjs', component: ChartJs,
+                    children: [
+                        { path: '/lineChart', component: LineChart},
+                    ] },
             ]
         },
     ]
