@@ -77,7 +77,7 @@ import axios from 'axios';
         subtitle: '咲かせた花数🌷：10🌸'},
         { divider: true, inset: true },
       ],
-      followList:[]
+      followUserList:[]
     }),
     props: ["followList"],
     created(){
@@ -111,9 +111,21 @@ import axios from 'axios';
         this.followUserList = followUserList;
     },
     methods: {
+      //フォロー解除
       unfollow(item){
         axios.post("/get/unFollow",{followingsId: item.followingsId});
           console.log(item.followingsId);
+          console.log(JSON.stringify(this.followUserList));
+          
+          this.followUserList.forEach(follow => {
+            
+            if(item.followingsId === follow.followingsId){
+              alert(follow.userName+"さんのフォローを解除します");
+              let friendIndex = this.followUserList.indexOf(follow);
+              this.followUserList.splice(friendIndex,1);
+            }
+          })
+              this.$emit("followingLength", this.followUserList.length);
       }
     }
   }

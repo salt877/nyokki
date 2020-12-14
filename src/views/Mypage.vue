@@ -60,7 +60,8 @@
     <v-row>
       <v-col>
         <v-card>
-           <component :is="componentName" :followList="followList" :followerList="followerList" @followedLength="followedLength=$event"></component>
+           <component :is="componentName" :followList="followList" :followerList="followerList" 
+            @followedLength="followedLength=$event" @followingLength="followingLength=$event"></component>
         </v-card>
       </v-col>
     </v-row>

@@ -19,7 +19,6 @@
 
               <v-list-item-content>
                 <v-list-item-title v-html="item.userName"></v-list-item-title>
-                {{ item.followingsId }}
               </v-list-item-content>
 
               <v-list-item-action> 
@@ -85,6 +84,7 @@ import axios from 'axios';
         this.followerUserList = followerUserList;
     },
     methods: {
+      //フォローを承認する
       approve(item){
         axios.post("/get/approveFollowRequest",{loginUser: this.$store.state.loginUser, followingsId: item.followingsId,followFlag: item.followFlag,
           followingId: item.followingId,followedId: item.followedId });
