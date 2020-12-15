@@ -16,10 +16,15 @@
                   </router-link>
                 </template>
 
-                <template>
-                  {{ item.continuationDays }}
+                <template v-slot:[`item.continuationDays`]="{ item }">
+                  {{ item.continuationDays }}本+
                 </template>
-                
+
+                <template v-slot:[`item.nyokkiFlower`]="{ item }">
+                   <NyokkiFlower :testData="testData" :flowerStatus="flowerStatus"></NyokkiFlower>  
+                  {{ item.nyokkiFlower }}
+                </template>
+
                 <template v-slot:[`item.userId`]="{ item }">
                     <v-btn v-if="item.followFlag==null" color="light-green accent-1" @click="followRequest(item)">フォロー申請</v-btn>
                     <v-btn v-else-if="!item.followFlag" color="light-green" >申請中</v-btn>
@@ -31,7 +36,7 @@
           </v-row> 
     </v-container>
   
-        <NyokkiFlower></NyokkiFlower> 
+      
        
           <!-- <v-list two-line>
           <template v-for="(item, index) in items.slice(0, 6)" :to="user.link">
@@ -99,57 +104,22 @@ export default {
   },
   computed: {
     ...mapGetters(["doubleCount", "getContinuationDays"]),
-    // userList() {
-    //   return this.$store.state.userList;
-    // },
     getContinuationDays() {
       return this.$store.getters.getContinuationDays;
     },
     getUserInfomation(){
       return this.$store.getters.getUserInfomation;
     },
- 
-    //   return this.userList;
-    // }
-      // followingList(){
-      //   console.log("フォローテーブルの中身"+this.$store.getters.getFollowList);
-      //   const userList = this.$store.state.userList;
-      //   const loginUserId = this.$store.state.loginUser.id;
-      //   const followingList = [];
-
-      //   userList.forEach(user => {
-      //     if(user.id !== loginUserId){
-      //       let followFlag = null;
-      //       this.$store.getters.getFollowList.some(following => {
-      //         console.log(following);
-
-      //         if(following.followingId === loginUserId && user.id === following.followedId){
-      //           followFlag = following.followFlag;
-      //           return true;
-      //         }
-      //       })
-      //       const following = 
-      //         { userId : user.id, 
-      //           userName: user.name, 
-      //           continuationDays: this.$store.getters.getContinuationDays, 
-      //           followFlag: followFlag
-      //         };
-      //       followingList.push(following);
-      //     }
-      //   })
-      //   return followingList;
-      // },
     },
     created() {
-      console.log("ログインユーザーID" +JSON.stringify(this.$store.state.loginUser))
       axios.post("/get/allUserInformation",{ loginUser: this.$store.state.loginUser }).then(res=> {
+
+        const testData = '子コンポーネントに渡す';
+        this.testData = testData;
 
         this.allUserList = res.data;
         const loginUserId = this.$store.state.loginUser.id;
         const newUserList = [];
-
-        console.log("全ユーザーデータ:"+ JSON.stringify(this.allUserList));
-        console.log("ログインユーザID:"+ loginUserId);
 
         this.allUserList.some(user => {
 
@@ -183,23 +153,16 @@ export default {
           
         }
        //loginUserのデータは表示しない
-       if(user.id === loginUserId){
-         console.log("ログインユーザーとIDが一致したものは表示したくない:"+loginUserId)
-      
-        } else {
-          newUserList.push(createUserList); 
-        }
-        console.log("表示したいユーザー:"+JSON.stringify(createUserList));
-        
+       if(user.id !== loginUserId){
+         newUserList.push(createUserList); 
+        } 
         })
-        console.log("このuserListを返す"+JSON.stringify(newUserList));
         this.newUserList = newUserList;
       })
     },
     methods: {
       followRequest(item){
         axios.post("/get/followRequest", { loginUser: this.$store.state.loginUser, followedId: item.userId });
-        alert("フォローするユーザID"+JSON.stringify(item.userId));
         item.followFlag = false;
       },
     },
@@ -214,32 +177,17 @@ export default {
           value: 'continuationDays' 
         },
         {
+          text: '花の状態',
+          value:  'nyokkiFlower'
+        },
+        {
           text: 'フォロー',
           value: 'userId',
-          sortable: false,
-         
+          sortable: false,      
         }
       ],
       item: [],
-     newUserList: [],
-      // items: [
-
-      //  { header: 'たくさんお花を育てているお友達をリスペクトしよう🌱' },
-      //   { 
-      //     title: 'ユーザーA',
-      //     subtitle: '咲かせた花数🌷：10🌸'
-      //   },
-      //   { divider: true, inset: true },
-      //   { 
-      //     title:  'ユーザーB', 
-      //     subtitle: '咲かせた花数🌷：50🌸'
-      //   },
-      //   { divider: true, inset: true },
-      //   { 
-      //     title: 'ユーザーC', 
-      //     subtitle: '咲かせた花数🌷：100🌸',
-      //   },
-      // ],
+      newUserList: [],
       user:[
         {name: '詳細' ,icon: 'mdi-account-multiple-outline',link: 'userpage'}
       ]

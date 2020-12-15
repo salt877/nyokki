@@ -49,14 +49,6 @@
       </v-col>
     </v-row>
 
-<!-- <v-btn @click="increment2()">UP</v-btn>
-<v-btn @click="setCount2()">SET</v-btn>
-
-<h1>DoubleCount:{{doubleCount}}</h1>
-<h1>Count:{{count}}</h1> -->
-
-
-
     <v-row>
       <v-col>
         <v-card>
@@ -109,6 +101,7 @@ import {mapActions} from 'vuex';
 
         this.followList = followList;
         this.followerList = followerList;
+<<<<<<< HEAD
         // this.photoUrl = photoUrl;
        })
     },
@@ -120,6 +113,8 @@ import {mapActions} from 'vuex';
       //   let followingList = [];
 
       //   console.log("マイページを開いた"+JSON.stringify(this.followerList));
+=======
+>>>>>>> follow/user
         
         //フォローしている人数
         // const followingLength = [];

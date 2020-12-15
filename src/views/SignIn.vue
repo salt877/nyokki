@@ -32,9 +32,13 @@ export default {
           const loginUserData = {
             name: res.additionalUserInfo.profile.name,
             gmail: res.additionalUserInfo.profile.email,
+<<<<<<< HEAD
             photoUrl: res.additionalUserInfo.profile.picture
+=======
+           // photo: res.additionalUserInfo.profile.photoURL
+>>>>>>> follow/user
           };
-          console.log(loginUserData);
+          console.log("ログインした！"+loginUserData);
 
           // IDトークン(JWT)の取得
           firebase.auth().currentUser.getIdToken(true)

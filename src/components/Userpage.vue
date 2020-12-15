@@ -11,7 +11,7 @@
             <v-col>
                 <p>咲かせた花数🌷：10+</p>
                     <v-avatar size="150" class="userpage-flower">
-                        <NyokkiFlower></NyokkiFlower>
+                        <NyokkiFlower :testData="testData"></NyokkiFlower>
                     </v-avatar>
             </v-col>
             <v-col>
@@ -52,7 +52,8 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       NyokkiFlower
     },
     props: {
-        name: String
+        name: String,
+        testData: String
     }
   };
 </script>
