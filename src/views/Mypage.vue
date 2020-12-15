@@ -6,7 +6,7 @@
       </v-col>
       <v-col >
         <v-avatar size="150" >
-         <img src="../images/same.jpeg">
+         <v-img :src="photoUrl" />
         </v-avatar>
         <v-card-actions>
            <div class="mypage">
@@ -85,6 +85,7 @@ import {mapActions} from 'vuex';
       count: '',
       doubleCount: '',
       newName: "",
+      // photoUrl:this.$store.state.loginUser.photoUrl,
       componentName: ['Follow', 'Follower', 'ProfileChange'],
   }),
     components:{
@@ -102,9 +103,11 @@ import {mapActions} from 'vuex';
 
         const followList = res.data.followList;
         const followerList = res.data.followerList;
+        // const photoUrl = res.data.photoUrl;
 
         this.followList = followList;
         this.followerList = followerList;
+        // this.photoUrl = photoUrl;
        })
     },
     computed:{
@@ -134,6 +137,11 @@ import {mapActions} from 'vuex';
         })
         return followingList.length;
       },
+
+      photoUrl(){
+          return this.$store.state.loginUser.photoUrl;
+      },
+
   
     count:function(){
       return this.$store.getters.count;

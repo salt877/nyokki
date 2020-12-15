@@ -17,6 +17,7 @@ const defaultState = () => {
       continuationDays: null,
       firstdayContinuation: null,
       levelAchevement: null,
+      photoUrl:""
     },
 
     // DBに登録されているユーザ情報一覧

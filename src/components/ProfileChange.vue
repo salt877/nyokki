@@ -86,6 +86,7 @@ import {mapActions} from 'vuex';
 import axios from "axios";
 // import {extend, ValidationProvider, ValidationObserver } from 'vee-validate';
 import { required} from 'vee-validate/dist/rules';
+// import { auth } from '@/plugins/auth';
 
 required.message = '必須項目です';
 
