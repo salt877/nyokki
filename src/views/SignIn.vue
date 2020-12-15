@@ -23,15 +23,16 @@ export default {
     // Googleログイン
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
-
       firebase
         .auth()
         .signInWithPopup(provider)
         .then((res) => {
           // Googleアカウント情報(名前とメールのみ)
+            console.log(res);
           const loginUserData = {
             name: res.additionalUserInfo.profile.name,
             gmail: res.additionalUserInfo.profile.email,
+            photoUrl: res.additionalUserInfo.profile.picture
           };
           console.log(loginUserData);
 
@@ -70,10 +71,12 @@ export default {
               .post("/users/register", {
                 name: res.additionalUserInfo.profile.name,
                 gmail: res.additionalUserInfo.profile.email,
+                photoUrl: res.additionalUserInfo.profile.picture
               })
               .then((res) => {
                 console.log("新規ログイン成功");
                 console.log(res.data);
+                this.setLoginUser(res.data);
               })
               .catch((error) => {
                 console.log("新規ログイン失敗" + error);

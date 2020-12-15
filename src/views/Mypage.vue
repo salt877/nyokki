@@ -6,7 +6,7 @@
       </v-col>
       <v-col >
         <v-avatar size="150" >
-         <img src="../images/same.jpeg">
+         <v-img :src="photoUrl" />
         </v-avatar>
         <v-card-actions>
            <div class="mypage">
@@ -86,6 +86,7 @@ import {mapActions} from 'vuex';
       count: '',
       doubleCount: '',
       newName: "",
+      // photoUrl:this.$store.state.loginUser.photoUrl,
       componentName: ['Follow', 'Follower', 'ProfileChange'],
       followingLength: [],
       followedLength: []
@@ -104,32 +105,62 @@ import {mapActions} from 'vuex';
          
         const followList = res.data.followList;
         const followerList = res.data.followerList;
+        // const photoUrl = res.data.photoUrl;
 
         this.followList = followList;
         this.followerList = followerList;
+        // this.photoUrl = photoUrl;
+       })
+    },
+    computed:{
+      // ...mapGetters(["doubleCount", "followingLength", "followedLength"]),
+      //フォロー中の人数を表示
+      // followingLength(){
+      //   let allFollowingList = this.$store.state.followingList;
+      //   let followingList = [];
 
-        console.log("マイページを開いた"+JSON.stringify(this.followerList));
+      //   console.log("マイページを開いた"+JSON.stringify(this.followerList));
         
         //フォローしている人数
-        const followingLength = [];
-        this.followList.forEach(follow => {
-          followingLength.push(follow);
-        })
+        // const followingLength = [];
+        // this.followList.forEach(follow => {
+        //   followingLength.push(follow);
+        // })
 
-        this.followingLength = followingLength.length;
+// <<<<<<< HEAD
+//         this.followingLength = followingLength.length;
+// =======
+//         allFollowingList.forEach(follow => {
+//           const followFlag = follow.followFlag;
+//           if(followFlag === false){
+//             followingList.push(this.allFollowingList);
+//           }
+//         })
+//         return followingList.length;
+//       },
+
+      photoUrl(){
+          return this.$store.state.loginUser.photoUrl;
+      },
+
+  
+    // count:function(){
+    //   return this.$store.getters.count;
+    // },
+
 
         //フォロワー人数
-        const followerLength = [];
-        this.followerList.forEach(follower => {
-          if(follower.followFlag === true){
-            followerLength.push(follower);
-          } 
-        })
-        console.log("フォロー"+JSON.stringify(followingLength));
-        console.log("フォロワーリスト"+JSON.stringify(followerLength));
+  //       const followerLength = [];
+  //       this.followerList.forEach(follower => {
+  //         if(follower.followFlag === true){
+  //           followerLength.push(follower);
+  //         } 
+  //       })
+  //       console.log("フォロー"+JSON.stringify(followingLength));
+  //       console.log("フォロワーリスト"+JSON.stringify(followerLength));
         
-        this.followedLength = followerLength.length;
-       })
+  //       this.followedLength = followerLength.length;
+  //      })
   },
   methods:{
     ...mapMutations(['increment','setCount']),
