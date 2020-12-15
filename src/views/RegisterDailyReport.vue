@@ -120,7 +120,7 @@ export default {
       if (!addCard) {
         return;
       }
-      this.completeTodoList.push(addCard);
+      this.completeTodoList.push({ task: addCard });
       this.newCard = "";
     },
     registerDailyReport() {
