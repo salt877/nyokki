@@ -32,11 +32,7 @@ export default {
           const loginUserData = {
             name: res.additionalUserInfo.profile.name,
             gmail: res.additionalUserInfo.profile.email,
-<<<<<<< HEAD
             photoUrl: res.additionalUserInfo.profile.picture
-=======
-           // photo: res.additionalUserInfo.profile.photoURL
->>>>>>> follow/user
           };
           console.log("ログインした！"+loginUserData);
 
@@ -88,6 +84,7 @@ export default {
           }
           // 初期データの取得
           console.log("データの取得開始");
+          console.log(res.additionalUserInfo.profile.email);
           axios
             .get("/get/Information", {
               params: {

@@ -28,7 +28,8 @@
             >
                 <v-col>
               <v-list-item-avatar size="80">
-                <img src="../images/same.jpeg">
+                <!-- <img src="../images/same.jpeg"> -->
+                <img :src="item.photoUrl">
               </v-list-item-avatar>
                 </v-col>
               <v-list-item-content>
@@ -96,6 +97,7 @@ import axios from 'axios';
             userId: user.id,
             userName: user.name,
             continuationDays: flowerCount,
+            photoUrl: user.photoUrl,
             followingsId: user.followingsId,
             followFlag: user.followFlag,
             followingId: user.followingId,

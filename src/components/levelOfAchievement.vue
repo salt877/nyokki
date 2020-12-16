@@ -9,10 +9,15 @@
             <v-col> 
               <v-data-table :headers="headers" :items="newUserList">
 
+                <template v-slot:[`item.photoUrl`]="{ item }">
+                  <v-list-item-avatar size="70" >
+                  <img :src="item.photoUrl">
+                  </v-list-item-avatar>
+                </template>
+
                 <template v-slot:[`item.userName`]="{ item }">
                   <router-link :to="{name: 'userpage', params: {name: item.userName}}">    
                     {{ item.userName }}
-                
                   </router-link>
                 </template>
 
@@ -122,7 +127,7 @@ export default {
         const newUserList = [];
 
         this.allUserList.some(user => {
-
+          
           let flowerCount = user.continuationDays / 32;
           if( flowerCount < 1){
             flowerCount = 0;
@@ -133,6 +138,7 @@ export default {
           const createUserList = {
             userId: user.id,
             userName: user.name,
+            photoUrl: user.photoUrl,
             continuationDays: flowerCount,
             followFlag: user.followFlag,
             followingId: user.followingId,
@@ -168,6 +174,9 @@ export default {
     },
     data: () => ({
       headers: [
+        {
+          value: 'photoUrl'
+        }, 
         {
           text: 'ユーザー名',
           value: 'userName'

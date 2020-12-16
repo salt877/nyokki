@@ -36,16 +36,6 @@
 
 <script>
 export default {
-<<<<<<< HEAD
-  name
-
-
-
-
-
-
-
-=======
   data: () => ({
     flowerStatus: 50,
     testData: 20
@@ -53,6 +43,5 @@ export default {
   props:{
     testData : Number
   }
->>>>>>> follow/user
 }
 </script>
