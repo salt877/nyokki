@@ -33,15 +33,17 @@
               </v-list-item-avatar>
                 </v-col>
               <v-list-item-content>
-                <v-list-item-title v-html="item.userName"></v-list-item-title>
+                <v-list-item-title v-html="item.userName">
+                </v-list-item-title>
+                <v-list-item-subtitle >
                 咲かせた花数🌷:
-                <v-list-item-subtitle v-html="item.continuationDays">
+                {{ item.continuationDays}}本＋
                 </v-list-item-subtitle>
-                <v-col></v-col>
+              
                 <v-col>
-                <v-list-item-avatar size="100">
-                <NyokkiFlower></NyokkiFlower>
-              </v-list-item-avatar>
+               <v-list-item-avatar size="70" >
+                    <NyokkiFlower :flowerStatus="item.flowerStatus"></NyokkiFlower>
+                  </v-list-item-avatar>
                 </v-col>
               </v-list-item-content>
 
@@ -87,10 +89,16 @@ import axios from 'axios';
         this.followList.forEach(user => {
           
           let flowerCount = user.continuationDays / 32;
+
+          let flowerStatus = user.continuationDays % 32;
+
           if( flowerCount < 1){
             flowerCount = 0;
+            this.flowerStatus = flowerStatus;
+
           } else if(flowerCount >= 1){
-            Math.floor(flowerCount);
+            flowerCount = Math.floor(flowerCount);
+            this.flowerStatus = flowerStatus;
           }
 
           const createUserList = {
@@ -98,6 +106,7 @@ import axios from 'axios';
             userName: user.name,
             continuationDays: flowerCount,
             photoUrl: user.photoUrl,
+            flowerStatus: flowerStatus,
             followingsId: user.followingsId,
             followFlag: user.followFlag,
             followingId: user.followingId,

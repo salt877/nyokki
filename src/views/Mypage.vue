@@ -1,26 +1,22 @@
 <template>
   <v-container>
     <h2>マイページ</h2>
-    <v-row>
+    <v-row align="center" justify="center">
       <v-col>
-      </v-col>
-      <v-col >
         <v-avatar size="150" >
-         <v-img :src="photoUrl" />
+          <v-img :src="photoUrl" />
         </v-avatar>
-        <v-card-actions>
            <div class="mypage">
            <!-- <ProfileChange :value="newName" @input="newName = $event"/> -->
-        <v-text :value2="newName" @input="newName = $event">ユーザー名：{{ this.$store.state.loginUser.name }}</v-text>
+            <v-text :value2="newName" @input="newName = $event">ユーザー名：{{ this.$store.state.loginUser.name }}</v-text>
           </div>
-        </v-card-actions>
       </v-col>
       <v-col>
+        <p>現在の花の状態：</p>
         <v-list-item-avatar size="150">
-        <NyokkiFlower></NyokkiFlower>
+          <NyokkiFlower :flowerStatus="flowerStatus"></NyokkiFlower>
         </v-list-item-avatar>
       </v-col>
-    
     </v-row>
     <br>
     <br>
@@ -91,6 +87,18 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
     
        axios.post("/get/followAndFollowerList",{ loginUser: this.$store.state.loginUser }).then(res=> {
        
+         let flowerCount = this.$store.state.loginUser.continuationDays / 32;
+        let flowerStatus = this.$store.state.loginUser.continuationDays % 32;
+
+          if(flowerCount < 1){
+            flowerCount = 0;
+            this.flowerStatus = flowerStatus;
+
+          } else if(flowerCount >= 1){
+            flowerCount = Math.floor(flowerCount);
+            this.flowerStatus = flowerStatus;
+          }
+
         const followList = res.data.followList;
         const followerList = res.data.followerList;
         this.followList = followList;
@@ -119,7 +127,7 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       //    ...mapGetters(["followingLength", "followedLength"]),
       photoUrl(){
         return this.$store.state.loginUser.photoUrl;
-      }  
+      }
   }     
 };
 </script>
