@@ -2,7 +2,7 @@
 <v-container>
   <h2 style="text-align: center">みんなの達成度</h2>
   <v-row>
-    <v-col cols="12" sm="6" offset-sm="3">
+    <v-col cols="12" sm="8" offset-sm="2">
       <v-card>
         <v-container>
           <v-row>
@@ -25,9 +25,10 @@
                   {{ item.continuationDays }}本+
                 </template>
 
-                <template v-slot:[`item.nyokkiFlower`]="{ item }">
-                   <NyokkiFlower :testData="testData" :flowerStatus="flowerStatus"></NyokkiFlower>  
-                  {{ item.nyokkiFlower }}
+                <template v-slot:[`item.flowerStatus`]="{ item }">
+                  <v-list-item-avatar size="70" >
+                    <NyokkiFlower :flowerStatus="item.flowerStatus"></NyokkiFlower>
+                  </v-list-item-avatar>
                 </template>
 
                 <template v-slot:[`item.userId`]="{ item }">
@@ -119,9 +120,6 @@ export default {
     created() {
       axios.post("/get/allUserInformation",{ loginUser: this.$store.state.loginUser }).then(res=> {
 
-        const testData = '子コンポーネントに渡す';
-        this.testData = testData;
-
         this.allUserList = res.data;
         const loginUserId = this.$store.state.loginUser.id;
         const newUserList = [];
@@ -129,10 +127,16 @@ export default {
         this.allUserList.some(user => {
           
           let flowerCount = user.continuationDays / 32;
+
+          let flowerStatus = user.continuationDays % 32;
+
           if( flowerCount < 1){
             flowerCount = 0;
+            this.flowerStatus = flowerStatus;
+
           } else if(flowerCount >= 1){
-            Math.floor(flowerCount);
+            flowerCount = Math.floor(flowerCount);
+            this.flowerStatus = flowerStatus;
           }
 
           const createUserList = {
@@ -140,6 +144,7 @@ export default {
             userName: user.name,
             photoUrl: user.photoUrl,
             continuationDays: flowerCount,
+            flowerStatus: flowerStatus,
             followFlag: user.followFlag,
             followingId: user.followingId,
             followedId: user.followedId
@@ -186,8 +191,8 @@ export default {
           value: 'continuationDays' 
         },
         {
-          text: '花の状態',
-          value:  'nyokkiFlower'
+          text: '現在の状態',
+          value:  'flowerStatus'
         },
         {
           text: 'フォロー',
@@ -197,6 +202,7 @@ export default {
       ],
       item: [],
       newUserList: [],
+      flowerStatus: "",
       user:[
         {name: '詳細' ,icon: 'mdi-account-multiple-outline',link: 'userpage'}
       ]

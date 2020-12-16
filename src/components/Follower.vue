@@ -14,7 +14,6 @@
 
             <v-list-item v-else :key="item.title">
               <v-list-item-avatar size="90">
-                <!-- <img src="../images/same.jpeg"> -->
                 <img :src="item.photoUrl">
               </v-list-item-avatar>
 
