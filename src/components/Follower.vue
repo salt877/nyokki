@@ -1,6 +1,6 @@
 <template>
 <v-container>
-  <h2 style="text-align: center">フォローされている人</h2>
+  <h2 style="text-align: center">{{ this.$store.state.loginUser.name }}さんのフォロワー</h2>
   <v-row>
     <v-col cols="12" sm="6" offset-sm="3">
       <v-card>
@@ -28,7 +28,7 @@
                   </v-card-actions>
                   <v-card-actions v-if="item.followFlag===false" v-model="followFlag">
                     <v-btn color="light-blue lighten-3"  @click="approve(item)">承認⭕️</v-btn>
-                    <v-btn color="pink lighten-4" @click="deny()">否認❌</v-btn>
+                    <v-btn color="pink lighten-4" @click="deny(item)">否認❌</v-btn>
                   </v-card-actions>
               </v-list-item-action>
             </v-list-item>
@@ -103,6 +103,25 @@ import axios from 'axios';
             }
           })
               this.$emit("followedLength", followedLength.length);
+      },
+      deny(item){
+        axios.post("/get/denyFollowRequest",{loginUser: this.$store.state.loginUser, followingsId: item.followingsId,followFlag: item.followFlag,
+          followingId: item.followingId,followedId: item.followedId });
+          let check = confirm(item.userName+"さんのフォローを否認します。");
+
+          if(check===true){
+            this.followerUserList.forEach(follower => {
+                
+                if(item.followingsId === follower.followingsId){
+                  let friendIndex = this.followerUserList.indexOf(follower);
+                  this.followerUserList.splice(friendIndex,1);
+                }
+              })
+                  this.$emit("followedLength", this.followerUserList.length);
+          } else {
+            return false;
+          }
+
       }
     }
   }
