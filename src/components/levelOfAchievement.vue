@@ -16,8 +16,8 @@
                 </template>
 
                 <template v-slot:[`item.userName`]="{ item }">
-                  <router-link :to="{name: 'userpage', params: {name: item.userName}}">    
-                    {{ item.userName }}
+                  <router-link :to="{name: 'userpage', params: {userName: item.userName, name: item}}"> 
+                    {{ item.userName }} 
                   </router-link>
                 </template>
 
@@ -175,7 +175,7 @@ export default {
       followRequest(item){
         axios.post("/get/followRequest", { loginUser: this.$store.state.loginUser, followedId: item.userId });
         item.followFlag = false;
-      },
+      }
     },
     data: () => ({
       headers: [

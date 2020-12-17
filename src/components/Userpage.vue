@@ -1,25 +1,25 @@
 <template>
     <v-container>
-        <h2>{{ name }}さんのページ</h2>
-        
+        <h2>{{ name.userName }}さんのページ</h2>
         <v-row>
             <v-col>
                 <v-avatar size="150">
-                    <img src="../images/same.jpeg">
+                    <!-- <img src="../images/same.jpeg"> -->
+                     <img :src="name.photoUrl">
                 </v-avatar>
             </v-col>
             <v-col>
-                <p>咲かせた花数🌷：10+</p>
+                <p>咲かせた花数🌷：{{name.continuationDays}}本+</p>
                     <v-avatar size="150" class="userpage-flower">
-                        <NyokkiFlower :testData="testData"></NyokkiFlower>
+                        <NyokkiFlower :flowerStatus="name.flowerStatus"></NyokkiFlower>
                     </v-avatar>
             </v-col>
             <v-col>
-                <v-btn color="light-green accent-2">フォロー申請</v-btn>
+                <v-btn v-if="name.followFlag==null" color="light-green accent-2">フォロー申請</v-btn>
                 <!-- フォロー申請中の場合 -->
-                <v-btn color="light-green" @click="applying(item)">申請中</v-btn>
+                <v-btn v-if="name.followFlag==false" color="light-green" @click="applying(item)">申請中</v-btn>
                 <!-- フォロー済みの場合 -->
-                <v-btn color="light-green accent-1" @click="follow(item)">フォロー済み</v-btn>
+                <v-btn v-if="name.followFlag==true" color="light-green accent-1" @click="follow(item)" disabled>フォロー済み</v-btn>
             </v-col>
         </v-row>
         <v-row>
@@ -52,9 +52,12 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       NyokkiFlower
     },
     props: {
-        name: String,
-        testData: String
-    }
+        name: String
+    },
+    data: () => ({
+      namename: ""
+    })
+    
   };
 </script>
 
