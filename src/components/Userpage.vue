@@ -14,7 +14,7 @@
                     </v-avatar>
             </v-col>
             <v-col>
-                <v-btn v-if="user.followFlag==null" color="light-green accent-2" @click="followRequest(name)">フォロー申請</v-btn>
+                <v-btn v-if="user.followFlag==null" color="light-green accent-2" @click="followRequest(user)">フォロー申請</v-btn>
                 <!-- フォロー申請中の場合 -->
                 <v-btn v-if="user.followFlag==false" color="light-green">申請中</v-btn>
                 <!-- フォロー済みの場合 -->
@@ -84,9 +84,9 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
             })
     },
     methods:{
-        followRequest(name){
-            axios.post("/get/followRequest", { loginUser: this.$store.state.loginUser, followedId: name.userId });
-            name.followFlag = false;
+        followRequest(user){
+            axios.post("/get/followRequest", { loginUser: this.$store.state.loginUser, followedId: user.userId });
+            user.followFlag = false;
         }
     },
      data: () => ({
