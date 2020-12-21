@@ -23,15 +23,15 @@
         </v-row>
         <v-row>
             <v-col>
-                <v-card>
+                <v-card v-if="user.followFlag==true">
                 <p>フォロー済なら日報・月報に切り替わる</p>
-                <CalendarComponent></CalendarComponent>
+                <CalendarComponent :userId="user.id"></CalendarComponent>
                 </v-card>
             </v-col>
         </v-row>
         <v-row>
             <v-col>
-                <v-card>
+                <v-card v-if="user.followFlag==null">
                     <p>未フォローならこれが表示される</p>
                     <p class="follow-yet">フォロー申請を送ろう！</p>
                 </v-card>
