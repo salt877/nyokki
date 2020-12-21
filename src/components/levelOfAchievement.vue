@@ -16,7 +16,8 @@
                 </template>
 
                 <template v-slot:[`item.userName`]="{ item }">
-                  <router-link :to="{name: 'userpage', params: {userName: item.userName, name: item}}"> 
+                     <router-link 
+                      :to="{name: 'userpage',  params: {id: item.userId}}"> 
                     {{ item.userName }} 
                   </router-link>
                 </template>

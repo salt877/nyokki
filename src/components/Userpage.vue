@@ -1,25 +1,24 @@
 <template>
     <v-container>
-        <h2>{{ name.userName }}さんのページ</h2>
+        <h2>{{ user.userName }}さんのページ</h2>
         <v-row>
             <v-col>
                 <v-avatar size="150">
-                    <!-- <img src="../images/same.jpeg"> -->
-                     <img :src="name.photoUrl">
+                     <img :src="user.photoUrl">
                 </v-avatar>
             </v-col>
             <v-col>
-                <p>咲かせた花数🌷：{{name.continuationDays}}本+</p>
+                <p>咲かせた花数🌷：{{user.continuationDays}}本+</p>
                     <v-avatar size="150" class="userpage-flower">
-                        <NyokkiFlower :flowerStatus="name.flowerStatus"></NyokkiFlower>
+                        <NyokkiFlower :flowerStatus="user.flowerStatus"></NyokkiFlower>
                     </v-avatar>
             </v-col>
             <v-col>
-                <v-btn v-if="name.followFlag==null" color="light-green accent-2">フォロー申請</v-btn>
+                <v-btn v-if="user.followFlag==null" color="light-green accent-2" @click="followRequest(name)">フォロー申請</v-btn>
                 <!-- フォロー申請中の場合 -->
-                <v-btn v-if="name.followFlag==false" color="light-green" @click="applying(item)">申請中</v-btn>
+                <v-btn v-if="user.followFlag==false" color="light-green">申請中</v-btn>
                 <!-- フォロー済みの場合 -->
-                <v-btn v-if="name.followFlag==true" color="light-green accent-1" @click="follow(item)" disabled>フォロー済み</v-btn>
+                <v-btn v-if="user.followFlag==true" color="light-green accent-1" disabled>フォロー済み</v-btn>
             </v-col>
         </v-row>
         <v-row>
@@ -42,6 +41,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import CalendarComponent from '../components/CalendarComponent.vue';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
 
@@ -51,13 +51,47 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       CalendarComponent,
       NyokkiFlower
     },
-    props: {
-        name: String
+    created(){
+        axios.post("/get/userInformation",{ 
+            userId: this.$route.params.id,
+            loginUser: this.$store.state.loginUser
+            })
+        .then(res=> {
+            let flowerCount = res.data.continuationDays / 32;
+            let flowerStatus = res.data.continuationDays % 32;
+
+            if(flowerCount < 1){
+                flowerCount = 0;
+                this.flowerStatus = flowerStatus;
+
+            } else if(flowerCount >= 1){
+                flowerCount = Math.floor(flowerCount);
+                this.flowerStatus = flowerStatus;
+            }
+
+            const user = {
+                userId: res.data.id,
+                userName: res.data.name ,
+                photoUrl: res.data.photoUrl,
+                continuationDays: flowerCount,
+                flowerStatus: flowerStatus,
+                followingsId: res.data.followingsId,
+                followFlag: res.data.followFlag,
+                followedId: res.data.followedId,
+                followingId: res.data.followingId,
+            }
+            this.user = user;
+            })
     },
-    data: () => ({
-      namename: ""
+    methods:{
+        followRequest(name){
+            axios.post("/get/followRequest", { loginUser: this.$store.state.loginUser, followedId: name.userId });
+            name.followFlag = false;
+        }
+    },
+     data: () => ({
+       user: []
     })
-    
   };
 </script>
 
