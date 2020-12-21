@@ -47,18 +47,24 @@ export default {
     events: [],
     value: moment().format('yyyy-MM-DD'),
     componentName: ['MonthlyReport', 'DailyReport'],
-    selectedDate: null 
   }),
   components: {
     MonthlyReport,
     DailyReport
+  },
+  props:{
+    userId: Number
   },
   computed: {
     title() {
       return moment(this.value).format('yyyy年 M月');
     },
   },
-  
+
+  created(){
+    console.log(this.userId);
+  },
+
   methods: {
     setToday() {
       this.value = moment().format('yyyy-MM-DD');
