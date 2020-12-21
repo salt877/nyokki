@@ -108,7 +108,7 @@ import axios from 'axios';
           } else {
             followUserList.push(createUserList); 
           }
-           
+
         })
         this.followUserList = followUserList;
     },

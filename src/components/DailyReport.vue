@@ -4,20 +4,16 @@
     <v-row>
       <v-col cols="8">
         <v-card>
-          <v-card-text v-for="todo in todos" :key="todo.id">
-            {{ todo.text }}
-            <v-btn elevation="2" fab x-small color="gray">
-              <v-icon>
-                mdi-minus
-              </v-icon>
-            </v-btn>
+          <v-card-title>タスク一覧</v-card-title>
+          <v-card-text v-for="todo in todos" :key="todo.id" >
+            {{ todo.task }}
           </v-card-text>
         </v-card>
       </v-col>
       <v-col>
         <v-card>
           <v-card-title>達成度</v-card-title>
-          <v-card-text>😐</v-card-text>
+          <v-card-text>😐{{levelAchievementlevelAchievement}}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -25,7 +21,7 @@
       <v-col>
         <v-card>
           <v-card-title>報告</v-card-title>
-          <v-card-text>報告内容が表示されます</v-card-text>
+          <v-card-text v-for="completeTodo in completeTodoList" :key="completeTodo">{{ completeTodo.task }}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -34,8 +30,7 @@
         <v-card>
           <v-card-title>所感</v-card-title>
           <v-card-text>
-            自分のカレンダー画面から見たときだけ所感が表示されます<br />
-            ユーザーページでは所感は表示されません
+            {{impressions}}<br />
           </v-card-text>
         </v-card>
       </v-col>
@@ -43,15 +38,44 @@
   </v-container>
 </template>
 <script>
+// import axios from 'axios';
+
 export default {
   name: "dailyReport",
   data() {
     return {
       toDoCard: "",
       todos: [],
-      aaa: "",
+      completeTodoList: [],
+      impressions: "",
+      levelAchievementlevelAchievement: "",
     };
   },
+  props:[
+    "date"
+  ],
+  created(){
+    // console.log(this.date)
+    // axios
+    //   .post("/get/pastDairyReport", {
+    //     loginUser: this.$store.state.loginUser,
+    //     date: this.date
+    //   })
+    //   .then((res) => {
+    //     this.completeTodoList = res.data.completeTodoList;
+    //     this.levelAchievementlevelAchievement = res.data.dailyReport.levelAchievementlevelAchievement;
+    //     this.impressions = res.data.dailyReport.impressions;
+    //     console.log(res.data.dailyReport.impressions)
+    //   })
+    //   .catch((error) => {
+    //     console.log("通信失敗" + error);
+    //   });
+    // for (var num in this.$store.state.todoList) {
+    //   this.todos.push(this.$store.state.todoList[num]);
+    // }
+  }
+  
+
 };
 </script>
 <style scoped>

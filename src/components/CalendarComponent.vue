@@ -24,13 +24,14 @@
         locale="ja-jp"
         :day-format="(timestamp) => new Date(timestamp.date).getDate()"
         :month-format="(timestamp) => new Date(timestamp.date).getMonth() + 1 + ' /'"
-        @change="getEvents"
-        @click:event="showEvent"
+        
         @click:date="viewDay"
+        
+        @click="showDailyReport"
         color="light-green accent-2"
       ></v-calendar>
     </v-sheet>
-    <component :is="componentName"></component>
+    <component :is="componentName" :date="viewDay"></component>
     </v-app>
 </template>
 
@@ -45,7 +46,8 @@ export default {
   data: () => ({
     events: [],
     value: moment().format('yyyy-MM-DD'),
-    componentName: ['MonthlyReport', 'DailyReport']
+    componentName: ['MonthlyReport', 'DailyReport'],
+    selectedDate: null 
   }),
   components: {
     MonthlyReport,
@@ -56,80 +58,123 @@ export default {
       return moment(this.value).format('yyyy年 M月');
     },
   },
+  
   methods: {
     setToday() {
       this.value = moment().format('yyyy-MM-DD');
     },
-    showEvent({ event }) {
-      alert(`clicked ${event.name}`);
-    },
+    // showEvent({ event }) {
+    //   alert(`clicked ${event.name}`);
+    // },
     viewDay({ date }) {
-      alert(`date: ${date}` + this.userId);
+      // alert(`date: ${date}` + '日報情報を取得します');
+      alert(`${date}` + 'の日報情報を取得します');
       this.componentName = 'DailyReport';
 
-      axios.get("/get/showDailyReports",{params:date }).then(res => {
-        console.log("カレンダー通信成功"+res.data);
-      })
+      // axios.get("/get/showDailyReports",{params:date, dailyReport:this.$store.state.dailyReport }).then(res => {
+      //   console.log("カレンダー通信成功"+res.data);
+      // })
+
+      // let config = "";
+      //     let formData = new FormData();
+      //     const OBJ = {
+      //       loginUser: this.$store.state.loginUser,
+      //       date: date
+      //     }
+      //   formData.append(
+      //     "OBJ",
+      //     new Blob([JSON.stringify(OBJ)],{ type: "application/json" })
+      //   );
+      //   console.log(OBJ);
+      // config = {
+      //     headers: {
+      //         "content-type": "multipart/form-data"
+      //     },
+      // };
+      axios
+          .post("/get/pastDairyReport",{loginUser: this.$store.state.loginUser,
+            date: date})
+          .then((res) => {
+            console.log("新規通信成功");
+            console.log(res.data);
+         });
+
+    //    axios
+    //   .post("/get/pastDairyReport", {
+    //     loginUser: this.$store.state.loginUser,
+    //     date: date
+    //   })
+    //   .then((res) => {
+    //     this.completeTodoList = res.data.completeTodoList;
+    //     this.levelAchievementlevelAchievement = res.data.dailyReport.levelAchievementlevelAchievement;
+    //     this.impressions = res.data.dailyReport.impressions;
+    //     console.log(res.data.dailyReport.impressions)
+    //   })
+    //   .catch((error) => {
+    //     console.log("通信失敗" + error);
+    //   });
+    // for (var num in this.$store.state.todoList) {
+    //   this.todos.push(this.$store.state.todoList[num]);
+    // }
+    //  console.log(this.viewDay)
+
     },
-    getEvents() {
-      const events = [
-        // new Dateからmomentに変更
-        {
-          name: '会議',
-          start: moment('2020-08-03 10:00:00').toDate(),
-          end: moment('2020-08-03 11:00:00').toDate(),
-          color: 'blue',
-          timed: true,
-        },
-        // イベントを追加
-        {
-          name: '休暇',
-          start: moment('2020-08-04').toDate(),
-          end: moment('2020-08-04').toDate(),
-          color: 'green',
-          timed: false,
-        },
-        {
-          name: '出張',
-          start: moment('2020-08-05').toDate(),
-          end: moment('2020-08-07').toDate(),
-          color: 'cyan',
-          timed: false,
-        },
-        {
-          name: 'お花見',
-          start: moment('2020-08-06').toDate(),
-          end: moment('2020-08-06').toDate(),
-          color: 'orange',
-          timed: false,
-        },
-        {
-          name: '打ち合わせ',
-          start: moment('2020-08-07 10:00').toDate(),
-          end: moment('2020-08-07 11:00').toDate(),
-          color: 'cyan',
-          timed: true,
-        },
-        {
-          name: '振り返り',
-          start: moment('2020-08-07 11:00:00').toDate(),
-          end: moment('2020-08-07 12:00').toDate(),
-          color: 'cyan',
-          timed: true,
-        },
-        {
-          name: '休暇',
-          start: moment('2020-09-07').toDate(),
-          end: moment('2020-09-11').toDate(),
-          color: 'green',
-          timed: false,
-        },
-      ];
-      this.events = events;
-    },
-    getEventColor(event) {
-      return event.color;
-    },
+    showDailyReport(){
+      //     let config = "";
+      //     let formData = new FormData();
+      //     const OBJ = {
+      //       loginUser: this.$store.state.loginUser,
+      //     }
+      //   formData.append(
+      //     "OBJ",
+      //     new Blob([JSON.stringify(OBJ)],{ type: "application/json" })
+      //   );
+      // config = {
+      //     headers: {
+      //         "content-type": "multipart/form-data"
+      //     },
+      // };
+      // this.axios
+      //     .post("/get/pastDairyReport", formData, config)
+      //     .then((res) => {
+      //       console.log("新規通信成功");
+      //       console.log(res.data);
+          
+      //    });
+
+      //   axios
+      // .post("/get/dairyReport", {
+      //   loginUser: this.$store.state.loginUser,
+      // })
+      // .then((res) => {
+      //   this.completeTodoList = res.data.completeTodoList;
+      //   console.log(res.data)
+      // })
+      // .catch((error) => {
+      //   console.log("通信失敗" + error);
+      // });
+      // },
+      // selectDate(event) { //日付を選択する
+      //   this.selectedDate = event.currentTarget.id
+},
+
+    // getEvents() {
+    //   const events = [
+    //     // new Dateからmomentに変更
+    //     {
+    //       name: '会議',
+    //       start: moment('2020-08-03 10:00:00').toDate(),
+    //       end: moment('2020-08-03 11:00:00').toDate(),
+    //       color: 'blue',
+    //       timed: true,
+    //     },
+        
+    //   ];
+    //   this.events = events;
+    // },
+    // getEventColor(event) {
+    //   return event.color;
+    // },
   },
 };
 </script>
