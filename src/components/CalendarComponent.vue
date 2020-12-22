@@ -69,6 +69,7 @@ export default {
     viewDay({ date }) {
       // alert(`date: ${date}` + '日報情報を取得します');
       alert(`${date}` + 'の日報情報を取得します');
+      console.log({date});
       this.componentName = 'DailyReport';
 
       // axios.get("/get/showDailyReports",{params:date, dailyReport:this.$store.state.dailyReport }).then(res => {
