@@ -1,5 +1,8 @@
 <template>
-    <v-app height="40vh">
+<div v-if="loading">
+      <Loading></Loading>
+</div>
+    <v-app height="40vh" v-else>
     <v-sheet tile height="6vh" color="pink lighten-4" class="d-flex align-center">
       <v-btn outlined small class="ma-4" @click="setToday">
         今日
@@ -41,6 +44,7 @@ import axios from 'axios';
 import moment from 'moment';
 import MonthlyReport from './MonthlyReport';
 import DailyReport from './DailyReport';
+import Loading from '@/components/Loading.vue';
 
 export default {
   name:'Calender',
@@ -49,11 +53,13 @@ export default {
     value: moment().format('yyyy-MM-DD'),
     componentName: ['MonthlyReport', 'DailyReport'],
     userId: "",
-    dailyReport: []
+    dailyReport: [],
+    loading: ""
   }),
   components: {
     MonthlyReport,
-    DailyReport
+    DailyReport,
+    Loading
   },
   props:{
     userId: Number
@@ -81,24 +87,25 @@ export default {
       console.log({date});
       this.componentName = 'DailyReport';
 
+
       // axios.get("/get/showDailyReports",{params:date, dailyReport:this.$store.state.dailyReport }).then(res => {
-      //   console.log("カレンダー通信成功"+res.data);
+        //   console.log("カレンダー通信成功"+res.data);
       // })
 
       // let config = "";
       //     let formData = new FormData();
       //     const OBJ = {
-      //       loginUser: this.$store.state.loginUser,
+        //       loginUser: this.$store.state.loginUser,
       //       date: date
       //     }
       //   formData.append(
-      //     "OBJ",
+        //     "OBJ",
       //     new Blob([JSON.stringify(OBJ)],{ type: "application/json" })
       //   );
       //   console.log(OBJ);
       // config = {
-      //     headers: {
-      //         "content-type": "multipart/form-data"
+        //     headers: {
+          //         "content-type": "multipart/form-data"
       //     },
       // };
 
@@ -106,7 +113,7 @@ export default {
       //     .post("/get/pastDairyReport",{loginUser: this.$store.state.loginUser,
       //       date: date})
       //     .then((res) => {
-      //       console.log("新規通信成功");
+        //       console.log("新規通信成功");
       //       console.log(res.data);
       //    });
         if(this.$store.state.loginUser.id === this.userId){
@@ -133,15 +140,9 @@ export default {
                userId: this.userId
               })
               .then((res) => {
+                this.loading = true;
                 console.log("ユーザーページから日報をみる");
-
-                  console.log("書き換え前:"+JSON.stringify(res.data));
-    
-                // Date.prototype.toJSON = function() {
-                //   return this.getFullYear() + '-' + ('0'+(this.getMonth()+1)).slice(-2) + '-' + ('0'+this.getDate()).slice(-2) + 'T' +
-                //  ('0'+this.getHours()).slice(-2) + ':' + ('0'+this.getMinutes()).slice(-2) + ':' + ('0'+this.getSeconds()).slice(-2) + '.000Z';
-                // }
-
+ 
                 var date = moment(res.data.dailyReport.registrationDate);
                 console.log(date.format("YYYY-MM-DD"));
                 res.data.dailyReport.registrationDate = date.format("YYYY-MM-DD");
@@ -151,17 +152,14 @@ export default {
                 const levelAchievement = res.data.dailyReport.levelAchievementlevelAchievement;
                 this.levelAchievement = levelAchievement;
 
-                console.log("書き換え後:"+JSON.stringify(res.data));
-                // const dailyReport = {
-                //   impressions : res.data.dailyReport.impressions,
-                //   levelAchievement : res.data.dailyReport.levelAchievementlevelAchievement
-                // }
-                // console.log("カレンダーコンポーネント"+dailyReport);
+                console.log("書き換え後:");
+                console.log(res.data);
+                this.componentName = 'DailyReport';
+                this.loading = false;
               }
            );
         }
         
-
 
     //    axios
     //   .post("/get/pastDairyReport", {
