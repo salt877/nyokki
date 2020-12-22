@@ -6,7 +6,7 @@
   <v-row>
     <v-col>
         <h2>カレンダー</h2>
-        <CalendarComponent></CalendarComponent>
+        <CalendarComponent :userId="$store.state.loginUser.id"></CalendarComponent>
     </v-col>
     <v-col>
       <v-card>

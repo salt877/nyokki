@@ -25,7 +25,7 @@
             <v-col>
                 <v-card v-if="user.followFlag==true">
                 <p>フォロー済なら日報・月報に切り替わる</p>
-                <CalendarComponent :userId="user.id"></CalendarComponent>
+                <CalendarComponent :userId="user.userId"></CalendarComponent>
                 </v-card>
             </v-col>
         </v-row>

@@ -29,9 +29,10 @@
         
         @click="showDailyReport"
         color="light-green accent-2"
+        
       ></v-calendar>
     </v-sheet>
-    <component :is="componentName" :date="viewDay"></component>
+    <component :is="componentName" :impressions="impressions" :levelAchievement="levelAchievement"></component>
     </v-app>
 </template>
 
@@ -47,6 +48,8 @@ export default {
     events: [],
     value: moment().format('yyyy-MM-DD'),
     componentName: ['MonthlyReport', 'DailyReport'],
+    userId: "",
+    dailyReport: []
   }),
   components: {
     MonthlyReport,
@@ -60,11 +63,9 @@ export default {
       return moment(this.value).format('yyyy年 M月');
     },
   },
-
   created(){
-    console.log(this.userId);
+    console.log("test:"+this.userId);
   },
-
   methods: {
     setToday() {
       this.value = moment().format('yyyy-MM-DD');
@@ -75,6 +76,8 @@ export default {
     viewDay({ date }) {
       // alert(`date: ${date}` + '日報情報を取得します');
       alert(`${date}` + 'の日報情報を取得します');
+      console.log(this.userId);
+      console.log(date);
       this.componentName = 'DailyReport';
 
       // axios.get("/get/showDailyReports",{params:date, dailyReport:this.$store.state.dailyReport }).then(res => {
@@ -97,13 +100,67 @@ export default {
       //         "content-type": "multipart/form-data"
       //     },
       // };
-      axios
-          .post("/get/pastDairyReport",{loginUser: this.$store.state.loginUser,
-            date: date})
-          .then((res) => {
-            console.log("新規通信成功");
-            console.log(res.data);
-         });
+
+      // axios
+      //     .post("/get/pastDairyReport",{loginUser: this.$store.state.loginUser,
+      //       date: date})
+      //     .then((res) => {
+      //       console.log("新規通信成功");
+      //       console.log(res.data);
+      //    });
+        if(this.$store.state.loginUser.id === this.userId){
+          axios.post("/get/myPastDailyReport",
+              {
+                date: date,
+                loginUser: this.$store.state.loginUser,
+              })
+              .then((res) => {
+                console.log("自分のカレンダーから日報をみる");
+                console.log(res.data);
+                const dailyReport = {
+                  impressions : res.data.dailyReport.impressions,
+                  levelAchievement : res.data.dailyReport.levelAchievementlevelAchievement
+                }
+                console.log("カレンダーコンポーネント"+dailyReport);
+              })  
+        }
+        //ユーザーページで使用
+        else if(this.$store.state.loginUser.id != this.userId){
+          axios.post("/get/otherUserPastDailyReport",
+              {
+                date: date,
+               userId: this.userId
+              })
+              .then((res) => {
+                console.log("ユーザーページから日報をみる");
+
+                  console.log("書き換え前:"+JSON.stringify(res.data));
+    
+                // Date.prototype.toJSON = function() {
+                //   return this.getFullYear() + '-' + ('0'+(this.getMonth()+1)).slice(-2) + '-' + ('0'+this.getDate()).slice(-2) + 'T' +
+                //  ('0'+this.getHours()).slice(-2) + ':' + ('0'+this.getMinutes()).slice(-2) + ':' + ('0'+this.getSeconds()).slice(-2) + '.000Z';
+                // }
+
+                var date = moment(res.data.dailyReport.registrationDate);
+                console.log(date.format("YYYY-MM-DD"));
+                res.data.dailyReport.registrationDate = date.format("YYYY-MM-DD");
+
+                const impressions= res.data.dailyReport.impressions;
+                this.impressions =  impressions;
+                const levelAchievement = res.data.dailyReport.levelAchievementlevelAchievement;
+                this.levelAchievement = levelAchievement;
+
+                console.log("書き換え後:"+JSON.stringify(res.data));
+                // const dailyReport = {
+                //   impressions : res.data.dailyReport.impressions,
+                //   levelAchievement : res.data.dailyReport.levelAchievementlevelAchievement
+                // }
+                // console.log("カレンダーコンポーネント"+dailyReport);
+              }
+           );
+        }
+        
+
 
     //    axios
     //   .post("/get/pastDairyReport", {
@@ -181,7 +238,7 @@ export default {
     // getEventColor(event) {
     //   return event.color;
     // },
-  },
+  }
 };
 </script>
 
