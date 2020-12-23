@@ -75,7 +75,8 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       // photoUrl:this.$store.state.loginUser.photoUrl,
       componentName: ['Follow', 'Follower', 'ProfileChange'],
      followingLength: [],
-     followedLength: []
+     followedLength: [],
+     flowerStatus: "",
   }),
     components:{
       ProfileChange,

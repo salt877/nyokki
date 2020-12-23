@@ -65,6 +65,7 @@ export default {
    levelAchievement: Number
  },
   created(){
+    console.log("所感"+ this.impressions)
    // console.log("日報コンポーネント:"+this.dailyReport);
     console.log(this.date)
     axios

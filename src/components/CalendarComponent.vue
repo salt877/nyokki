@@ -1,5 +1,8 @@
 <template>
     <v-app height="40vh">
+      <div v-if="loading">
+      <Loading></Loading>
+</div>
     <v-sheet tile height="6vh" color="pink lighten-4" class="d-flex align-center">
       <v-btn outlined small class="ma-4" @click="setToday">
         今日
@@ -41,10 +44,12 @@ import axios from 'axios';
 import moment from 'moment';
 import MonthlyReport from './MonthlyReport';
 import DailyReport from './DailyReport';
+import Loading from '@/components/Loading.vue';
 
 export default {
   name:'Calender',
   data: () => ({
+    loading: "",
     events: [],
     value: moment().format('yyyy-MM-DD'),
     componentName: ['MonthlyReport', 'DailyReport'],
@@ -53,7 +58,8 @@ export default {
   }),
   components: {
     MonthlyReport,
-    DailyReport
+    DailyReport,
+    Loading
   },
   props:{
     userId: Number
@@ -116,13 +122,30 @@ export default {
                 loginUser: this.$store.state.loginUser,
               })
               .then((res) => {
+                this.loading = true;
                 console.log("自分のカレンダーから日報をみる");
-                console.log(res.data);
+                console.log("書き換え前:"+JSON.stringify(res.data));
+                console.log("書き換え前2:",res.data);
+
+                var date = moment(res.data.dailyReport.registrationDate);
+                console.log(date.format("YYYY-MM-DD"));
+                res.data.dailyReport.registrationDate = date.format("YYYY-MM-DD");
+
+                const impressions= res.data.dailyReport.impressions;
+                this.impressions =  impressions;
+                const levelAchievement = res.data.dailyReport.levelAchievementlevelAchievement;
+                this.levelAchievement = levelAchievement;
+
+                console.log("書き換え後:"+JSON.stringify(res.data));
+                console.log("書き換え後2:",res.data);
+
+
                 const dailyReport = {
                   impressions : res.data.dailyReport.impressions,
                   levelAchievement : res.data.dailyReport.levelAchievementlevelAchievement
                 }
                 console.log("カレンダーコンポーネント"+dailyReport);
+              this.loading = false;
               })  
         }
         //ユーザーページで使用
@@ -157,10 +180,10 @@ export default {
                 //   levelAchievement : res.data.dailyReport.levelAchievementlevelAchievement
                 // }
                 // console.log("カレンダーコンポーネント"+dailyReport);
+        this.loading = false;
               }
            );
         }
-        
 
 
     //    axios
