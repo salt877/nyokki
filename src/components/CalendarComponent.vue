@@ -35,7 +35,10 @@
         
       ></v-calendar>
     </v-sheet>
-    <component :is="componentName" :impressions="impressions" :levelAchievement="levelAchievement"></component>
+    <!-- <component :is="componentName" 
+      :impressions="impressions" :levelAchievement="levelAchievement"
+      :completeTodoList="completeTodoList" :uncompleteTodoList="uncompleteTodoList"></component>  -->
+    <component :is="componentName" :dailyReport="dailyReport"></component> 
     </v-app>
 </template>
 
@@ -68,9 +71,6 @@ export default {
     title() {
       return moment(this.value).format('yyyy年 M月');
     },
-  },
-  created(){
-    console.log("test:"+this.userId);
   },
   methods: {
     setToday() {
@@ -154,32 +154,40 @@ export default {
           axios.post("/get/otherUserPastDailyReport",
               {
                 date: date,
-               userId: this.userId
+                userId: this.userId
               })
               .then((res) => {
                 this.loading = true;
-                console.log("ユーザーページから日報をみる");
- 
-                var date = moment(res.data.dailyReport.registrationDate);
-                console.log(date.format("YYYY-MM-DD"));
-                res.data.dailyReport.registrationDate = date.format("YYYY-MM-DD");
+               
+                //日報を書いていない時
+                if(res.data.dailyReport === null){
+                  this.dailyReport = null;
+                  this.loading = false;
+                  this.componentName = 'DailyReport';
 
-                const impressions= res.data.dailyReport.impressions;
-                this.impressions =  impressions;
-                const levelAchievement = res.data.dailyReport.levelAchievementlevelAchievement;
-                this.levelAchievement = levelAchievement;
+                //日報を書いている時
+                } else {  
+                //日付を加工する
+                const dailyReportDate = moment(res.data.dailyReport.registrationDate);
 
-                console.log("書き換え後:");
-                console.log(res.data);
-                this.componentName = 'DailyReport';
+                res.data.dailyReport.registrationDate = dailyReportDate.format("YYYY-MM-DD");
+                const completeTodoListDate = moment(res.data.completeTodoList.registrationDate);
+                res.data.completeTodoList.registrationDate = completeTodoListDate.format("YYYY-MM-DD");
+                const uncompleteTodoListDate = moment(res.data.uncompleteTodoList.registrationDate);
+                res.data.uncompleteTodoList.registrationDate = uncompleteTodoListDate.format("YYYY-MM-DD");
+
+                const dailyReport = {
+                  completeTodoList : res.data.completeTodoList,
+                  uncompleteTodoList :res.data.uncompleteTodoList,
+                  impressions : res.data.dailyReport.impressions,
+                  levelAchievement : res.data.dailyReport.levelAchievementlevelAchievement
+                }
+              
+                this.dailyReport = dailyReport;
+                 
                 this.loading = false;
-                // console.log("書き換え後:"+JSON.stringify(res.data));
-                // const dailyReport = {
-                //   impressions : res.data.dailyReport.impressions,
-                //   levelAchievement : res.data.dailyReport.levelAchievementlevelAchievement
-                // }
-                // console.log("カレンダーコンポーネント"+dailyReport);
-        // this.loading = false;
+                this.componentName = 'DailyReport';
+                }
               }
            );
         }
