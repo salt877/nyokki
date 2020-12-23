@@ -13,7 +13,7 @@
         <ChartJs :values="values"></ChartJs>
       </v-card>
       <v-col>
-      <NyokkiFlower></NyokkiFlower>
+      <NyokkiFlower :flowerStatus="flowerStatus" ></NyokkiFlower>
     </v-col>
     </v-col>
   </v-row>
@@ -38,7 +38,9 @@ import axios from "axios";
     },
     data: () => ({
     loading: true,
-    values:""
+    values:"",
+    flowerStatus: "",
+     item: [],
   }),
   async created () {
 
@@ -46,7 +48,21 @@ import axios from "axios";
         .then((res) => {
         let list = res.data ;
         var achievementList=[];
+        
+        //お花の表示
+        let flowerCount = this.$store.state.loginUser.continuationDays / 32;
+        let flowerStatus = this.$store.state.loginUser.continuationDays % 32;
 
+          if(flowerCount < 1){
+            flowerCount = 0;
+            this.flowerStatus = flowerStatus;
+
+          } else if(flowerCount >= 1){
+            flowerCount = Math.floor(flowerCount);
+            this.flowerStatus = flowerStatus;
+          }
+
+          //達成度グラフの表示
           for(let num in list){
             achievementList.push({
               value:list[num].levelAchievementlevelAchievement,
