@@ -1,39 +1,51 @@
 <template>
   <v-container>
     <h2>日報詳細</h2>
-      {{ dailyReport }}  
-    <v-row>
+      <v-row v-if="!dailyReport">
+        <v-col>
+          <v-card>
+            <v-card-title>この日の日報はありません</v-card-title>
+          </v-card>
+        </v-col>
+    </v-row>
+    <v-row v-if="dailyReport">
       <v-col cols="8">
         <v-card>
           <v-card-title>タスク一覧</v-card-title>
-          <v-card-text v-for="todo in todos" :key="todo.id" >
-            {{ todo.task }}
-          </v-card-text>
+          <!-- <v-card-text v-for="todo in todos" :key="todo.id" > -->
+            <v-card-text v-for="uncompleteTodo in dailyReport.uncompleteTodoList" :key="uncompleteTodo.id" >
+              {{ uncompleteTodo.task }}
+            </v-card-text>
+            <v-card-text v-for="completeTodo in dailyReport.completeTodoList" :key="completeTodo.id" >
+              {{ completeTodo.task }}
+            </v-card-text>
         </v-card>
       </v-col>
       <v-col>
         <v-card>
           <v-card-title>達成度</v-card-title>
-          <v-card-text v-if="levelAchievement ===1">😢</v-card-text>
-          <v-card-text v-else-if="levelAchievement ===2">😐</v-card-text>
-          <v-card-text v-else-if="levelAchievement ===3">😊</v-card-text>
+          <v-card-text v-if="dailyReport.levelAchievement ===1">😢</v-card-text>
+          <v-card-text v-else-if="dailyReport.levelAchievement ===2">😐</v-card-text>
+          <v-card-text v-else-if="dailyReport.levelAchievement ===3">😊</v-card-text>
         </v-card>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="dailyReport">
       <v-col>
         <v-card>
           <v-card-title>報告</v-card-title>
-          <v-card-text v-for="completeTodo in completeTodoList" :key="completeTodo">{{ completeTodo.task }}</v-card-text>
+          <v-card-text v-for="completeTodo in dailyReport.completeTodoList" :key="completeTodo">
+            {{ completeTodo.task }}
+            </v-card-text>
         </v-card>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="dailyReport">
       <v-col>
         <v-card>
           <v-card-title>所感</v-card-title>
           <v-card-text>
-            {{impressions}}<br />
+            {{dailyReport.impressions}}<br />
           </v-card-text>
         </v-card>
       </v-col>
@@ -58,16 +70,13 @@ export default {
     todos: [],
     completeTodoList: [],
     levelAchievementlevelAchievement: "",
-    impressions: "test",
-    levelAchievement: 1
   }),
  // props:["date"],
  props: {
-   impressions: String,
-   levelAchievement: Number
+   dailyReport: Object
  },
   created(){
-   // console.log("日報コンポーネント:"+this.dailyReport);
+   //console.log("日報コンポーネント:"+this.dailyReport);
     // console.log(this.date)
     // axios
     //   .post("/get/pastDairyReport", {

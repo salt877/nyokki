@@ -1,5 +1,8 @@
 <template>
-    <v-container>
+    <div v-if="loading">
+      <Loading></Loading>
+    </div>
+    <v-container v-else>
         <h2>{{ user.userName }}さんのページ</h2>
         <v-row>
             <v-col>
@@ -44,14 +47,17 @@
 import axios from 'axios';
 import CalendarComponent from '../components/CalendarComponent.vue';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
+import Loading from '@/components/Loading.vue';
 
   export default {
     name: "Userpage",
     components:{
-      CalendarComponent,
-      NyokkiFlower
+        CalendarComponent,
+      NyokkiFlower,
+      Loading
     },
     created(){
+        this.loading = true;
         axios.post("/get/userInformation",{ 
             userId: this.$route.params.id,
             loginUser: this.$store.state.loginUser
@@ -81,6 +87,7 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
                 followingId: res.data.followingId,
             }
             this.user = user;
+            this.loading = false;
             })
     },
     methods:{
@@ -90,7 +97,8 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
         }
     },
      data: () => ({
-       user: []
+       user: [],
+       loading: ""
     })
   };
 </script>

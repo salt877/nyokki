@@ -10,9 +10,11 @@
               <v-data-table :headers="headers" :items="newUserList">
 
                 <template v-slot:[`item.photoUrl`]="{ item }">
-                  <v-list-item-avatar size="70" >
-                  <img :src="item.photoUrl">
-                  </v-list-item-avatar>
+                  <router-link :to="{name: 'userpage',  params: {id: item.userId}}"> 
+                    <v-list-item-avatar size="70" >
+                      <img :src="item.photoUrl">
+                    </v-list-item-avatar>
+                  </router-link>
                 </template>
 
                 <template v-slot:[`item.userName`]="{ item }">
