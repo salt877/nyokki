@@ -1,14 +1,14 @@
 <template>
   <v-container>
     <h2>日報詳細</h2>
-      <v-row v-if="!dailyReport">
+      <v-row v-if="!dailyReport.levelAchievement">
         <v-col>
           <v-card>
             <v-card-title>この日の日報はありません</v-card-title>
           </v-card>
         </v-col>
     </v-row>
-    <v-row v-if="dailyReport">
+    <v-row v-if="dailyReport.levelAchievement">
       <v-col cols="8">
         <v-card>
           <v-card-title>タスク一覧</v-card-title>
@@ -30,7 +30,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row v-if="dailyReport">
+    <v-row v-if="dailyReport.completeTodoList">
       <v-col>
         <v-card>
           <v-card-title>報告</v-card-title>
@@ -40,7 +40,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row v-if="dailyReport">
+    <v-row v-if="dailyReport.impressions">
       <v-col>
         <v-card>
           <v-card-title>所感</v-card-title>
@@ -76,7 +76,7 @@ export default {
    dailyReport: Object
  },
   created(){
-    console.log("所感"+ this.impressions)
+   // console.log("所感"+ this.impressions)
    // console.log("日報コンポーネント:"+this.dailyReport);
    //console.log("日報コンポーネント:"+this.dailyReport);
     // console.log(this.date)

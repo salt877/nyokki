@@ -27,7 +27,6 @@
         <v-row>
             <v-col>
                 <v-card v-if="user.followFlag==true">
-                <p>フォロー済なら日報・月報に切り替わる</p>
                 <CalendarComponent :userId="user.userId"></CalendarComponent>
                 </v-card>
             </v-col>
@@ -35,8 +34,10 @@
         <v-row>
             <v-col>
                 <v-card v-if="user.followFlag==null">
-                    <p>未フォローならこれが表示される</p>
                     <p class="follow-yet">フォロー申請を送ろう！</p>
+                </v-card>
+                <v-card v-if="user.followFlag==false">
+                    <p class="follow-yet">フォロー許可されると日報が見れるよ！</p>
                 </v-card>
             </v-col>
         </v-row>
@@ -53,8 +54,8 @@ import Loading from '@/components/Loading.vue';
     name: "Userpage",
     components:{
         CalendarComponent,
-      NyokkiFlower,
-      Loading
+        NyokkiFlower,
+        Loading
     },
     created(){
         this.loading = true;
@@ -87,8 +88,8 @@ import Loading from '@/components/Loading.vue';
                 followingId: res.data.followingId,
             }
             this.user = user;
-            this.loading = false;
             })
+            this.loading = false;
     },
     methods:{
         followRequest(user){

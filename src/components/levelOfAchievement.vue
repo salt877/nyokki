@@ -205,7 +205,6 @@ export default {
       ],
       item: [],
       newUserList: [],
-      flowerStatus: "",
       user:[
         {name: '詳細' ,icon: 'mdi-account-multiple-outline',link: 'userpage'}
       ]
