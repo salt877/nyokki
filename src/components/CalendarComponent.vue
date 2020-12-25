@@ -38,7 +38,7 @@
     <!-- <component :is="componentName" 
       :impressions="impressions" :levelAchievement="levelAchievement"
       :completeTodoList="completeTodoList" :uncompleteTodoList="uncompleteTodoList"></component>  -->
-    <component :is="componentName" :dailyReport="dailyReport"></component> 
+    <component :is="componentName" :dailyReport="dailyReport" :monthlyReport="monthlyReport" :dailyReport2="dailyReport2"></component> 
     </v-app>
 </template>
 
@@ -58,6 +58,7 @@ export default {
     componentName: ['MonthlyReport', 'DailyReport'],
     userId: "",
     dailyReport: [],
+    MonthlyReport:1
   }),
   components: {
     MonthlyReport,
@@ -179,11 +180,16 @@ export default {
                 const dailyReport = {
                   completeTodoList : res.data.completeTodoList,
                   uncompleteTodoList :res.data.uncompleteTodoList,
-                  impressions : res.data.dailyReport.impressions,
+                  // impressions : res.data.dailyReport.impressions,
                   levelAchievement : res.data.dailyReport.levelAchievementlevelAchievement
                 }
               
                 this.dailyReport = dailyReport;
+
+
+          
+
+
                  
                 this.loading = false;
                 this.componentName = 'DailyReport';

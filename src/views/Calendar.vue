@@ -48,7 +48,7 @@ import axios from "axios";
         .then((res) => {
         let list = res.data ;
         var achievementList=[];
-        
+
         //お花の表示
         let flowerCount = this.$store.state.loginUser.continuationDays / 32;
         let flowerStatus = this.$store.state.loginUser.continuationDays % 32;

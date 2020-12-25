@@ -40,7 +40,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row v-if="dailyReport">
+    <v-row v-if="dailyReport.impressions">
       <v-col>
         <v-card>
           <v-card-title>所感</v-card-title>
@@ -70,10 +70,13 @@ export default {
     todos: [],
     completeTodoList: [],
     levelAchievementlevelAchievement: "",
+    dailyReport2:true,
+    dailyReport:true
   }),
  // props:["date"],
  props: {
-   dailyReport: Object
+   dailyReport: Object,
+   dailyReport2: Object
  },
   created(){
     console.log("所感"+ this.impressions)

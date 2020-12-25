@@ -25,7 +25,16 @@
 </template>
 <script>
 export default {
-    name: 'monthlyReport'
+name: 'monthlyReport'
+,
+props:{
+    monthlyReport:Object
+},
+created(){
+    console.log("さめさめ",this.monthlyReport);
+}
+
+
 }
 </script>
 <style scoped>
