@@ -52,6 +52,7 @@ export default {
     value: moment().format('yyyy-MM-DD'),
     componentName: ['MonthlyReport', 'DailyReport'],
     dailyReport: [],
+    MonthlyReport:1
   }),
   components: {
     MonthlyReport,

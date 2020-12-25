@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     //花の状態を表示
-    flowerImage(){
+    flowerImage(){//not31months = [2,4,6,9,11]
       let image;
       let flowerState = this.flowerStatus;
       if(0 <= flowerState && flowerState <= 4){

@@ -70,10 +70,13 @@ export default {
     todos: [],
     completeTodoList: [],
     levelAchievementlevelAchievement: "",
+    dailyReport2:true,
+    dailyReport:true
   }),
  // props:["date"],
  props: {
-   dailyReport: Object
+   dailyReport: Object,
+   dailyReport2: Object
  },
   created(){
    // console.log("所感"+ this.impressions)
