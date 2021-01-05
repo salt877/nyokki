@@ -7,17 +7,19 @@
       <v-btn outlined small class="ma-4" @click="setToday">
         今日
       </v-btn>
-      <v-btn icon @click="$refs.calendar.prev()">
+      <v-btn icon @click="$refs.calendar.prev();triggerEvent()"
+      
+      >
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
-      <v-btn icon @click="$refs.calendar.next()">
+      <v-btn icon @click="$refs.calendar.next()"
+      @child-event="triggerEvent()">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-btn outlined small class="ma-8"
-      
        @click="viewMonth"
-       v-model="value">
+       >
         月報
       </v-btn>
     </v-sheet>
@@ -55,7 +57,12 @@ export default {
     componentName: ['MonthlyReport', 'DailyReport'],
     dailyReport: [],
     monthlyReport:[],
-    month:[]
+    // level: moment().format('yyyy-MM'),
+    
+    year: moment().format('yyyy'),
+    month: moment().format('MM')
+    
+    
   }),
   components: {
     MonthlyReport,
@@ -71,16 +78,30 @@ export default {
     },
    
   },
+  created(){
+    // this.triggerEvent();
+  },
   methods: {
     setToday() {
       this.value = moment().format('yyyy-MM-DD');
-
     },
+
+    triggerEvent() {
+    alert('triggerEventを取得します');
+    this.year = moment(this.value).format('yyyy');
+    this.month = moment(this.value).format('M');
+    console.log("mmmmmmmm", this.year, this.month);
+    this.$emit('child-event', {
+      year : this.year,
+      month : this.month
+    });
+   },
   //月報を取得する
    viewMonth(){
      this.month = moment(this.value).format('M');
     alert(`${this.month}` + '月の月報情報を取得します')
-
+    console.log(this.year);
+    console.log(this.month);
     //カレンダー画面で使用
     if(this.$store.state.loginUser.id === this.userId){
           axios.post("/get/myPastMonthlyReport",
@@ -89,9 +110,9 @@ export default {
                 loginUser: this.$store.state.loginUser,
               })
               .then((res) => {
+                console.log(this.value);
                 // alert(res.data.monthlyReport)
                 this.loading = true;
-               
                 //月報を書いていない時
                 if(res.data.monthlyReport === null){
                   this.monthlyReport = null;
@@ -119,7 +140,7 @@ export default {
               
                 this.monthlyReport = monthlyReport;
                 this.loading = false;
-                console.log(monthlyReport)
+                console.log("月報情報",this.monthlyReport);
                 this.componentName = 'MonthlyReport'
                 }
 
@@ -127,10 +148,6 @@ export default {
               })  
         }
 
-
-
-    //  this.componentName = 'MonthlyReport'
-   
   },
 
 

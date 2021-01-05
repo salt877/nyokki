@@ -12,7 +12,7 @@
             <v-col>
                 <v-card>
                     <v-card-title>{{this.month}}月の目標</v-card-title>
-                    <v-card-text>{{this.monthlyReport.thisMonthObjective}}</v-card-text>
+                    <v-card-text>{{monthlyReport.thisMonthObjective}}</v-card-text>
                 </v-card>
             </v-col>
         </v-row>
@@ -21,7 +21,7 @@
                 <v-card>
                     <v-card-title>所感</v-card-title>
                     <v-card-text>
-                        {{this.monthlyReport.impressions}}
+                        {{monthlyReport.impressions}}
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -30,16 +30,18 @@
 </template>
 <script>
 export default {
-name: 'monthlyReport'
-,
+name: 'monthlyReport',
+data: () => ({
+// monthlyReport:true
+}),
 props:{
     monthlyReport:Object,
-    month:Number
+    month:String
 },
 created(){
 
-    console.log("さめさめ",this.monthlyReport);
-    console.log("さめさめ2",this.month);
+    // console.log("さめさめ",this.monthlyReport);
+    // console.log("さめさめ2",this.month);
 }
 }
 
