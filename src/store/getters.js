@@ -6,8 +6,6 @@ export default {
     
     getContinuationDays(state) {
   
-
-
         let continuationDays;
 
         for(var i= 0; i< state.userList.length; i++){
@@ -96,11 +94,74 @@ export default {
       console.log("gettersのgetFollowListが呼ばれた、ログインユーザのID:"+state.loginUser.id);
       console.log("gettersのgetFollowListが呼ばれた、followingId:"+state.followingList.followingId)
       return state.followingList;         
+  },
+  //ログインユーザーの花の数を取得
+  getFlowerCount(state){
+    let flowerCount = state.loginUser.continuationDays / 32;
+    if( flowerCount < 1){
+      flowerCount = 0;
+    } else if(flowerCount >= 1){
+      flowerCount = Math.floor(flowerCount);
+    }
+    return flowerCount;
+  },
+  //ログインユーザーの花の状態を取得
+  getFlowerStatus(state){
+    let flowerStatus = state.loginUser.continuationDays % 32;
+    return flowerStatus;
+  },
+  //ログインユーザーの今月の目標を取得
+  getObjective(state){
+    if(state.objective === null){
+     return "今月の目標を登録しよう！";
+   } else if (state.objective !== null){
+     return state.objective.objective;
+   }
+  },
+  //ログインユーザーの今月の達成度を取得
+  //よくできたの数を取得
+  getLevelAchivementYokudekita(state){
+    var yokudekita = 0;
+    state.dailyReportList.forEach(dailyReport => {
+        if(dailyReport.levelAchievementlevelAchievement == 3){
+            console.log("達成度が3です");
+            yokudekita ++;
+        } 
+      }
+    );
+      console.log("よくできたの数"+yokudekita);
+      return yokudekita;  
+   },
+   //まあまあできたの数を取得
+   getLevelAchivementMaamaadekita(state){
+    var maamaadekita = 0;
+    state.dailyReportList.forEach(dailyReport => {
+      
+      if(dailyReport.levelAchievementlevelAchievement == 2){
+        console.log("達成度が2です");
+          maamaadekita ++;
+      }
+    }
+    );
+    console.log("まあまあできたの数"+maamaadekita);
+    return maamaadekita;
+  },
+  //できなかったの数を取得
+  getLevelAchivementDekinakatta(state){
+    var dekinakatta = 0;
+    state.dailyReportList.forEach(dailyReport => {
+ 
+      if(dailyReport.levelAchievementlevelAchievement == 1){
+        console.log("達成度が1です");
+          dekinakatta ++;
+      }
+    }
+    );
+    console.log("できなかったの数"+dekinakatta);
+    return dekinakatta;
   }
-    
+
+
 }
-
-
-
 
      

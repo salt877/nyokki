@@ -18,6 +18,10 @@ export default {
     commit("setDailyReport", dailyReport);
     console.log("setDailyReportのActionsを呼び出しました");
   },
+  setDailyReportList({ commit }, dailyReportList) {
+    commit("setDailyReportList", dailyReportList);
+    console.log("setDailyReportListのActionsを呼び出しました");
+  },
   setMonthlyReport({ commit }, monthlyReport) {
     commit("setMonthlyReport", monthlyReport);
     console.log("setMonthlyReportのActionsを呼び出しました");
