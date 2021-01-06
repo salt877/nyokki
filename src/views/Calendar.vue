@@ -42,8 +42,10 @@ import moment from 'moment';
     data: () => ({
     loading: true,
     values:"",
+    value4:"",
+    registrationDates:"",
     flowerStatus: "",
-     item: [],
+     item: "",
      year:"",
      month:"",
      resetKey:0
@@ -52,8 +54,8 @@ import moment from 'moment';
    parentMethod : function(value2) {
     //  this.loading = true;
     this.values = []
-    alert(value2.year);
-    alert(value2.month);
+    // alert(value2.year);
+    // alert(value2.month);
     this.year = value2.year;
     this.month = value2.month;
     console.log('子コンポーネントのイベントを検知しました',this.year,this.month);
@@ -117,14 +119,54 @@ import moment from 'moment';
           date: this.value,
           year: year,
           month: month
-          })
+        })
         .then((res) => {
         let list = res.data ;
+        var dayList = [];
         var achievementList=[];
+        var registrationDateList =[];
         console.log(res.data,"1");
 
-        //日付を加工する
-        // const achievementListDate = moment(list.registrationDate)
+        //登録日付を一つづつ取り出す
+        for(let num2 in list){
+            registrationDateList.push({
+              registrationDate:list[num2].registrationDate,
+            })
+          }
+        var registrationDates = registrationDateList.map((x) => x.registrationDate)
+          this.registrationDates = registrationDates;
+          // console.log("加工前の日付のデータ"+ registrationDates);
+
+        //登録日付を加工する
+        registrationDates.forEach( item => {
+        console.log( "中身を１つ取り出します" );
+        const achievementListDates = moment(item);
+        item = achievementListDates.format("YYYY-MM-DD");
+        dayList.push(item);
+        // this.item = item;
+        // item = this.item;
+        // console.log("加工後の日付のデータ",item);
+
+        //registrationDateに詰めなおす
+      });
+          // console.log("yyyyyy",dayList);
+          
+            // list.filter(day => {
+            //   if ( day.registrationDate !== null  ){
+            //     day.registrationDate = dayList[num3];
+            //   }
+            // });
+
+
+      //  console.log("aaaaaa",item);
+        console.log(list);
+ 
+        
+        
+        // registrationDates = achievementListDate.format("YYYY-MM-DD");
+        // this.registrationDates = registrationDates;
+        // console.log("加工後の日付のデータ"+ this.registrationDates);
+        
         
         //お花の表示
         let flowerCount = this.$store.state.loginUser.continuationDays / 32;

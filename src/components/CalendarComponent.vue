@@ -12,7 +12,7 @@
       >
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
-      <v-btn icon @click="$refs.calendar.next()"
+      <v-btn icon @click="$refs.calendar.next();triggerEvent()"
       @child-event="triggerEvent()">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
@@ -86,8 +86,9 @@ export default {
       this.value = moment().format('yyyy-MM-DD');
     },
 
-    triggerEvent() {
-    alert('triggerEventを取得します');
+//カレンダーの前後の月を表示する
+  triggerEvent() {
+    alert('月の表示を切り替えます');
     this.year = moment(this.value).format('yyyy');
     this.month = moment(this.value).format('M');
     console.log("mmmmmmmm", this.year, this.month);
@@ -107,6 +108,8 @@ export default {
           axios.post("/get/myPastMonthlyReport",
               {
                 date: this.value,
+                year: this.year,
+                month: this.month,
                 loginUser: this.$store.state.loginUser,
               })
               .then((res) => {
@@ -201,7 +204,7 @@ export default {
                 }
               
                 this.dailyReport = dailyReport;
-                 
+                 console.log("にっぽう",dailyReport);
                 this.loading = false;
                 this.componentName = 'DailyReport';
                 }
