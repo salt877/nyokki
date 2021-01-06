@@ -4,7 +4,7 @@
     <div class="columns">
       <div class="column">
         <line-chart
-              :data="datacollection"
+              :chartData="datacollection"
               :options="options"
         ></line-chart>
       </div>
@@ -30,7 +30,6 @@
     },
     data () {
       return {
-
         chartdata: null,
         achievementList:[],
         datacollection: {
@@ -86,6 +85,39 @@
       }
     },
     props:["values"],
+    watch:{
+      values(){
+        console.log("きた",this.values);
+        this.datacollection = {
+          labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
+          datasets: [
+            {
+              label: '自己達成度 (3:😊 2:😐 1:😢)',
+              borderColor: 'rgba(255, 146, 51, 1)',
+              backgroundColor: 'rgba(255, 146, 51, 0.2)',
+              pointBackgroundColor: 'white',
+              borderWidth: 2,
+              // pointBorderColor: '#249EBF',
+              data: this.values  //ここに実際のデータが入る
+            }
+          ]
+        }
+        this.datacollection = {
+          labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"],
+          datasets: [
+            {
+              label: '自己達成度 (3:😊 2:😐 1:😢)',
+              borderColor: 'rgba(255, 146, 51, 1)',
+              backgroundColor: 'rgba(255, 146, 51, 0.2)',
+              pointBackgroundColor: 'white',
+              borderWidth: 2,
+              // pointBorderColor: '#249EBF',
+              data: this.values  //ここに実際のデータが入る
+            }
+          ]
+        }
+      }
+    }
   
 
 
@@ -144,8 +176,10 @@
     // },
   
 
-    methods: {
-      
-    }
+    // methods: {
+    //   reRenderChart() {
+    //   this.renderChart(this.data, this.options)
+    //  }
+    // }
   }
 </script>

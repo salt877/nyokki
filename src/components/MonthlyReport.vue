@@ -1,22 +1,27 @@
 <template>
     <v-container>
         <h2>月報詳細</h2>
-        <v-row>
+         <v-row v-if="!monthlyReport.impressions">
+        <v-col>
+          <v-card>
+            <v-card-title>この月の月報はありません</v-card-title>
+          </v-card>
+        </v-col>
+      </v-row>
+        <v-row v-if="monthlyReport.thisMonthObjective">
             <v-col>
                 <v-card>
-                    <v-card-title>○月の目標</v-card-title>
-                    <v-card-text>・目標1</v-card-text>
-                    <v-card-text>・目標2</v-card-text>
+                    <v-card-title>{{this.month}}月の目標</v-card-title>
+                    <v-card-text>{{monthlyReport.thisMonthObjective}}</v-card-text>
                 </v-card>
             </v-col>
         </v-row>
-        <v-row>
+        <v-row v-if="monthlyReport.impressions">
             <v-col>
                 <v-card>
                     <v-card-title>所感</v-card-title>
                     <v-card-text>
-                        自分のカレンダー画面から見たときだけ所感が表示されます<br>
-                        ユーザーページでは所感は表示されません
+                        {{monthlyReport.impressions}}
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -25,17 +30,22 @@
 </template>
 <script>
 export default {
-name: 'monthlyReport'
-,
+name: 'monthlyReport',
+data: () => ({
+// monthlyReport:true
+}),
 props:{
-    monthlyReport:Object
+    monthlyReport:Object,
+    month:String
 },
 created(){
-    console.log("さめさめ",this.monthlyReport);
+
+    // console.log("さめさめ",this.monthlyReport);
+    // console.log("さめさめ2",this.month);
+}
 }
 
 
-}
 </script>
 <style scoped>
 .container{
