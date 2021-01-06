@@ -1,4 +1,7 @@
 <template>
+<!-- <div v-if="loading">
+      <Loading></Loading>
+</div> -->
   <div class="back-ground">
     <div class="box">
       <h3>毎日書いてにょきにょき育てる</h3>
@@ -15,13 +18,23 @@ import firebase from "firebase";
 import { mapActions } from "vuex";
 import moment from "moment";
 import router from "../router";
+//import Loading from '@/components/Loading.vue';
 
 export default {
   name: "SignIn",
+  // components: {
+  //   Loading
+  // },
+data(){
+    return {
+      loading: "",
+    }
+  },  
   methods: {
-    ...mapActions(["setLoginUser", "setUserList", "setTodoList", "setDailyReport", "setMonthlyReport", "setObjective", "setFollowingList"]),
+    ...mapActions(["setLoginUser", "setUserList", "setTodoList", "setDailyReport",  "setDailyReportList","setMonthlyReport", "setObjective", "setFollowingList"]),
     // Googleログイン
     googleLogin() {
+     // this.loading = true;
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase
         .auth()
@@ -35,7 +48,7 @@ export default {
             photoUrl: res.additionalUserInfo.profile.picture
           };
           console.log("ログインした！"+loginUserData);
-
+        
           // IDトークン(JWT)の取得
           firebase.auth().currentUser.getIdToken(true)
             .then(function(idToken) {
@@ -85,6 +98,7 @@ export default {
           // 初期データの取得
           console.log("データの取得開始");
           console.log(res.additionalUserInfo.profile.email);
+          
           axios
             .get("/get/Information", {
               params: {
@@ -93,24 +107,28 @@ export default {
             })
             .then((res) => {
               console.log("データの取得成功");
+
               console.log(res.data);
+        
               // storeに保存
               Promise.resolve().then(() => {
                 this.setLoginUser(res.data.loginUser);
                 this.setUserList(res.data.userList);
                 this.setTodoList(res.data.todoList);
                 this.setDailyReport(res.data.dailyReport);
+                this.setDailyReportList(res.data.dailyReportList);
                 this.setMonthlyReport(res.data.monthlyReport);
                 this.setObjective(res.data.objective);
                 this.setFollowingList(res.data.followingList);
               });
+              router.push("/");
             })
             .catch((error) => {
               console.log("既存ログイン失敗" + error);
             });
           console.log("つつがなく成功");
-          router.push("/");
-        });
+          
+         })
     },
     // 以下、サンプル取得用(のち削除)
     getSample1() {
@@ -207,6 +225,9 @@ export default {
     },
     getDailyReport() {
       return this.$store.state.dailyReport;
+    },
+    getDailyReportList() {
+      return this.$store.state.dailyReportList;
     },
     getMonthlyReport() {
       return this.$store.state.monthlyReport;

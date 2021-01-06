@@ -14,6 +14,10 @@ export default {
     state.todoList = todoList;
     console.log("setTodoListのmutationが呼ばれました");
   },
+  setDailyReportList(state, dailyReportList) {
+    state.dailyReportList = dailyReportList;
+    console.log("setDailyReportListのmutationが呼ばれました");
+  },
   setDailyReport(state, dailyReport) {
     state.dailyReport = dailyReport;
     console.log("setDailyReportのmutationが呼ばれました");

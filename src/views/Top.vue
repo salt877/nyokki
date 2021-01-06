@@ -1,24 +1,26 @@
 <template>
-<v-main  class="top-hero__content">
+<div v-if="loading">
+      <Loading></Loading>
+</div>
+<v-main  class="top-hero__content" v-else>
   <v-container
    >
     <v-subheader 
-    v-for="type in types"
-      :key="type"
       class="grey lighten-4"
       fluid
       >
-      {{ type }}
+      {{ getObjective }}
       </v-subheader>
     <v-row justify="center" align-content="center">
       <v-spacer></v-spacer>
       <v-col
+          class="card-design"
           v-for="card in cards"
           :key="card"
           cols="2"
           sm="8"
           md="6"
-        >{{card}}
+        ><div>{{card}}</div>
       </v-col>
       <v-col
         v-for="rounded in ['xl', 'xl']"
@@ -43,12 +45,14 @@
         </v-hover>
         <v-spacer></v-spacer>
       </v-col>
+        <div class="flower-count">
+                咲かせた花数🌷: {{ getFlowerCount }}本＋
+        </div>
         <div class="flower">
-          <v-spacer></v-spacer>
-                <NyokkiFlower></NyokkiFlower>
+            <NyokkiFlower :flowerStatus="getFlowerStatus"></NyokkiFlower> 
         </div>
         <div id="app">
-          <v-spacer></v-spacer>
+          <div class="labels">😊 :よくできた  😐 :まあまあできた  😢 :できなかった</div>
           <Chart
             :def="def1"
             :data="data"
@@ -63,32 +67,50 @@
 <script>
 import NyokkiFlower from '../components/NyokkiFlower.vue';
 import Chart from 'vue-chartless';
+import Loading from '@/components/Loading.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Top',
   components: {
     Chart,
-    NyokkiFlower
+    NyokkiFlower,
+    Loading
   },
   data(){
     return {
       def1:{
             type:'pie',
       },
-      data:[
-          { label: '😢', value:'1' },
-          { label: '😐', value:'2' },
-          { label: '😊', value:'3' },
-          
-      ],
-      types: ['今月の目標'],
+      data: [],
       cards: ['日報継続度', '今月の自己達成度'],
+      loading: "",
     }
   },
   options:{
         responsive: true,
         maintainAspectRatio: false,
-    }
+    },
+  computed: {
+    ...mapGetters(["getFlowerCount", 
+      "getFlowerStatus",
+      "getObjective",
+      "getLevelAchivementYokudekita",
+      "getLevelAchivementMaamaadekita",
+      "getLevelAchivementDekinakatta"   
+      ]),
+  },
+  created(){
+    this.data.push(
+      { label: '😊', value: this.getLevelAchivementYokudekita}
+    );
+    this.data.push(
+      { label: '😐', value: this.getLevelAchivementMaamaadekita}
+    );
+    this.data.push(
+      { label: '😢' ,value: this.getLevelAchivementDekinakatta}
+    );
+  }
 }
 </script>
 
@@ -98,17 +120,37 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: absolute; top:200px; left:750px;
+  position: absolute; 
+  top: 40%;
+  left: 23%;
   color: #2c3e50;
   margin: 0 auto;
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 30%;
+}
+.labels {
+  position:absolute; 
+  top:-34%; 
+  left:33%;
 }
 
+.card-design div{
+  font-weight: bold;
+  font-size: 1.5em;
+}
 .flower {
-  width :400px;
-  height:400px;
-  position:absolute; top:150px; left:200px;
+  width :200px;
+  height:200px;
+  position:absolute; 
+  top:250px; 
+  left:150px;
+}
+.flower-count{
+  width :200px;
+  height:200px;
+  position:absolute; 
+  top:200px; 
+  left:100px;
 }
 .top-hero__content {
   background-image: url("~@/assets/TopBackground.png");

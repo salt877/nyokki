@@ -53,7 +53,15 @@ const defaultState = () => {
       impressions: "",
       registrationDate: null,
     },
-
+    dailyReportList: [
+      {
+      id: null,
+      impressions: "",
+      levelAchievementlevelAchievement: null,
+      registrationDate: null,
+      userId: null
+    }
+  ],
     // 月報情報
     monthlyReport: {
       id: null,
