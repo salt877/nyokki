@@ -147,7 +147,7 @@ data(){
             this.setUserList(res.data.userList);
             this.setTodoList(res.data.todoList);
             this.setDailyReport(res.data.dailyReport);
-            this.setDailyReport(res.data.dailyReport);
+            this.setDailyReportList(res.data.dailyReportList);
             this.setMonthlyReport(res.data.monthlyReport);
             this.setObjective(res.data.objective);
             this.setFollowingList(res.data.followingList);
@@ -175,7 +175,7 @@ data(){
             this.setUserList(res.data.userList);
             this.setTodoList(res.data.todoList);
             this.setDailyReport(res.data.dailyReport);
-            this.setDailyReport(res.data.dailyReport);
+            this.setDailyReportList(res.data.dailyReportList);
             this.setMonthlyReport(res.data.monthlyReport);
             this.setObjective(res.data.objective);
             this.setFollowingList(res.data.followingList);
@@ -203,7 +203,7 @@ data(){
             this.setUserList(res.data.userList);
             this.setTodoList(res.data.todoList);
             this.setDailyReport(res.data.dailyReport);
-            this.setDailyReport(res.data.dailyReport);
+            this.setDailyReportList(res.data.dailyReportList);
             this.setMonthlyReport(res.data.monthlyReport);
             this.setObjective(res.data.objective);
             this.setFollowingList(res.data.followingList);
