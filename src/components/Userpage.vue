@@ -27,7 +27,7 @@
         <v-row>
             <v-col>
                 <v-card v-if="user.followFlag==true">
-                <CalendarComponent :userId="user.userId"></CalendarComponent>
+                <CalendarComponent :userId="user.userId" :year="year" :month="month"></CalendarComponent>
                 </v-card>
             </v-col>
         </v-row>

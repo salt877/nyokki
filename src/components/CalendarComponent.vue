@@ -151,6 +151,55 @@ export default {
               })  
         }
 
+       //ユーザーページで使用
+    else if(this.$store.state.loginUser.id != this.userId){
+          axios.post("/get/otherUserPastMonthlyReport",
+              {
+                date: this.value,
+                year: this.year,
+                month: this.month,
+                userId: this.userId,
+              })
+              .then((res) => {
+                // console.log(this.value);
+                // alert(res.data.monthlyReport)
+                this.loading = true;
+                //月報を書いていない時
+                if(res.data.monthlyReport === null){
+                  this.monthlyReport = null;
+                  const monthlyReport = {
+                    thisMonthObjective:null,
+                    impressions:null
+                  }
+                  this.monthlyReport = monthlyReport;
+                  this.componentName = 'MonthlyReport'
+                  this.loading = false;
+
+                //月報を書いている時
+                } else {  
+                //日付を加工する
+                const monthlyReportDate = moment(res.data.monthlyReport.registrationDate);
+
+                res.data.monthlyReport.registrationDate = monthlyReportDate.format("YYYY-MM-DD");
+                
+
+                const monthlyReport = {
+                  thisMonthObjective: res.data.monthlyReport.thisMonthObjective,
+                  impressions : res.data.monthlyReport.impressions,
+            
+                }
+              
+                this.monthlyReport = monthlyReport;
+                console.log("月報情報",this.monthlyReport);
+                this.componentName = 'MonthlyReport'
+                this.loading = false;
+                }
+
+
+              })  
+        }
+
+
   },
 
 
