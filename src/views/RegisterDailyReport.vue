@@ -23,7 +23,7 @@
               <v-btn color="primary" @click="addNewCard()">追加</v-btn>
             </v-card-actions>
             <v-card-actions>
-              <v-btn color="warning">コピー</v-btn>
+              <v-btn color="warning" @click="copyTasks()">コピー</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -141,6 +141,24 @@ export default {
           console.log("通信失敗" + error);
         });
     },
+    copyImpressions: function () {
+            this.$copyText(this.impression).then(function () {
+                alert('所感をコピーしました');
+            }, function () {
+                alert('所感のコピーに失敗しました');
+            })
+        },
+    copyTasks: function () {
+            var tasks = [];
+            for(let task of this.completeTodoList) {
+              tasks.push(task.task);
+            }
+            this.$copyText(tasks).then(function () {
+                alert('今日の報告をコピーしました');
+            }, function () {
+                alert('今日の報告のコピーに失敗しました');
+            })
+        }
   },
   created() {
     axios
