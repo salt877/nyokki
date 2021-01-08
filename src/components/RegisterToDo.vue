@@ -12,8 +12,8 @@
           <v-card-title>
             今日のToDo
           </v-card-title>
-          <v-card-text v-for="todo in todos" :key="todo.id">
-            {{ todo.task }}
+          <v-card-text v-for="todo in todos" :key="todo.id" v-model="todos">
+            {{ todo.task }} 
             <v-btn elevation="2" fab x-small color="gray" @click="daleteTodo(todo.task)">
               <v-icon>
                 mdi-minus
@@ -22,7 +22,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="warning" @click="copyToDo">コピー </v-btn>
+            <v-btn color="warning" @click="copyTodo()">コピー
+            </v-btn>
             <v-btn color="error" @click="saveToDo">保存 </v-btn>
           </v-card-actions>
         </v-card>
@@ -35,12 +36,13 @@
 import axios from "axios";
 import { mapActions } from "vuex";
 import router from "../router";
+
 export default {
   name: "RegisterToDo",
   data() {
     return {
       toDoCard: "",
-      todos: [],
+      todos: []
     };
   },
   methods: {
@@ -61,7 +63,6 @@ export default {
           this.setTodoList(res.data);
           alert("登録完了");
           router.push("/");
-
           this.todos = [];
         })
         .catch((error) => {
@@ -69,9 +70,18 @@ export default {
           console.log("登録失敗" + error);
         });
     },
-    copyToDo() {
-      console.log("保存");
-    },
+    copyTodo: function () {
+      var tasks = [];
+        for(let todo of this.todos){
+          console.log(todo.task);
+          tasks.push(todo.task);
+        }
+            this.$copyText(tasks).then(function () {
+                alert('今日のToDoをコピーしました');
+            }, function () {
+                alert('今日のToDoのコピーに失敗しました');
+            })
+        },
     daleteTodo(task) {
       for (var num in this.todos) {
         if (this.todos[num].task === task) {

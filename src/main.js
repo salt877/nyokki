@@ -6,6 +6,7 @@ import axios from "axios";
 import store from "./store";
 import firebase from "firebase";
 // import VeeValidate from 'vee-validate';
+import VueClipboard from 'vue-clipboard2'
 
 Vue.config.productionTip = false;
 
@@ -23,6 +24,8 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+Vue.use(VueClipboard);
 
 new Vue({
   router: router,
