@@ -7,8 +7,8 @@
     </v-main>
       <!-- フッター -->
     <v-footer
-        class="font-weight-medium"
-        color="light-green accent-1"
+      class="font-weight-medium"
+      color="light-green accent-1"
     >
       <Footer></Footer>
     </v-footer>
@@ -27,4 +27,14 @@ export default {
   }
 };
 </script>
+<style scoped>
+body #app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+footer {
+  margin-top: auto;
+}
+</style>
 

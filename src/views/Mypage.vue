@@ -1,25 +1,22 @@
 <template>
-  <v-container>
-    <h2>マイページ</h2>
-    <v-row align="center" justify="center">
-      <v-col>
-        <v-avatar size="150" >
-          <v-img :src="photoUrl" />
-        </v-avatar>
-           <div class="mypage">
-           <!-- <ProfileChange :value="newName" @input="newName = $event"/> -->
-            <v-text :value2="newName" @input="newName = $event">ユーザー名：{{ this.$store.state.loginUser.name }}</v-text>
-          </div>
+  <v-container align-content="center">
+    <v-row>
+      <v-col class="user-name">
+          <v-avatar size="150" >
+            <v-img :src="photoUrl" />
+          </v-avatar><br><br>
+          <v-text :value2="newName" @input="newName = $event" justify="center">
+              ユーザー名：{{ this.$store.state.loginUser.name }}
+          </v-text>
       </v-col>
-      <v-col>
+      <v-col class="user-flower">
         <p>現在の花の状態：</p>
         <v-list-item-avatar size="150">
           <NyokkiFlower :flowerStatus="flowerStatus"></NyokkiFlower>
         </v-list-item-avatar>
       </v-col>
     </v-row>
-    <br>
-    <br>
+
     <v-row>
       <v-col>
           <v-card-actions >
@@ -27,8 +24,7 @@
         <v-card-actions> 
         <v-text>フォロー数：{{ followingLength }}人</v-text>
         </v-card-actions>
-        </v-card-actions>
-          
+        </v-card-actions>      
       </v-col>
       <v-col>
         <v-card-actions>
@@ -44,7 +40,6 @@
         </v-card-actions>
       </v-col>
     </v-row>
-
     <v-row>
       <v-col>
         <v-card>
@@ -53,8 +48,6 @@
         </v-card>
       </v-col>
     </v-row>
-    
-
   </v-container>
 </template>
 
@@ -72,11 +65,10 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
     name: "Mypage",
     data: () => ({
       newName: "",
-      // photoUrl:this.$store.state.loginUser.photoUrl,
       componentName: ['Follow', 'Follower', 'ProfileChange'],
-     followingLength: [],
-     followedLength: [],
-     flowerStatus: "",
+      followingLength: [],
+      followedLength: [],
+      flowerStatus: "",
   }),
     components:{
       ProfileChange,
@@ -88,7 +80,7 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
     
        axios.post("/get/followAndFollowerList",{ loginUser: this.$store.state.loginUser }).then(res=> {
        
-         let flowerCount = this.$store.state.loginUser.continuationDays / 32;
+        let flowerCount = this.$store.state.loginUser.continuationDays / 32;
         let flowerStatus = this.$store.state.loginUser.continuationDays % 32;
 
           if(flowerCount < 1){
@@ -104,7 +96,6 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
         const followerList = res.data.followerList;
         this.followList = followList;
         this.followerList = followerList;
-        console.log("マイページを開いた"+JSON.stringify(this.followerList));
         
         //フォローしている人数
         const followingLength = [];
@@ -132,3 +123,9 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
   }     
 };
 </script>
+<style scoped>
+.user-name{
+  text-align: center;
+}
+
+</style>
