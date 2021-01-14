@@ -124,6 +124,9 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
 };
 </script>
 <style scoped>
+.container {
+    margin-top: 10px;
+}
 .user-name{
   text-align: center;
 }
