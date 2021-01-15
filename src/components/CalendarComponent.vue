@@ -300,9 +300,10 @@ export default {
                   levelAchievement : res.data.dailyReport.levelAchievementlevelAchievement
                 }
               
-                this.dailyReport = dailyReport; 
-                this.componentName = 'DailyReport';
+                this.dailyReport = dailyReport;
+                 console.log("にっぽう",dailyReport);
                 this.loading = false;
+                this.componentName = 'DailyReport';
                 }
               }
            );
