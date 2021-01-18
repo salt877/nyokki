@@ -139,11 +139,11 @@ export default {
   font-size: 1.5em;
 }
 .flower {
-  width :200px;
-  height:200px;
+  width :350px;
+  height:350px;
   position:absolute; 
-  top:250px; 
-  left:150px;
+  top:200px; 
+  left:100px;
 }
 .flower-count{
   width :200px;

@@ -1,4 +1,5 @@
 <template>
+<v-main  class="back">
   <v-container>
     <h2>ToDo管理</h2>
     <h3>達成率：{{ achievementRate }}％</h3>
@@ -16,6 +17,7 @@
       <v-btn color="error button" @click="finishTodo">保存 </v-btn>
     </v-card-actions>
   </v-container>
+</v-main>
 </template>
 
 <script>
@@ -153,5 +155,12 @@ li {
   margin-left: 540px;
   position: relative;
   padding-bottom: 50px;
+}
+.back{
+  background-image: url("~@/assets/Background9.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100vh;
 }
 </style>

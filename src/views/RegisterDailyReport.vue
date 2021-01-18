@@ -1,4 +1,5 @@
 <template>
+<v-main  class="back">
   <v-container>
     <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
       <h2>日報登録</h2>
@@ -64,6 +65,7 @@
       </v-row>
     </ValidationObserver>
   </v-container>
+</v-main>
 </template>
 
 <script>
@@ -199,5 +201,12 @@ export default {
 }
 .save-button {
   margin: 3em auto;
+}
+.back{
+  background-image: url("~@/assets/Background8.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100vh;
 }
 </style>

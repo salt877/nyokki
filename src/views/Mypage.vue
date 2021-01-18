@@ -1,4 +1,5 @@
 <template>
+  <v-main  class="back">
   <v-container align-content="center">
     <v-row>
       <v-col class="user-name">
@@ -49,6 +50,7 @@
       </v-col>
     </v-row>
   </v-container>
+  </v-main>
 </template>
 
 <script>
@@ -126,9 +128,19 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
 <style scoped>
 .container {
     margin-top: 10px;
+    
 }
 .user-name{
   text-align: center;
 }
+
+.back{
+  background-image: url("~@/assets/Background5.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100vh;
+}
+
 
 </style>

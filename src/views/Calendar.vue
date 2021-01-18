@@ -1,4 +1,5 @@
 <template>
+<v-main  class="back">
 <div v-if="loading">
       <Loading></Loading>
 </div>
@@ -20,6 +21,7 @@
     </v-col>
   </v-row>
 </v-container>
+</v-main>
 </template>
 
 <script>
@@ -202,3 +204,12 @@ import moment from 'moment';
 
   };
 </script>
+<style scoped>
+/* .back{
+  background-image: url("~@/assets/Background8.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100vh;
+} */
+</style>

@@ -1,4 +1,5 @@
 <template>
+<v-main  class="back">
 <v-container>
   <h2 style="text-align: center">みんなの達成度</h2>
   <v-row>
@@ -97,6 +98,7 @@
       </v-col>
     </v-row>
   </v-container>
+</v-main>
 </template>
 
 <script>
@@ -212,3 +214,16 @@ export default {
   }
 
 </script>
+<style scoped>
+.container {
+  text-align: center;
+}
+/* .back{
+  background-image: url("~@/assets/Background5.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100vh;
+} */
+
+</style>

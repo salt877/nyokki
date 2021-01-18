@@ -1,4 +1,5 @@
 <template>
+ <v-main  class="back">
   <v-container>
     <v-row>
       <v-col>
@@ -30,6 +31,7 @@
       </v-col>
     </v-row>
   </v-container>
+ </v-main>
 </template>
 
 <script>
@@ -115,5 +117,12 @@ export default {
   width: 1.5rem;
   height: 1.5rem;
   margin: 0 1rem;
+}
+.back{
+  background-image: url("~@/assets/Background9.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100vh;
 }
 </style>
