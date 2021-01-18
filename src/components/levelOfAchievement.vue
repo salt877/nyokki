@@ -218,12 +218,12 @@ export default {
 .container {
   text-align: center;
 }
-/* .back{
-  background-image: url("~@/assets/Background5.png");
+.back{
+  background-image: url("~@/assets/Background8.png");
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 100vh;
-} */
+  height: 130vh;
+}
 
 </style>

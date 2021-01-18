@@ -205,11 +205,11 @@ import moment from 'moment';
   };
 </script>
 <style scoped>
-/* .back{
+.back{
   background-image: url("~@/assets/Background8.png");
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 100vh;
-} */
+  height: 150vh;
+}
 </style>

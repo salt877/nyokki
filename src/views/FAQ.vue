@@ -1,4 +1,5 @@
 <template>
+<v-main  class="back">
   <div >
       <h2>FAQ</h2>
       <h4>よくあるご質問</h4>
@@ -120,6 +121,7 @@
   </v-expansion-panels>
  </v-container>
 </div>
+</v-main>
 </template>
 
 <script>
@@ -142,5 +144,12 @@ h2, h4 {
 }
 .v-expansion-panel-content__wrap {
   padding: 20px 24px 16px;
+}
+.back{
+  background-image: url("~@/assets/Background7.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 180vh;
 }
 </style>
