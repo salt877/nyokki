@@ -7,7 +7,7 @@
       </v-col>
       <v-col >
         <v-avatar size="150" >
-         <img src="../images/same.jpeg">
+         <v-img :src="photoUrl" />
         </v-avatar>
       </v-col>
 
@@ -126,6 +126,9 @@ export default {
     //    this.$store.dispatch("updateName", value);
     //   }
     // },
+     photoUrl(){
+        return this.$store.state.loginUser.photoUrl;
+      }
     
   },
   methods: {

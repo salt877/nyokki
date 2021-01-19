@@ -1,4 +1,7 @@
 <template>
+  <v-main  class="back">
+    <!-- ナビゲーション -->
+      <navigation></navigation>
   <v-container>
     <h2>{{ year }}年{{ month }}月 月報登録</h2>
     <v-row>
@@ -44,13 +47,18 @@
       <v-btn class="save-button" color="error" @click="saveMonthlyReport">保存する </v-btn>
     </v-row>
   </v-container>
+  </v-main>
 </template>
 
 <script>
 import axios from "axios";
 import router from "../router";
+import Navigation from '../components/Navigation';
 export default {
   name: "RegisterMonthlyReport",
+  components:{
+    Navigation,
+  },
   data() {
     return {
       thisMonthsGoal: "",
@@ -109,5 +117,12 @@ export default {
 }
 .save-button {
   margin: 3em auto;
+}
+.back{
+  background-image: url("~@/assets/Background8.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100vh;
 }
 </style>

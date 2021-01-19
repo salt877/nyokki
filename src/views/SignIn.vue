@@ -147,16 +147,17 @@ data(){
             this.setUserList(res.data.userList);
             this.setTodoList(res.data.todoList);
             this.setDailyReport(res.data.dailyReport);
+            this.setDailyReportList(res.data.dailyReportList);
             this.setMonthlyReport(res.data.monthlyReport);
             this.setObjective(res.data.objective);
             this.setFollowingList(res.data.followingList);
           });
+          router.push("/");
         })
         .catch((error) => {
           console.log("既存ログイン失敗" + error);
         });
       console.log("すべて成功");
-      router.push("/");
     },
     getSample2() {
       axios
@@ -174,16 +175,17 @@ data(){
             this.setUserList(res.data.userList);
             this.setTodoList(res.data.todoList);
             this.setDailyReport(res.data.dailyReport);
+            this.setDailyReportList(res.data.dailyReportList);
             this.setMonthlyReport(res.data.monthlyReport);
             this.setObjective(res.data.objective);
             this.setFollowingList(res.data.followingList);
           });
+          router.push("/");
         })
         .catch((error) => {
           console.log("既存ログイン失敗" + error);
         });
       console.log("すべて成功");
-      router.push("/");
     },
     getSample3() {
       axios
@@ -201,16 +203,17 @@ data(){
             this.setUserList(res.data.userList);
             this.setTodoList(res.data.todoList);
             this.setDailyReport(res.data.dailyReport);
+            this.setDailyReportList(res.data.dailyReportList);
             this.setMonthlyReport(res.data.monthlyReport);
             this.setObjective(res.data.objective);
             this.setFollowingList(res.data.followingList);
           });
+          router.push("/");
         })
         .catch((error) => {
           console.log("既存ログイン失敗" + error);
         });
       console.log("すべて成功");
-      router.push("/");
     },
   },
   computed: {

@@ -1,4 +1,7 @@
 <template>
+<v-main  class="back">
+    <!-- ナビゲーション -->
+      <navigation></navigation>
     <div v-if="loading">
       <Loading></Loading>
     </div>
@@ -27,7 +30,7 @@
         <v-row>
             <v-col>
                 <v-card v-if="user.followFlag==true">
-                <CalendarComponent :userId="user.userId"></CalendarComponent>
+                <CalendarComponent :userId="user.userId" :year="year" :month="month"></CalendarComponent>
                 </v-card>
             </v-col>
         </v-row>
@@ -42,6 +45,7 @@
             </v-col>
         </v-row>
   </v-container> 
+</v-main>
 </template>
 
 <script>
@@ -49,13 +53,15 @@ import axios from 'axios';
 import CalendarComponent from '../components/CalendarComponent.vue';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
 import Loading from '@/components/Loading.vue';
+import Navigation from '../components/Navigation';
 
   export default {
     name: "Userpage",
     components:{
         CalendarComponent,
         NyokkiFlower,
-        Loading
+        Loading,
+        Navigation,
     },
     created(){
         this.loading = true;
@@ -127,6 +133,13 @@ p {
 }
 .userpage-flower {
     border-radius: 0%;
+}
+.back{
+  background-image: url("~@/assets/Background5.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 150vh;
 }
 
 </style>

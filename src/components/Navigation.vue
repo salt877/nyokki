@@ -1,11 +1,12 @@
 <template>
+<v-main>
   <div>
     <v-app-bar class="light-green accent-1">
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>にょっき！</v-toolbar-title>
       <div class="flex-grow-1"></div>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" fixed temporary>
+    <v-navigation-drawer v-model="drawer" fixed temporary class="back">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
@@ -18,7 +19,7 @@
       </v-list-item>
       <v-divider></v-divider>
 
-      <v-list nav dense>
+      <v-list nav dense >
         <v-list-item v-for="nav_list in nav_lists" :key="nav_list.name" :to="nav_list.link">
           <v-list-item-icon>
             <v-icon>{{ nav_list.icon }}</v-icon>
@@ -37,6 +38,7 @@
       </v-list>
     </v-navigation-drawer>
   </div>
+</v-main>
 </template>
 
 <script>
@@ -48,7 +50,7 @@ export default {
     return {
       drawer: false,
       nav_lists: [
-        { name: "サインイン（ログイン前に使用したい）", link: "/signIn" },
+        { name: "サインイン", link: "/signIn" },
         { name: "Top", icon: "mdi-home", link: "/" },
         { name: "マイページ", icon: "mdi-account", link: "/mypage" },
         { name: "ToDo登録", icon: "mdi-pencil", link: "/registerToDo" },
@@ -86,3 +88,12 @@ export default {
   },
 };
 </script>
+<style scoped>
+.back{
+  background-image: url("~@/assets/Background1.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100vh;
+}
+</style>

@@ -1,4 +1,7 @@
 <template>
+<v-main  class="back">
+  <!-- ナビゲーション -->
+      <navigation></navigation>
   <v-container>
     <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
       <h2>日報登録</h2>
@@ -23,7 +26,7 @@
               <v-btn color="primary" @click="addNewCard()">追加</v-btn>
             </v-card-actions>
             <v-card-actions>
-              <v-btn color="warning">コピー</v-btn>
+              <v-btn color="warning" @click="copyTasks()">コピー</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -64,6 +67,7 @@
       </v-row>
     </ValidationObserver>
   </v-container>
+</v-main>
 </template>
 
 <script>
@@ -72,6 +76,7 @@ import router from "../router";
 import { mapActions } from "vuex";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import { extend } from "vee-validate";
+import Navigation from '../components/Navigation';
 
 //バリデーションルール
 //（未選択）
@@ -102,6 +107,7 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver,
+    Navigation,
   },
   data() {
     return {
@@ -141,6 +147,24 @@ export default {
           console.log("通信失敗" + error);
         });
     },
+    copyImpressions: function () {
+            this.$copyText(this.impression).then(function () {
+                alert('所感をコピーしました');
+            }, function () {
+                alert('所感のコピーに失敗しました');
+            })
+        },
+    copyTasks: function () {
+            var tasks = [];
+            for(let task of this.completeTodoList) {
+              tasks.push(task.task);
+            }
+            this.$copyText(tasks).then(function () {
+                alert('今日の報告をコピーしました');
+            }, function () {
+                alert('今日の報告のコピーに失敗しました');
+            })
+        }
   },
   created() {
     axios
@@ -181,5 +205,12 @@ export default {
 }
 .save-button {
   margin: 3em auto;
+}
+.back{
+  background-image: url("~@/assets/Background8.png");
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100vh;
 }
 </style>
