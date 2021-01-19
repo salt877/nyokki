@@ -23,6 +23,8 @@
     </v-col>
     </v-col>
   </v-row>
+  <v-row><v-col></v-col></v-row>
+    <v-row><v-col></v-col></v-row>
 </v-container>
 </v-main>
 </template>
@@ -215,6 +217,6 @@ import Navigation from '../components/Navigation';
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 150vh;
+  height: 100%;
 }
 </style>

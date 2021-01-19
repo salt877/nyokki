@@ -211,6 +211,6 @@ export default {
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 100vh;
+  height: 130vh;
 }
 </style>

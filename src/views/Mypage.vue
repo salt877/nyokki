@@ -51,6 +51,8 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row><v-col></v-col></v-row>
+    <v-row><v-col></v-col></v-row>
   </v-container>
   </v-main>
 </template>
@@ -143,7 +145,7 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 
