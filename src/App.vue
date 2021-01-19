@@ -18,13 +18,21 @@
 <script>
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+// import SignIn from './views/SignIn';
 
 export default {
   name: 'App',
   components: {
     Navigation,
-    Footer
-  }
+    Footer,
+    // SignIn
+  },
+  // data(){
+  //   return {
+  //     show:true
+  //   }
+  // }
+
 };
 </script>
 <style scoped>
