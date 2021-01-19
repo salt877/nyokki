@@ -1,5 +1,7 @@
 <template>
 <v-main  class="back">
+  <!-- ナビゲーション -->
+      <navigation></navigation>
 <v-container>
   <h2 style="text-align: center">みんなの達成度</h2>
   <v-row>
@@ -102,6 +104,7 @@
 </template>
 
 <script>
+import Navigation from '../components/Navigation';
 import axios from 'axios';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
 import { mapGetters } from 'vuex';
@@ -109,6 +112,7 @@ import { mapGetters } from 'vuex';
 export default {
   components: {
     NyokkiFlower,
+    Navigation,
   },
   props: {
     name: String,

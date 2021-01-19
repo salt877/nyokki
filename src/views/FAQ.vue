@@ -1,5 +1,7 @@
 <template>
 <v-main  class="back">
+  <!-- ナビゲーション -->
+      <navigation></navigation>
   <div >
       <h2>FAQ</h2>
       <h4>よくあるご質問</h4>
@@ -125,8 +127,12 @@
 </template>
 
 <script>
+import Navigation from '../components/Navigation';
   export default {
-    name: "FAQ"
+    name: "FAQ",
+    components:{
+      Navigation,
+    },
   };
 </script>
 <style scoped>

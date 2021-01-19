@@ -1,5 +1,7 @@
 <template>
 <v-main  class="back">
+  <!-- ナビゲーション -->
+      <navigation></navigation>
   <v-container>
     <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
       <h2>日報登録</h2>
@@ -74,6 +76,7 @@ import router from "../router";
 import { mapActions } from "vuex";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import { extend } from "vee-validate";
+import Navigation from '../components/Navigation';
 
 //バリデーションルール
 //（未選択）
@@ -104,6 +107,7 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver,
+    Navigation,
   },
   data() {
     return {

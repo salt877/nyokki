@@ -1,5 +1,7 @@
 <template>
   <v-main  class="back">
+    <!-- ナビゲーション -->
+      <navigation></navigation>
   <v-container>
     <h2>{{ year }}年{{ month }}月 月報登録</h2>
     <v-row>
@@ -51,8 +53,12 @@
 <script>
 import axios from "axios";
 import router from "../router";
+import Navigation from '../components/Navigation';
 export default {
   name: "RegisterMonthlyReport",
+  components:{
+    Navigation,
+  },
   data() {
     return {
       thisMonthsGoal: "",

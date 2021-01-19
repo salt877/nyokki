@@ -1,5 +1,8 @@
 <template>
+
 <v-main  class="back">
+  <!-- ナビゲーション -->
+      <navigation></navigation>
 <div v-if="loading">
       <Loading></Loading>
 </div>
@@ -31,6 +34,7 @@ import ChartJs from '../components/ChartJs.vue';
 import Loading from '@/components/Loading.vue';
 import axios from "axios";
 import moment from 'moment';
+import Navigation from '../components/Navigation';
 
 
   export default {
@@ -39,7 +43,8 @@ import moment from 'moment';
       CalendarComponent,
       ChartJs,
       NyokkiFlower,
-      Loading
+      Loading,
+      Navigation,
     },
     data: () => ({
     loading: true,

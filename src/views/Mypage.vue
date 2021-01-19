@@ -1,5 +1,7 @@
 <template>
   <v-main  class="back">
+    <!-- ナビゲーション -->
+      <navigation></navigation>
   <v-container align-content="center">
     <v-row>
       <v-col class="user-name">
@@ -54,6 +56,7 @@
 </template>
 
 <script>
+import Navigation from '../components/Navigation';
 import axios from 'axios';
 import ProfileChange from '../components/ProfileChange.vue';
 import Follow from '../components/Follow.vue';
@@ -76,7 +79,8 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       ProfileChange,
       Follow,
       Follower,
-      NyokkiFlower
+      NyokkiFlower,
+      Navigation,
     },
     created(){
     

@@ -1,7 +1,7 @@
 <template>
   <v-app name="App">
-    <!-- ナビゲーション -->
-      <navigation></navigation>
+    <!-- ナビゲーション
+      <navigation></navigation> -->
     <v-main>
       <router-view/>
     </v-main>
@@ -16,14 +16,14 @@
 </template>
 
 <script>
-import Navigation from './components/Navigation';
+// import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 // import SignIn from './views/SignIn';
 
 export default {
   name: 'App',
   components: {
-    Navigation,
+    // Navigation,
     Footer,
     // SignIn
   },

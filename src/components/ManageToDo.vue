@@ -1,5 +1,7 @@
 <template>
 <v-main  class="back">
+  <!-- ナビゲーション -->
+      <navigation></navigation>
   <v-container>
     <h2>ToDo管理</h2>
     <h3>達成率：{{ achievementRate }}％</h3>
@@ -21,6 +23,7 @@
 </template>
 
 <script>
+import Navigation from '../components/Navigation';
 import draggable from "vuedraggable";
 import axios from "axios";
 import { mapActions } from "vuex";
@@ -30,6 +33,7 @@ export default {
   name: "ManageToDo",
   components: {
     draggable,
+    Navigation,
   },
   data() {
     return {

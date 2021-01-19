@@ -1,8 +1,11 @@
 <template>
+
 <div v-if="loading">
       <Loading></Loading>
 </div>
 <v-main  class="top-hero__content" v-else>
+  <!-- ナビゲーション -->
+      <navigation></navigation>
   <v-container
    >
     <v-subheader 
@@ -65,6 +68,7 @@
 </template>
 
 <script>
+import Navigation from '../components/Navigation';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
 import Chart from 'vue-chartless';
 import Loading from '@/components/Loading.vue';
@@ -75,7 +79,8 @@ export default {
   components: {
     Chart,
     NyokkiFlower,
-    Loading
+    Loading,
+    Navigation,
   },
   data(){
     return {
