@@ -52,6 +52,8 @@
       <v-btn class="save-button" color="error" @click.prevent="handleSubmit(saveMonthlyReport)">保存する </v-btn>
     </v-row>
     </ValidationObserver>
+    <v-row><v-col></v-col></v-row>
+    <v-row><v-col></v-col></v-row>
   </v-container>
   </v-main>
 </template>
@@ -167,6 +169,6 @@ export default {
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 110vh;
+  height: 100%;
 }
 </style>

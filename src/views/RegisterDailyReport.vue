@@ -19,6 +19,11 @@
             <v-card-title>今日の報告</v-card-title>
             <v-card-text v-for="completeTodo in completeTodoList" :key="completeTodo">
               {{ completeTodo.task }}
+              <v-btn elevation="2" fab x-small color="gray" @click="daleteNewCard(completeTodo.task)">
+                <v-icon>
+                mdi-minus
+              </v-icon>
+            </v-btn>
             </v-card-text>
             <v-card-actions>
               <v-textarea rows="1" placeholder="その他実施したタスク" v-model="newCard"> </v-textarea>
@@ -165,7 +170,15 @@ export default {
             }, function () {
                 alert('今日の報告のコピーに失敗しました');
             })
+        },
+        daleteNewCard(task) {
+      for (var num in this.completeTodoList) {
+        if (this.completeTodoList[num].task === task) {
+          this.completeTodoList.splice(num, 1);
         }
+      }
+      console.log(this.completeTodoList);
+    },
   },
   created() {
     axios
