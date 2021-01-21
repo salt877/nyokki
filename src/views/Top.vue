@@ -107,13 +107,13 @@ export default {
   },
   created(){
     this.data.push(
-      { label: '😊', value: this.getLevelAchivementYokudekita}
+      { label: '😢' ,value: this.getLevelAchivementDekinakatta}
     );
     this.data.push(
       { label: '😐', value: this.getLevelAchivementMaamaadekita}
     );
     this.data.push(
-      { label: '😢' ,value: this.getLevelAchivementDekinakatta}
+      { label: '😊', value: this.getLevelAchivementYokudekita}
     );
   }
 }
