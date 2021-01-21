@@ -7,6 +7,7 @@
     </v-main>
       <!-- フッター -->
     <v-footer
+      absolute
       class="font-weight-medium"
       color="light-green accent-1"
     >

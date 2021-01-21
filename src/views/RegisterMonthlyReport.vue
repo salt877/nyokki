@@ -3,6 +3,7 @@
     <!-- ナビゲーション -->
       <navigation></navigation>
   <v-container>
+    <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
     <h2>{{ year }}年{{ month }}月 月報登録</h2>
     <v-row>
       <v-col>
@@ -19,10 +20,12 @@
       <v-col>
         <v-card>
           <v-card-title>所感</v-card-title>
-          <v-textarea class="mt-0" auto-grow rows="3" value="" placeholder="今月の振り返りをしよう！" v-model="impression"> </v-textarea>
-          <!-- <v-card-actions>
+          <ValidationProvider v-slot="{ errors }" name="impression" rules="required">
+          <v-textarea class="mt-0" auto-grow rows="3" value="" placeholder="今月の振り返りをしよう！" v-model="impression" :error-messages="errors"> </v-textarea>
+          </ValidationProvider>
+          <v-card-actions>
             <v-btn color="warning" @click="copyImpressions()">コピー </v-btn>
-          </v-card-actions> -->
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -30,7 +33,8 @@
       <v-col>
         <v-card>
           <v-card-title>来月の目標</v-card-title>
-          <v-textarea class="mt-0" auto-grow rows="3" value="" placeholder="来月の目標を考えよう！" v-model="nextMonthsGoal"> </v-textarea>
+          <ValidationProvider v-slot="{ errors }" name="nextMonthGoals" rules="required">
+          <v-textarea class="mt-0" auto-grow rows="3" value="" placeholder="来月の目標を考えよう！" v-model="nextMonthsGoal" :error-messages="errors"> </v-textarea>
           <!-- <v-card-text v-for="nmGoal in nextMonthsGoals" :key="nmGoal">
             {{ nmGoal }}
           </v-card-text>
@@ -40,12 +44,14 @@
               追加
             </v-btn>
           </v-card-actions> -->
+          </ValidationProvider>
         </v-card>
       </v-col>
     </v-row>
     <v-row>
-      <v-btn class="save-button" color="error" @click="saveMonthlyReport">保存する </v-btn>
+      <v-btn class="save-button" color="error" @click.prevent="handleSubmit(saveMonthlyReport)">保存する </v-btn>
     </v-row>
+    </ValidationObserver>
   </v-container>
   </v-main>
 </template>
@@ -54,10 +60,40 @@
 import axios from "axios";
 import router from "../router";
 import Navigation from '../components/Navigation';
+import { ValidationProvider, ValidationObserver } from "vee-validate";
+import { extend } from "vee-validate";
+
+//バリデーションルール
+//（未選択）
+extend("selectRequired", {
+  validate(value) {
+    return {
+      required: true,
+      valid: ["", null, undefined].indexOf(value) === -1,
+    };
+  },
+  message: "選択必須です",
+  computesRequired: true,
+});
+//(未入力)
+extend("required", {
+  validate(value) {
+    return {
+      required: true,
+      valid: ["", null, undefined].indexOf(value) === -1,
+    };
+  },
+  message: "入力必須です",
+  computesRequired: true,
+});
+
+
 export default {
   name: "RegisterMonthlyReport",
   components:{
     Navigation,
+    ValidationProvider,
+    ValidationObserver,
   },
   data() {
     return {
@@ -66,6 +102,7 @@ export default {
       impression: "",
       year: "",
       month: "",
+      errors: "",
     };
   },
   created() {
@@ -100,6 +137,13 @@ export default {
         });
       console.log("月報保存");
     },
+    copyImpressions: function () {
+            this.$copyText(this.impression).then(function () {
+                alert('所感をコピーしました');
+            }, function () {
+                alert('所感のコピーに失敗しました');
+            })
+        },
   },
 };
 </script>
@@ -123,6 +167,6 @@ export default {
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 100vh;
+  height: 110vh;
 }
 </style>

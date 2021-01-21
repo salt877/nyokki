@@ -99,6 +99,8 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row><v-col></v-col></v-row>
+    <v-row><v-col></v-col></v-row>
   </v-container>
 </v-main>
 </template>
@@ -227,7 +229,7 @@ export default {
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 130vh;
+  height: 100%;
 }
 
 </style>
