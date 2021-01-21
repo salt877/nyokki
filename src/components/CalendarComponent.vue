@@ -88,7 +88,7 @@ export default {
 
 //カレンダーの前後の月を表示する
   triggerEvent() {
-    alert('月の表示を切り替えます');
+    // alert('月の表示を切り替えます');
     this.year = moment(this.value).format('yyyy');
     this.month = moment(this.value).format('M');
     console.log("mmmmmmmm", this.year, this.month);

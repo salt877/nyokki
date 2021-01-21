@@ -118,6 +118,7 @@ export default {
       impression: "",
       levelAchievementlevelAchievement: "",
     };
+    
   },
   methods: {
     ...mapActions(["setDailyReport"]),

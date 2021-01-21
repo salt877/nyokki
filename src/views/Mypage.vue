@@ -7,6 +7,7 @@
       <v-col class="user-name">
           <v-avatar size="150" >
             <v-img :src="photoUrl" />
+             <!-- <v-img :src="`${photoUrl}`" /> -->
           </v-avatar><br><br>
           <v-text :value2="newName" @input="newName = $event" justify="center">
               ユーザー名：{{ this.$store.state.loginUser.name }}
