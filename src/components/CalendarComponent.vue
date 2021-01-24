@@ -23,19 +23,21 @@
         月報
       </v-btn>
     </v-sheet>
-    <v-sheet height="40vh">
+    <!-- height="55vhに戻す" -->
+    <v-sheet height="70vh">
       <v-calendar
         ref="calendar"
         v-model="value"
-        :events="events"
+       :events="events"
+        :event-color="getEventColor"
         locale="ja-jp"
         :day-format="(timestamp) => new Date(timestamp.date).getDate()"
         :month-format="(timestamp) => new Date(timestamp.date).getMonth() + 1 + ' /'"
-        @click:date="viewDay" 
+        @change="getEvents"
+        @click:event="showEvent"
+        @click:date="viewDay"
         color="light-green accent-2"
-        
       ></v-calendar>
-        <!-- :event-color="getEventColor" -->
     </v-sheet>
     <component :is="componentName" :dailyReport="dailyReport" :monthlyReport="monthlyReport" :month="month" ></component> 
     </v-app>
@@ -48,6 +50,8 @@ import MonthlyReport from './MonthlyReport';
 import DailyReport from './DailyReport';
 import Loading from '@/components/Loading.vue';
 
+// import _isEqual from 'lodash/isEqual'
+
 export default {
   name:'Calender',
   data: () => ({
@@ -57,6 +61,7 @@ export default {
     componentName: ['MonthlyReport', 'DailyReport'],
     dailyReport: [],
     monthlyReport:[],
+    nippo:"",
     // level: moment().format('yyyy-MM'),
     
     year: moment().format('yyyy'),
@@ -70,7 +75,10 @@ export default {
     Loading
   },
   props:{
-    userId: Number
+    userId: Number,
+    // list: Object,
+    items: Array,
+    nippos:Array
   },
   computed: {
     title() {
@@ -81,9 +89,87 @@ export default {
   created(){
     // this.triggerEvent();
   },
+  watch:{
+    nippos(){
+      this.getEvents()
+      
+    }
+
+  },
   methods: {
     setToday() {
       this.value = moment().format('yyyy-MM-DD');
+    },
+    showEvent({ event }) {
+      alert(`clicked ${event.name}`);
+    },
+    getEvents() {
+          // axios.post("/get/myPastDailyReport",
+          //     {
+          //       date: date,
+          //       loginUser: this.$store.state.loginUser,
+          //     })
+          //     .then((res) => {
+                
+          //       this.loading = true;
+               
+          //       //日付を加工する
+          //       const dailyReportDate = moment(res.data.dailyReport.registrationDate);
+
+          //       var nippo = res.data.dailyReport.registrationDate;
+
+          //       nippo = dailyReportDate.format("YYYY-MM-DD");
+          //       console.log(nippo,"にっぽーーーー");
+          //       this.nippo = nippo;
+          //     })  
+    //  if(list != null){
+
+    //  }
+    //  function IsArrayExists(array, value){
+    //    for (let i=0;i<array.length;i++) {
+    //      console.log("hikaku",array[i],value);
+    //      if( _isEqual(array[i],value) ){
+    //        return true;
+    //      }
+    //    }
+    //    return false;
+    //  }
+
+     const events = [];
+     console.log("さめ",this.nippos);
+     console.log("さめ２",this.items);
+     this.nippos.forEach (item => {
+       var ev = {
+         name: '日報',
+         start: moment(item).toDate(),
+         color: 'orange',
+         timed: false,
+       }
+      events.push(ev);
+     });
+    //  const events = [
+    //     // new Dateからmomentに変更
+    //     {
+    //       name: '日報',
+    //       start: moment(item).toDate(),
+    //       color: 'orange',
+    //       timed: false,
+    //     },
+    //     // イベントを追加
+    //     {
+    //       name: '休暇',
+    //       start: moment(item).toDate(),
+    //       color: 'green',
+    //       timed: false,
+    //     },
+    //   ];
+
+      this.events = events;
+      console.log("かくにん２",events);
+
+    },
+    getEventColor(event) {
+      return event.color;
     },
 
 //カレンダーの前後の月を表示する
@@ -239,7 +325,13 @@ export default {
                 //日付を加工する
                 const dailyReportDate = moment(res.data.dailyReport.registrationDate);
 
-                res.data.dailyReport.registrationDate = dailyReportDate.format("YYYY-MM-DD");
+                var nippo = res.data.dailyReport.registrationDate;
+
+                nippo = dailyReportDate.format("YYYY-MM-DD");
+                console.log(nippo,"にっぽーーーー");
+                this.nippo = nippo;
+                
+
                 const completeTodoListDate = moment(res.data.completeTodoList.registrationDate);
                 res.data.completeTodoList.registrationDate = completeTodoListDate.format("YYYY-MM-DD");
                 const uncompleteTodoListDate = moment(res.data.uncompleteTodoList.registrationDate);
@@ -368,23 +460,6 @@ export default {
       //   this.selectedDate = event.currentTarget.id
 },
 
-    // getEvents() {
-    //   const events = [
-    //     // new Dateからmomentに変更
-    //     {
-    //       name: '会議',
-    //       start: moment('2020-08-03 10:00:00').toDate(),
-    //       end: moment('2020-08-03 11:00:00').toDate(),
-    //       color: 'blue',
-    //       timed: true,
-    //     },
-        
-    //   ];
-    //   this.events = events;
-    // },
-    // getEventColor(event) {
-    //   return event.color;
-    // },
   }
 };
 </script>
