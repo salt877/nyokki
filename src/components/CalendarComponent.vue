@@ -147,6 +147,18 @@ export default {
        }
       events.push(ev);
      });
+
+     console.log("さめめめ",this.value);
+     var ev2 = {
+        name: '月報',
+        start: moment(this.value).toDate(),
+        color: 'green',
+        timed: false,
+     }
+     if(this.monthlyReport.impressions != null){
+       events.push(ev2);
+     }
+
     //  const events = [
     //     // new Dateからmomentに変更
     //     {
@@ -199,7 +211,7 @@ export default {
                 loginUser: this.$store.state.loginUser,
               })
               .then((res) => {
-                console.log(this.value);
+                console.log("pppp",this.value);
                 // alert(res.data.monthlyReport)
                 this.loading = true;
                 //月報を書いていない時
@@ -232,7 +244,7 @@ export default {
                 console.log("月報情報",this.monthlyReport);
                 this.componentName = 'MonthlyReport'
                 }
-
+            console.log("月報情報",this.monthlyReport);
 
               })  
         }
