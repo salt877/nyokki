@@ -113,9 +113,6 @@ export default {
     this.year = today.getFullYear();
     this.month = today.getMonth() + 1;
     (this.thisMonthsGoal = this.$store.state.thisMonthObjective.objective), (this.nextMonthsGoal = this.$store.state.nextMonthObjective.objective), (this.impression = this.$store.state.monthlyReport.impressions);
-    console.log("今月目標", this.$store.state.thisMonthObjective.objective);
-    console.log("来月目標", this.$store.state.nextMonthObjective.objective);
-    console.log("所感", this.$store.state.monthlyReport.impressions);
   },
   methods: {
     ...mapActions(["setMonthlyReport", "setThisMonthObjective", "setNextMonthObjective"]),
