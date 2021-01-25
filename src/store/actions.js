@@ -26,9 +26,13 @@ export default {
     commit("setMonthlyReport", monthlyReport);
     console.log("setMonthlyReportのActionsを呼び出しました");
   },
-  setObjective({ commit }, objective) {
-    commit("setObjective", objective);
-    console.log("setObjectiveのActionsを呼び出しました");
+  setThisMonthObjective({ commit }, thisMonthobjective) {
+    commit("setThisMonthObjective", thisMonthobjective);
+    console.log("setThisMonthObjectiveのActionsを呼び出しました");
+  },
+  setNextMonthObjective({ commit }, nextMonthobjective) {
+    commit("setNextMonthObjective", nextMonthobjective);
+    console.log("setThisMonthObjectiveのActionsを呼び出しました");
   },
   setFollowingList({ commit }, followingList) {
     commit("setFollowingList", followingList);

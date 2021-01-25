@@ -26,9 +26,13 @@ export default {
     state.monthlyReport = monthlyReport;
     console.log("setMonthlyReportのmutationが呼ばれました");
   },
-  setObjective(state, objective) {
-    state.objective = objective;
-    console.log("setObjectiveのmutationが呼ばれました");
+  setThisMonthObjective(state, thisMonthObjective) {
+    state.thisMonthObjective = thisMonthObjective;
+    console.log("setThisMonthObjectiveのmutationが呼ばれました");
+  },
+  setNextMonthObjective(state, nextMonthObjective) {
+    state.nextMonthObjective = nextMonthObjective;
+    console.log("setNextMonthObjectiveのmutationが呼ばれました");
   },
   setFollowingList(state, followingList) {
     state.followingList = followingList;
