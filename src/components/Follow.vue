@@ -29,12 +29,18 @@
                 <v-col>
               <v-list-item-avatar size="80">
                 <!-- <img src="../images/same.jpeg"> -->
-                <img :src="item.photoUrl">
+                <router-link 
+                  :to="{name: 'userpage',  params: {id: item.userId}}"> 
+                  <img :src="item.photoUrl">
+                </router-link>
               </v-list-item-avatar>
                 </v-col>
               <v-list-item-content>
-                <v-list-item-title v-html="item.userName">
+                 <router-link 
+                  :to="{name: 'userpage',  params: {id: item.userId}}"> 
+                  <v-list-item-title v-html="item.userName">
                 </v-list-item-title>
+                </router-link>
                 <v-list-item-subtitle >
                 咲かせた花数🌷:
                 {{ item.continuationDays}}本＋

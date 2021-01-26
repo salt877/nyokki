@@ -6,10 +6,7 @@
       <router-view/>
     </v-main>
       <!-- フッター -->
-    <v-footer
-      class="font-weight-medium"
-      color="light-green accent-1"
-    >
+    <v-footer class="font-weight-medium" color="light-green accent-1" absolute>
       <Footer></Footer>
     </v-footer>
   </v-app>
@@ -29,12 +26,15 @@ export default {
 </script>
 <style scoped>
 body #app {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  position: relative;
+  box-sizing: border-box;
 }
-footer {
-  margin-top: auto;
+footer{
+  position: absolute;
+  bottom: 0;
 }
 </style>
 

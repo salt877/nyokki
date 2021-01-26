@@ -32,7 +32,7 @@ export default new Router({
             { path: '/nyokkiFlower', component: NyokkiFlower }
             ]},
         { path: '/faq', component: FAQ },
-        { path: '/levelForAchivement', component: LevelOfAchievement ,
+        { name: 'levelForAchivement', path: '/levelForAchivement', component: LevelOfAchievement ,
         children: [
             { path: '/nyokkiFlower', component: NyokkiFlower }
             ]},

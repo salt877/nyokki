@@ -4,6 +4,7 @@
       <Loading></Loading>
     </div>
     <v-container v-else>
+        <p class="link"><router-link :to="{name: 'levelForAchivement'}">みんなの達成度へ戻る</router-link></p>
         <h2>{{ user.userName }}さんのページ</h2>
         <v-row>
             <v-col>
@@ -135,7 +136,9 @@ p {
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 100vh;
+  height: auto;
 }
-
+.link {
+    text-align: left;
+}
 </style>

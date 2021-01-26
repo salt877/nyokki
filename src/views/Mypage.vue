@@ -44,7 +44,7 @@
     <v-row>
       <v-col>
         <v-card>
-           <component :is="componentName" :followList="followList" :followerList="followerList" 
+           <component class="card" :is="componentName" :followList="followList" :followerList="followerList" 
             @followedLength="followedLength=$event" @followingLength="followingLength=$event"></component>
         </v-card>
       </v-col>
@@ -139,8 +139,11 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 100vh;
+  height: auto;
 }
-
+.card {
+  padding-bottom: 50px;
+  margin-bottom: 100px;
+}
 
 </style>

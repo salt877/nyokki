@@ -14,11 +14,17 @@
 
             <v-list-item v-else :key="item.title">
               <v-list-item-avatar size="90">
-                <img :src="item.photoUrl">
+                <router-link 
+                  :to="{name: 'userpage',  params: {id: item.userId}}"> 
+                  <img :src="item.photoUrl">
+                </router-link>
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title v-html="item.userName"></v-list-item-title>
+                 <router-link 
+                  :to="{name: 'userpage',  params: {id: item.userId}}"> 
+                  <v-list-item-title v-html="item.userName"></v-list-item-title>
+                </router-link>
               </v-list-item-content>
 
               <v-list-item-action> 

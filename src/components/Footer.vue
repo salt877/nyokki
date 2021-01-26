@@ -1,10 +1,7 @@
 <template>
-        <v-col
-            class="text-center"
-            cols="12"
-        >
+    <v-col class="text-center" cols="12">
         ©️ 2020 にょっき
-        </v-col>
+    </v-col>
 </template>
 <script>
 export default {
