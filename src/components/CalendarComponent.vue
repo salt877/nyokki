@@ -212,13 +212,15 @@ export default {
               })
               .then((res) => {
                 console.log("pppp",this.value);
+                console.log(res.data);
                 // alert(res.data.monthlyReport)
                 this.loading = true;
                 //月報を書いていない時
-                if(res.data.monthlyReport === null){
+                if(!res.data.monthlyReport){
                   this.monthlyReport = null;
                   const monthlyReport = {
-                    thisMonthObjective:null,
+                    // thisMonthObjectiveId:null,
+                    thisMonthObjective: null,
                     impressions:null
                   }
                   this.monthlyReport = monthlyReport;
@@ -234,7 +236,7 @@ export default {
                 
 
                 const monthlyReport = {
-                  thisMonthObjective: res.data.monthlyReport.thisMonthObjective,
+                  thisMonthObjective: res.data.thisMonthObjective.objective,
                   impressions : res.data.monthlyReport.impressions,
             
                 }
