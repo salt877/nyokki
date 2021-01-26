@@ -1,10 +1,13 @@
 <template>
   <v-main  class="back">
+    <!-- ナビゲーション -->
+      <navigation></navigation>
   <v-container align-content="center">
     <v-row>
       <v-col class="user-name">
           <v-avatar size="150" >
             <v-img :src="photoUrl" />
+             <!-- <v-img :src="`${photoUrl}`" /> -->
           </v-avatar><br><br>
           <v-text :value2="newName" @input="newName = $event" justify="center">
               ユーザー名：{{ this.$store.state.loginUser.name }}
@@ -49,11 +52,14 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row><v-col></v-col></v-row>
+    <v-row><v-col></v-col></v-row>
   </v-container>
   </v-main>
 </template>
 
 <script>
+import Navigation from '../components/Navigation';
 import axios from 'axios';
 import ProfileChange from '../components/ProfileChange.vue';
 import Follow from '../components/Follow.vue';
@@ -76,7 +82,8 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
       ProfileChange,
       Follow,
       Follower,
-      NyokkiFlower
+      NyokkiFlower,
+      Navigation,
     },
     created(){
     
@@ -144,6 +151,7 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
 .card {
   padding-bottom: 50px;
   margin-bottom: 100px;
+
 }
 
 </style>

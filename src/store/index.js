@@ -17,7 +17,7 @@ const defaultState = () => {
       continuationDays: null,
       firstdayContinuation: null,
       levelAchevement: null,
-      photoUrl:""
+      photoUrl: "",
     },
 
     // DBに登録されているユーザ情報一覧
@@ -55,26 +55,33 @@ const defaultState = () => {
     },
     dailyReportList: [
       {
-      id: null,
-      impressions: "",
-      levelAchievementlevelAchievement: null,
-      registrationDate: null,
-      userId: null
-    }
-  ],
+        id: null,
+        impressions: "",
+        levelAchievementlevelAchievement: null,
+        registrationDate: null,
+        userId: null,
+      },
+    ],
     // 月報情報
     monthlyReport: {
       id: null,
       userId: null,
       objectiveId: null,
-      thisMonthObjective: "",
+      thisMonthObjectiveId: "",
       impressions: "",
       nextMonthObjective: "",
-      registrationDate: null,
+      registrationDateId: null,
     },
 
-    // 目標情報
-    objective: {
+    // 今月目標情報
+    thisMonthObjective: {
+      id: null,
+      userId: null,
+      objective: "",
+      objectiveMonth: null,
+    },
+    // 来月目標情報
+    nextMonthObjective: {
       id: null,
       userId: null,
       objective: "",

@@ -1,5 +1,7 @@
 <template>
 <v-main  class="back">
+  <!-- ナビゲーション -->
+      <navigation></navigation>
   <v-container>
     <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
       <h2>日報登録</h2>
@@ -17,6 +19,11 @@
             <v-card-title>今日の報告</v-card-title>
             <v-card-text v-for="completeTodo in completeTodoList" :key="completeTodo">
               {{ completeTodo.task }}
+              <v-btn elevation="2" fab x-small color="gray" @click="daleteNewCard(completeTodo.task)">
+                <v-icon>
+                mdi-minus
+              </v-icon>
+            </v-btn>
             </v-card-text>
             <v-card-actions>
               <v-textarea rows="1" placeholder="その他実施したタスク" v-model="newCard"> </v-textarea>
@@ -74,6 +81,7 @@ import router from "../router";
 import { mapActions } from "vuex";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import { extend } from "vee-validate";
+import Navigation from '../components/Navigation';
 
 //バリデーションルール
 //（未選択）
@@ -104,6 +112,7 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver,
+    Navigation,
   },
   data() {
     return {
@@ -114,6 +123,7 @@ export default {
       impression: "",
       levelAchievementlevelAchievement: "",
     };
+    
   },
   methods: {
     ...mapActions(["setDailyReport"]),
@@ -160,7 +170,15 @@ export default {
             }, function () {
                 alert('今日の報告のコピーに失敗しました');
             })
+        },
+        daleteNewCard(task) {
+      for (var num in this.completeTodoList) {
+        if (this.completeTodoList[num].task === task) {
+          this.completeTodoList.splice(num, 1);
         }
+      }
+      console.log(this.completeTodoList);
+    },
   },
   created() {
     axios
@@ -207,6 +225,6 @@ export default {
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 100vh;
+  height: 130vh;
 }
 </style>

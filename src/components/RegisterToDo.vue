@@ -1,5 +1,7 @@
 <template>
  <v-main  class="back">
+   <!-- ナビゲーション -->
+      <navigation></navigation>
   <v-container>
     <v-row>
       <v-col>
@@ -35,6 +37,7 @@
 </template>
 
 <script>
+import Navigation from '../components/Navigation';
 import axios from "axios";
 import { mapActions } from "vuex";
 import router from "../router";
@@ -46,6 +49,9 @@ export default {
       toDoCard: "",
       todos: []
     };
+  },
+  components:{
+    Navigation,
   },
   methods: {
     ...mapActions(["setTodoList"]),

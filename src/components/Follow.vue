@@ -27,6 +27,7 @@
               :key="item.title"
             >
                 <v-col>
+              <router-link :to="{name: 'userpage',  params: {id: item.userId}}">
               <v-list-item-avatar size="80">
                 <!-- <img src="../images/same.jpeg"> -->
                 <router-link 
@@ -34,6 +35,7 @@
                   <img :src="item.photoUrl">
                 </router-link>
               </v-list-item-avatar>
+              </router-link>
                 </v-col>
               <v-list-item-content>
                  <router-link 

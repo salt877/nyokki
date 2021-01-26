@@ -1,18 +1,20 @@
 <template>
+
 <v-main  class="back">
+  <!-- ナビゲーション -->
+      <navigation></navigation>
 <div v-if="loading">
       <Loading></Loading>
 </div>
 <v-container v-else>
   <v-row>
     <v-col>
-        <h2>カレンダー</h2>
         <CalendarComponent :userId="$store.state.loginUser.id"
-        :year="year" :month="month" @child-event="parentMethod"
+        :year="year" :month="month" :list="list" :items="items" :nippos="nippos" @child-event="parentMethod"
         ></CalendarComponent>
     </v-col>
     <v-col>
-      <v-card>
+      <v-card height="61vh">
         <ChartJs :values="values" :key="resetKey"></ChartJs>
       </v-card>
       <v-col>
@@ -20,6 +22,8 @@
     </v-col>
     </v-col>
   </v-row>
+  <v-row><v-col></v-col></v-row>
+    <v-row><v-col></v-col></v-row>
 </v-container>
 </v-main>
 </template>
@@ -31,6 +35,7 @@ import ChartJs from '../components/ChartJs.vue';
 import Loading from '@/components/Loading.vue';
 import axios from "axios";
 import moment from 'moment';
+import Navigation from '../components/Navigation';
 
 
   export default {
@@ -39,18 +44,21 @@ import moment from 'moment';
       CalendarComponent,
       ChartJs,
       NyokkiFlower,
-      Loading
+      Loading,
+      Navigation,
     },
     data: () => ({
     loading: true,
     values:"",
-    value4:"",
     registrationDates:"",
     flowerStatus: "",
      item: "",
      year:"",
      month:"",
-     resetKey:0
+     resetKey:0,
+     list:"",
+     items:[],
+     nippos:[]
   }),
   methods: {
    parentMethod : function(value2) {
@@ -72,7 +80,20 @@ import moment from 'moment';
         .then((res) => {
         let list = res.data ;
         var achievementList=[];
+        var registrationDateList =[];
         console.log(res.data,"2");
+        
+          //日付の加工
+        list.forEach(e => {
+          var dt = new Date(Date.parse(e.registrationDate));
+          // console.log("xxxxx", typeof dt);
+          dt.setHours(dt.getHours() + 9);
+          // console.log("aaaaa", dt.toISOString());
+          e.registrationDate = dt.toISOString();
+          // console.log("aaaaa", e.registrationDate);
+          // console.log("bbbbb", dt);
+        });
+
         
         //お花の表示
         let flowerCount = this.$store.state.loginUser.continuationDays / 32;
@@ -97,7 +118,33 @@ import moment from 'moment';
           // console.log(achievementList);
           var values = achievementList.map((x) => x.value)
           this.values = values;
-          console.log("データ"+ values);
+          console.log("データだよ"+ values);
+
+        // 日報記述日の取得
+        for(let num in list){
+          registrationDateList.push({
+              nippo:list[num].registrationDate,
+            }
+            )
+        }
+        var nippos = registrationDateList.map((x) => x.nippo)
+        this.nippos = nippos;
+        console.log("methodsの新たな日報",nippos);
+
+        nippos = [];
+        this.nippos.forEach (item =>{
+          // item.setHours(item.getHours() + 9); // +9時間
+        const registrationDates = moment(item);
+        item = registrationDates.format("YYYY-MM-DD");
+        // item.setHours(item.getHours() + 9); // +9時間
+        nippos.push(item);
+        console.log("methodsの日付加工済み日報ですeach内",nippos); 
+        });
+        this.nippos = nippos;
+        
+
+
+
           })
           .catch((error) => {
             alert("編集失敗");
@@ -127,7 +174,18 @@ import moment from 'moment';
         var dayList = [];
         var achievementList=[];
         var registrationDateList =[];
-        console.log(res.data,"1");
+        this.list = list;
+
+          //日付の加工
+        list.forEach(e => {
+          var dt = new Date(Date.parse(e.registrationDate));
+          // console.log("xxxxx", typeof dt);
+          dt.setHours(dt.getHours() + 9);
+          // console.log("aaaaa", dt.toISOString());
+          e.registrationDate = dt.toISOString();
+          // console.log("aaaaa", e.registrationDate);
+          // console.log("bbbbb", dt);
+        });
 
         //登録日付を一つづつ取り出す
         for(let num2 in list){
@@ -137,7 +195,7 @@ import moment from 'moment';
           }
         var registrationDates = registrationDateList.map((x) => x.registrationDate)
           this.registrationDates = registrationDates;
-          // console.log("加工前の日付のデータ"+ registrationDates);
+          console.log("加工前の日付のデータ"+ registrationDates);          
 
         //登録日付を加工する
         registrationDates.forEach( item => {
@@ -145,10 +203,8 @@ import moment from 'moment';
         const achievementListDates = moment(item);
         item = achievementListDates.format("YYYY-MM-DD");
         dayList.push(item);
-        // this.item = item;
-        // item = this.item;
-        // console.log("加工後の日付のデータ",item);
-
+        this.items.push(item);
+        console.log("加工後の日付のデータ", this.items);
         //registrationDateに詰めなおす
       });
           // console.log("yyyyyy",dayList);
@@ -193,7 +249,25 @@ import moment from 'moment';
           // console.log(achievementList);
           var values = achievementList.map((x) => x.value)
           this.values = values;
-          console.log("データ"+ values);
+          console.log("データなのだよ"+ values);
+
+          // 日報記述日の取得
+        // for(let num in list){
+        //   registrationDateList.push({
+        //       nippo:list[num].registrationDate,
+        //     }
+        //     )
+        // }
+        console.log(registrationDateList,"registrationDateListのなかみ");
+        // this.nippos = registrationDateList.map((x) => x.nippo)
+        registrationDateList.forEach(datelist => {
+          this.nippos.push(datelist.registrationDate);
+        });
+        // this.nippos = nippos;
+        console.log("createされた日報です",this.nippos);
+        // nippos.setHours(nippos.getHours() + 9); // +9時間
+        // console.log("createされた日付加工済み日報です",nippos); 
+
           })
           .catch((error) => {
             alert("編集失敗");
@@ -205,11 +279,11 @@ import moment from 'moment';
   };
 </script>
 <style scoped>
-/* .back{
+.back{
   background-image: url("~@/assets/Background8.png");
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 100vh;
-} */
+  height: 100%;
+}
 </style>

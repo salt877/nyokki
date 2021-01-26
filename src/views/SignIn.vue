@@ -1,5 +1,5 @@
 <template>
-<!-- <div v-if="loading">
+  <!-- <div v-if="loading">
       <Loading></Loading>
 </div> -->
   <div class="back-ground">
@@ -25,37 +25,39 @@ export default {
   // components: {
   //   Loading
   // },
-data(){
+  data() {
     return {
       loading: "",
-    }
-  },  
+    };
+  },
   methods: {
-    ...mapActions(["setLoginUser", "setUserList", "setTodoList", "setDailyReport",  "setDailyReportList","setMonthlyReport", "setObjective", "setFollowingList"]),
+    ...mapActions(["setLoginUser", "setUserList", "setTodoList", "setDailyReport", "setDailyReportList", "setMonthlyReport", "setThisMonthObjective", "setNextMonthObjective", "setFollowingList"]),
     // Googleログイン
     googleLogin() {
-     // this.loading = true;
+      // this.loading = true;
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase
         .auth()
         .signInWithPopup(provider)
         .then((res) => {
           // Googleアカウント情報(名前とメールのみ)
-            console.log(res);
+          console.log(res);
           const loginUserData = {
             name: res.additionalUserInfo.profile.name,
             gmail: res.additionalUserInfo.profile.email,
-            photoUrl: res.additionalUserInfo.profile.picture
+            photoUrl: res.additionalUserInfo.profile.picture,
           };
-          console.log("ログインした！"+loginUserData);
-        
+          console.log("ログインした！" + loginUserData);
+
           // IDトークン(JWT)の取得
-          firebase.auth().currentUser.getIdToken(true)
+          firebase
+            .auth()
+            .currentUser.getIdToken(true)
             .then(function(idToken) {
               console.log("IDトークン発行成功：" + idToken);
 
               // ローカルストレージに保存
-              localStorage.setItem('idtoken', idToken);
+              localStorage.setItem("idtoken", idToken);
 
               // ローカルストレージにトークンがあれば、リクエストヘッダ（Authorization）に付与
               axios.defaults.headers.common["Authorization"] = "Bearer" + idToken;
@@ -70,12 +72,11 @@ data(){
                 })
                 .catch((err) => {
                   console.log("エラーです：" + err);
-                })
+                });
             })
             .catch(function(err) {
               console.log("idTokenのエラー：" + err);
-            })
-          
+            });
 
           if (res.additionalUserInfo.isNewUser) {
             // 新規ログインするユーザの処理
@@ -84,7 +85,7 @@ data(){
               .post("/users/register", {
                 name: res.additionalUserInfo.profile.name,
                 gmail: res.additionalUserInfo.profile.email,
-                photoUrl: res.additionalUserInfo.profile.picture
+                photoUrl: res.additionalUserInfo.profile.picture,
               })
               .then((res) => {
                 console.log("新規ログイン成功");
@@ -98,7 +99,7 @@ data(){
           // 初期データの取得
           console.log("データの取得開始");
           console.log(res.additionalUserInfo.profile.email);
-          
+
           axios
             .get("/get/Information", {
               params: {
@@ -109,7 +110,7 @@ data(){
               console.log("データの取得成功");
 
               console.log(res.data);
-        
+
               // storeに保存
               Promise.resolve().then(() => {
                 this.setLoginUser(res.data.loginUser);
@@ -118,7 +119,8 @@ data(){
                 this.setDailyReport(res.data.dailyReport);
                 this.setDailyReportList(res.data.dailyReportList);
                 this.setMonthlyReport(res.data.monthlyReport);
-                this.setObjective(res.data.objective);
+                this.setThisMonthObjective(res.data.thisMonthObjective);
+                this.setNextMonthObjective(res.data.nextMonthObjective);
                 this.setFollowingList(res.data.followingList);
               });
               router.push("/");
@@ -127,8 +129,7 @@ data(){
               console.log("既存ログイン失敗" + error);
             });
           console.log("つつがなく成功");
-          
-         })
+        });
     },
     // 以下、サンプル取得用(のち削除)
     getSample1() {
@@ -149,7 +150,8 @@ data(){
             this.setDailyReport(res.data.dailyReport);
             this.setDailyReportList(res.data.dailyReportList);
             this.setMonthlyReport(res.data.monthlyReport);
-            this.setObjective(res.data.objective);
+            this.setThisMonthObjective(res.data.thisMonthObjective);
+            this.setNextMonthObjective(res.data.nextMonthObjective);
             this.setFollowingList(res.data.followingList);
           });
           router.push("/");
@@ -177,7 +179,8 @@ data(){
             this.setDailyReport(res.data.dailyReport);
             this.setDailyReportList(res.data.dailyReportList);
             this.setMonthlyReport(res.data.monthlyReport);
-            this.setObjective(res.data.objective);
+            this.setThisMonthObjective(res.data.thisMonthObjective);
+            this.setNextMonthObjective(res.data.nextMonthObjective);
             this.setFollowingList(res.data.followingList);
           });
           router.push("/");
@@ -205,7 +208,8 @@ data(){
             this.setDailyReport(res.data.dailyReport);
             this.setDailyReportList(res.data.dailyReportList);
             this.setMonthlyReport(res.data.monthlyReport);
-            this.setObjective(res.data.objective);
+            this.setThisMonthObjective(res.data.thisMonthObjective);
+            this.setNextMonthObjective(res.data.nextMonthObjective);
             this.setFollowingList(res.data.followingList);
           });
           router.push("/");

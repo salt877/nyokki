@@ -1,5 +1,7 @@
 <template>
 <v-main  class="back">
+    <!-- ナビゲーション -->
+      <navigation></navigation>
     <div v-if="loading">
       <Loading></Loading>
     </div>
@@ -52,13 +54,15 @@ import axios from 'axios';
 import CalendarComponent from '../components/CalendarComponent.vue';
 import NyokkiFlower from '../components/NyokkiFlower.vue';
 import Loading from '@/components/Loading.vue';
+import Navigation from '../components/Navigation';
 
   export default {
     name: "Userpage",
     components:{
         CalendarComponent,
         NyokkiFlower,
-        Loading
+        Loading,
+        Navigation,
     },
     created(){
         this.loading = true;
