@@ -35,6 +35,7 @@ import ChartJs from '../components/ChartJs.vue';
 import Loading from '@/components/Loading.vue';
 import axios from "axios";
 import moment from 'moment';
+// import {mapActions, mapGetters} from 'vuex';
 import Navigation from '../components/Navigation';
 
 
@@ -60,7 +61,15 @@ import Navigation from '../components/Navigation';
      items:[],
      nippos:[]
   }),
+  // computed:{
+  //     ...mapGetters(["setNippo"]),
+  // },
   methods: {
+    // ...mapActions(["setNippo"]),
+    // setNippo (event) {
+    //   this.$store.commit('setNippo', event.target.nippos)
+    // },
+
    parentMethod : function(value2) {
     //  this.loading = true;
     this.values = []

@@ -24,11 +24,11 @@
       </v-btn>
     </v-sheet>
     <!-- height="55vhに戻す" -->
-    <v-sheet height="70vh">
+    <v-sheet height="55vh">
       <v-calendar
         ref="calendar"
         v-model="value"
-       :events="events"
+        :events="events"
         :event-color="getEventColor"
         locale="ja-jp"
         :day-format="(timestamp) => new Date(timestamp.date).getDate()"
@@ -148,16 +148,19 @@ export default {
       events.push(ev);
      });
 
-     console.log("さめめめ",this.value);
-     var ev2 = {
-        name: '月報',
-        start: moment(this.value).toDate(),
-        color: 'green',
-        timed: false,
-     }
-     if(this.monthlyReport.impressions != null){
-       events.push(ev2);
-     }
+    // if(this.monthlyReport.impressions !== null){
+    //  console.log("さめめめ",this.value);
+    //  var ev2 = {
+    //     name: '月報',
+    //     start: moment(this.value).toDate(),
+    //     color: 'green',
+    //     timed: false,
+    //  }
+    //    events.push(ev2);
+    //  }else if(!this.monthlyReport.impressions){
+    //     // events.push('');
+    //     return;
+    //  }
 
     //  const events = [
     //     // new Dateからmomentに変更
@@ -265,7 +268,7 @@ export default {
                 // alert(res.data.monthlyReport)
                 this.loading = true;
                 //月報を書いていない時
-                if(res.data.monthlyReport === null){
+                if(!res.data.monthlyReport){
                   this.monthlyReport = null;
                   const monthlyReport = {
                     thisMonthObjective:null,
@@ -284,7 +287,7 @@ export default {
                 
 
                 const monthlyReport = {
-                  thisMonthObjective: res.data.monthlyReport.thisMonthObjective,
+                  thisMonthObjective: res.data.thisMonthObjective.objective,
                   impressions : res.data.monthlyReport.impressions,
             
                 }

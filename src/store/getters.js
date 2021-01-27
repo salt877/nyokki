@@ -2,6 +2,9 @@ export default {
   count: function(state) {
     return state.count;
   },
+  // nippos:function(state){
+  //     return state.nippos;
+  // },
 
   getContinuationDays(state) {
     let continuationDays;

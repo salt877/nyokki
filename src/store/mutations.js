@@ -61,4 +61,7 @@ export default {
   setCompleteList(state, completeList) {
     state.completeList = completeList;
   },
+  // setNippo(state, nippos) {
+  //   state.nippos = nippos;
+  // },
 };
