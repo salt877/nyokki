@@ -2,6 +2,9 @@ export default {
   count: function(state) {
     return state.count;
   },
+  // nippos:function(state){
+  //     return state.nippos;
+  // },
 
   getContinuationDays(state) {
     let continuationDays;
@@ -105,7 +108,7 @@ export default {
   },
   //ログインユーザーの今月の目標を取得
   getThisMonthObjective(state) {
-    if (state.objective === null) {
+    if (state.thisMonthObjective === null) {
       return "今月の目標を登録しよう！";
     } else if (state.ThisMonthObjective !== null) {
       return state.thisMonthObjective.objective;
