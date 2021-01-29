@@ -6,7 +6,7 @@
       <Loading></Loading>
     </div>
     <v-container v-else>
-        <p class="link"><router-link :to="{name: 'levelForAchivement'}">みんなの達成度へ戻る</router-link></p>
+        <p class="link" @click="$router.go(-1)">前のページに戻る</p>
         <h2>{{ user.userName }}さんのページ</h2>
         <v-row>
             <v-col>
@@ -98,15 +98,21 @@ import Navigation from '../components/Navigation';
             })
             this.loading = false;
     },
-    methods:{
+  methods:{
         followRequest(user){
             axios.post("/get/followRequest", { loginUser: this.$store.state.loginUser, followedId: user.userId });
             user.followFlag = false;
         }
     },
+    computed: {
+        test(){
+            return this.beforePath 
+        }
+    },
      data: () => ({
        user: [],
-       loading: ""
+       loading: "",
+       beforePath: "test"
     })
   };
 </script>
@@ -144,5 +150,7 @@ p {
 }
 .link {
     text-align: left;
+    color: blue;
+    cursor: pointer;
 }
 </style>
