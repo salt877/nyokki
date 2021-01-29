@@ -9,15 +9,15 @@
             <v-img :src="photoUrl" />
              <!-- <v-img :src="`${photoUrl}`" /> -->
           </v-avatar><br><br>
-          <v-text :value2="newName" @input="newName = $event" justify="center">
-              ユーザー名：{{ this.$store.state.loginUser.name }}
+          <v-text :value2="newName" @input="newName = $event" justify="center" class="card-font">
+              {{ this.$store.state.loginUser.name }}
           </v-text>
       </v-col>
       <v-col class="user-flower">
-        <p>現在の花の状態：</p>
-        <v-list-item-avatar size="150">
+        <v-text class="card-font">現在の花の状態</v-text><br>
+        <v-avatar size="150">
           <NyokkiFlower :flowerStatus="flowerStatus"></NyokkiFlower>
-        </v-list-item-avatar>
+        </v-avatar>
       </v-col>
     </v-row>
 
@@ -26,7 +26,7 @@
           <v-card-actions >
             <v-btn color="warning" @click="componentName='Follow'">フォロー一覧</v-btn>
         <v-card-actions> 
-        <v-text>フォロー数：{{ followingLength }}人</v-text>
+        <v-text class="card-font2">フォロー数：{{ followingLength }}人</v-text>
         </v-card-actions>
         </v-card-actions>      
       </v-col>
@@ -34,7 +34,7 @@
         <v-card-actions>
             <v-btn color="warning" @click="componentName='Follower'" >フォロワー一覧</v-btn>
         <v-card-actions>
-          <v-text>フォロワー数：{{ followedLength }}人</v-text>
+          <v-text class="card-font2">フォロワー数：{{ followedLength }}人</v-text>
         </v-card-actions>
         </v-card-actions>
       </v-col>
@@ -152,6 +152,14 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
   padding-bottom: 50px;
   margin-bottom: 100px;
 
+}
+.card-font {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+.card-font2 {
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
 </style>

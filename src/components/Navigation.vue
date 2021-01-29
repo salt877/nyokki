@@ -4,14 +4,14 @@
     <v-app-bar class="light-green accent-1">
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>
-        <v-img src="../images/logo.jpg" height="57" width="150"></v-img></v-toolbar-title>
+        <v-img src="../images/logo.jpg" height="60" width="150"></v-img></v-toolbar-title>
       <div class="flex-grow-1"></div>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" fixed temporary class="back">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
-            <v-img src="../images/logo.jpg" height="85"></v-img>
+            <v-img src="../images/logo.jpg" height="90"></v-img>
           <v-list-item-subtitle class="layout justify-center" fluid>
             にょきにょき育成日記
           </v-list-item-subtitle>

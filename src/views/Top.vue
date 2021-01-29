@@ -8,7 +8,9 @@
     <v-container>
       <br>
       <v-subheader class=" card-design2 yellow lighten-5 card-font layout justify-center" fluid>
+        <span class="">今月の目標：
         {{ getThisMonthObjective }}
+        </span>
       </v-subheader>
       <br>
       <v-row justify="center" align-content="center">
@@ -124,11 +126,13 @@ export default {
   left: 34%;
   font-weight: bold;
   font-size: 1.0em;
+  color:rgb(23, 80, 1);
 }
 
 .card-font {
   font-weight: bold;
   font-size: 1.5em;
+  color:rgb(255, 153, 0);
 }
 .card-font2 {
   font-weight: bold;
@@ -150,6 +154,7 @@ export default {
   left: 100px;
   font-weight: bold;
   font-size: 1.0em;
+  color:rgb(23, 80, 1);
 }
 .top-hero__content {
   background-image: url("~@/assets/TopBackground.png");
@@ -166,6 +171,9 @@ export default {
 .card-design2{
     border-radius:50px 50px 50px 50px;
     
+}
+span{
+  color:rgb(255, 56, 172);
 }
 
 </style>

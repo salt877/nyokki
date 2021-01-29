@@ -3,7 +3,14 @@
   <!-- ナビゲーション -->
       <navigation></navigation>
   <v-container>
-    <h2>ToDo管理</h2>
+     <v-row>
+      <v-col></v-col>
+      <v-subheader class=" card-design2 yellow lighten-5 card-font layout justify-center" field>
+       ToDo管理
+      </v-subheader>
+      <v-col></v-col>
+    </v-row>
+    <!-- <h2>ToDo管理</h2> -->
     <h3>達成率：{{ achievementRate }}％</h3>
     <div id="box1" class="task-box">
       <draggable tag="ul" :options="{ group: 'ITEMS' }" v-model="incompletes">
@@ -93,10 +100,22 @@ export default {
 }
 h2 {
   text-align: center;
+  font-weight: bold;
+  font-size: 1.8em;
 }
 h3 {
   text-align: right;
   margin-right: 5%;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+.card-design2{
+    text-align: center;
+    border-radius:50px 50px 50px 50px;
+    font-size: 1.8em;
+    color:rgb(250, 144, 74);
+    font-weight: bold;
+    width: 10%;
 }
 .task-box {
   width: 49%;

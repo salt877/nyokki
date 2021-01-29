@@ -3,7 +3,14 @@
   <!-- ナビゲーション -->
       <navigation></navigation>
 <v-container>
-  <h2 style="text-align: center">みんなの達成度</h2>
+   <v-row>
+      <v-col></v-col>
+      <v-subheader class=" card-design2 yellow lighten-5 card-font layout justify-center" field>
+       みんなの達成度
+      </v-subheader>
+      <v-col></v-col>
+    </v-row>
+  <!-- <h2 style="text-align: center">みんなの達成度</h2> -->
   <v-row>
     <v-col cols="12" sm="8" offset-sm="2">
       <v-card>
@@ -20,15 +27,15 @@
                   </router-link>
                 </template>
 
-                <template v-slot:[`item.userName`]="{ item }">
+                <template v-slot:[`item.userName`]="{ item }"><br>
                      <router-link 
                       :to="{name: 'userpage',  params: {id: item.userId}}"> 
-                    {{ item.userName }} 
+                   <p class="font">{{ item.userName }} </p> 
                   </router-link>
                 </template>
 
-                <template v-slot:[`item.continuationDays`]="{ item }">
-                  {{ item.continuationDays }}本+
+                <template v-slot:[`item.continuationDays`]="{ item }"><br>
+                 <p class="font"> {{ item.continuationDays }}本+</p>
                 </template>
 
                 <template v-slot:[`item.flowerStatus`]="{ item }">
@@ -231,5 +238,20 @@ export default {
   width: 100%;
   height: 100%;
 }
+.font{
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1em;
+
+}
+.card-design2{
+    text-align: center;
+    border-radius:50px 50px 50px 50px;
+    font-size: 1.8em;
+    color:rgb(250, 144, 74);
+    font-weight: bold;
+    width: 10%;
+}
+
 
 </style>
