@@ -1,10 +1,13 @@
 <template>
 
-<v-container>
-  <h2>プロフィール変更</h2>
+<v-container class="back2">
+  <h2 style="text-align: center" class="card-font2">
+    プロフィール変更</h2><br>
+    <v-card>
   <v-row>
       <v-col>
       </v-col>
+        
       <v-col >
         <v-avatar size="150" >
          <v-img :src="photoUrl" />
@@ -71,11 +74,12 @@
         color="error"
         @click="fileUpload"
         >変更を保存する
-      </v-btn> 
+      </v-btn><br>
     </v-row>
-
+<br>
   
 
+      </v-card>
 </v-container>
 </template>
 
@@ -216,4 +220,14 @@ export default {
     }
   }
 }
-</script>_
+</script>
+<style scoped>
+.card-font2 {
+  font-weight: bold;
+  font-size: 1.0em;
+}
+.back2{
+  background-color: rgba(239, 184, 250, 0.3);
+}
+
+</style>

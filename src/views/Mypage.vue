@@ -48,7 +48,8 @@
       <v-col>
         <v-card>
            <component class="card" :is="componentName" :followList="followList" :followerList="followerList" 
-            @followedLength="followedLength=$event" @followingLength="followingLength=$event"></component>
+            @followedLength="followedLength=$event" @followingLength="followingLength=$event">
+            </component>
         </v-card>
       </v-col>
     </v-row>
@@ -168,5 +169,11 @@ export default {
   font-weight: bold;
   font-size: 1.1em;
 }
+/* .card{
+    border-radius:50px 50px 50px 50px;
+    top: -6%;
+    left: 0%;
+    background-color:rgba(148,255,234,0.4);
+} */
 
 </style>

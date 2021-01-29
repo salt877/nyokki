@@ -6,7 +6,7 @@
       <v-toolbar-title>
         <v-img src="../images/logo.jpg" height="60" width="150"></v-img></v-toolbar-title>
       <div class="flex-grow-1"></div>
-      こんにちわ {{ this.$store.state.loginUser.name }}さん
+      <span class="font">こんにちは！ {{ this.$store.state.loginUser.name }}さん</span>
       <v-btn icon @click="dialog = true">
         <v-icon v-if="alertFollowerList.length!==0">mdi-bell-alert</v-icon>
         <v-icon  v-if="alertFollowerList.length===0">mdi-bell-outline</v-icon>
@@ -187,6 +187,9 @@ export default {
   background-position: center center;
   width: 100%;
   height: 100vh;
+}
+.font{
+  font-weight: bold;
 }
 
 .modal-content {

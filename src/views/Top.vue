@@ -8,7 +8,7 @@
     <v-container>
       <br>
       <v-subheader class=" card-design2 yellow lighten-5 card-font layout justify-center" fluid>
-        <span class="">今月の目標：
+        <span >今月の目標：
         {{ getThisMonthObjective }}
         </span>
       </v-subheader>

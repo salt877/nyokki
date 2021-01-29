@@ -1,11 +1,14 @@
 <template>
-  <v-container>
-    <h2 style="text-align: center">フォローしている人</h2>
+  <v-container class="back2">
+    <h2 style="text-align: center" class="card-font2"
+    >フォローしている人</h2>
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
         <v-card>
           <v-list two-line>
-            <p>新しいユーザーをフォローしよう！</p>
+            <br>
+            <p style="text-align: center" class="card-font">
+              新しいユーザーをフォローしよう！</p>
             <template v-for="(item, index) in followUserList.slice(0, 6)">
               <v-subheader v-if="item.header" :key="item.header">
                 {{ item.header }}
@@ -121,3 +124,17 @@ export default {
   },
 };
 </script>
+<style scoped>
+.card-font {
+  font-weight: bold;
+  font-size: 1.3em;
+  color:rgb(255, 56, 106);
+}
+.card-font2 {
+  font-weight: bold;
+  font-size: 1.0em;
+}
+.back2{
+  background-color: rgba(239, 184, 250, 0.3);
+}
+</style>

@@ -1,10 +1,14 @@
 <template>
-  <v-container>
-    <h2 style="text-align: center">{{ this.$store.state.loginUser.name }}さんのフォロワー</h2>
+  <v-container class="back2">
+    <h2 style="text-align: center" class="card-font2"
+    >{{ this.$store.state.loginUser.name }}さんのフォロワー</h2>
     <v-row>
       <v-col cols="12" sm="6" offset-sm="3">
         <v-card>
           <v-list two-line>
+            <br>
+            <p style="text-align: center" class="card-font">
+              みんなのお手本になろう！</p>
             <template v-for="(item, index) in followerUserList.slice(0, 6)">
               <v-subheader v-if="item.header" :key="item.header">
                 {{ item.header }}
@@ -21,7 +25,7 @@
 
                 <v-list-item-content>
                   <router-link :to="{ name: 'userpage', params: { id: item.userId } }">
-                    <v-list-item-title v-html="item.userName"></v-list-item-title>
+                    <v-list-item-title class="font" v-html="item.userName"></v-list-item-title>
                   </router-link>
                 </v-list-item-content>
 
@@ -118,3 +122,22 @@ export default {
   },
 };
 </script>
+<style scoped>
+.card-font {
+  font-weight: bold;
+  font-size: 1.3em;
+  color:rgb(255, 56, 106);
+}
+.card-font2 {
+  font-weight: bold;
+  font-size: 1.0em;
+}
+.font{
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.back2{
+  background-color: rgba(239, 184, 250, 0.3);
+}
+</style>
