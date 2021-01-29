@@ -1,29 +1,29 @@
 <template>
-<v-main  class="back">
-  <!-- ナビゲーション -->
-      <navigation></navigation>
-  <v-container>
-    <h2>ToDo管理</h2>
-    <h3>達成率：{{ achievementRate }}％</h3>
-    <div id="box1" class="task-box">
-      <draggable tag="ul" :options="{ group: 'ITEMS' }" v-model="incompletes">
-        <li v-for="incomplete in incompletes" :key="incomplete.no">{{ incomplete.task }}</li>
-      </draggable>
-    </div>
-    <div id="box2" class="task-box">
-      <draggable tag="ul" :options="{ group: 'ITEMS' }" v-model="completes">
-        <li v-for="complete in completes" :key="complete.no">{{ complete.task }}</li>
-      </draggable>
-    </div>
-    <v-card-actions>
-      <v-btn color="error button" @click="finishTodo">保存 </v-btn>
-    </v-card-actions>
-  </v-container>
-</v-main>
+  <v-main class="back">
+    <!-- ナビゲーション -->
+    <navigation></navigation>
+    <v-container>
+      <h2>ToDo管理</h2>
+      <h3>達成率：{{ achievementRate }}％</h3>
+      <div id="box1" class="task-box">
+        <draggable tag="ul" :options="{ group: 'ITEMS' }" v-model="incompletes">
+          <li v-for="incomplete in incompletes" :key="incomplete.no">{{ incomplete.task }}</li>
+        </draggable>
+      </div>
+      <div id="box2" class="task-box">
+        <draggable tag="ul" :options="{ group: 'ITEMS' }" v-model="completes">
+          <li v-for="complete in completes" :key="complete.no">{{ complete.task }}</li>
+        </draggable>
+      </div>
+      <v-card-actions>
+        <v-btn color="error button" @click="finishTodo">保存 </v-btn>
+      </v-card-actions>
+    </v-container>
+  </v-main>
 </template>
 
 <script>
-import Navigation from '../components/Navigation';
+import Navigation from "../components/Navigation";
 import draggable from "vuedraggable";
 import axios from "axios";
 import { mapActions } from "vuex";
@@ -55,8 +55,12 @@ export default {
   },
   computed: {
     achievementRate() {
-      var rate = (this.completes.length / (this.incompletes.length + this.completes.length)) * 100;
-      return Math.round(rate);
+      if (this.completes.length == 0) {
+        return 0;
+      } else {
+        var rate = (this.completes.length / (this.incompletes.length + this.completes.length)) * 100;
+        return Math.round(rate);
+      }
     },
   },
   methods: {
@@ -160,7 +164,7 @@ li {
   position: relative;
   padding-bottom: 50px;
 }
-.back{
+.back {
   background-image: url("~@/assets/Background9.png");
   background-size: cover;
   background-position: center center;

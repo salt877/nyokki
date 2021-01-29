@@ -30,9 +30,10 @@
         </v-col>
         <v-col>
           <v-card-actions>
-            <v-btn color="warning" @click="componentName = 'Follower'">フォロワー一覧</v-btn>
+            <v-btn color="warning" @click="componentName = 'Follower'" @followerList="followerList">フォロワー一覧</v-btn>
             <v-card-actions>
               <v-text>フォロワー数：{{ followedLength }}人</v-text>
+              {{ aaa }}
             </v-card-actions>
           </v-card-actions>
         </v-col>
@@ -45,7 +46,7 @@
       <v-row>
         <v-col>
           <v-card>
-            <component :is="componentName" :followList="followList" :followerList="followerList" @followedLength="followedLength = $event" @followingLength="followingLength = $event"></component>
+            <component class="card" :is="componentName" :followList="followList" :followerList="followerList" @followedLength="followedLength = $event" @followingLength="followingLength = $event"></component>
           </v-card>
         </v-col>
       </v-row>
@@ -62,9 +63,6 @@ import ProfileChange from "../components/ProfileChange.vue";
 import Follow from "../components/Follow.vue";
 import Follower from "../components/Follower.vue";
 import NyokkiFlower from "../components/NyokkiFlower.vue";
-//import {mapGetters} from 'vuex';
-//import {mapMutations} from 'vuex';
-//import {mapActions} from 'vuex';
 
 export default {
   name: "Mypage",
@@ -74,6 +72,7 @@ export default {
     followingLength: [],
     followedLength: [],
     flowerStatus: "",
+    aaa: "",
   }),
   components: {
     ProfileChange,
@@ -81,6 +80,19 @@ export default {
     Follower,
     NyokkiFlower,
     Navigation,
+  },
+  watch: {
+    followerList: {
+      handler: function() {
+        console.log("followerListの変更を検知");
+      },
+    },
+    deep: true,
+  },
+  methods: {
+    followerList() {
+      console.log("aaaa");
+    },
   },
   created() {
     axios.post("/get/followAndFollowerList", { loginUser: this.$store.state.loginUser }).then((res) => {
@@ -138,6 +150,10 @@ export default {
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: 100%;
+  height: auto;
+}
+.card {
+  padding-bottom: 50px;
+  margin-bottom: 100px;
 }
 </style>

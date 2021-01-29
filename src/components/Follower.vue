@@ -14,11 +14,15 @@
 
               <v-list-item v-else :key="item.title">
                 <v-list-item-avatar size="90">
-                  <img :src="item.photoUrl" />
+                  <router-link :to="{ name: 'userpage', params: { id: item.userId } }">
+                    <img :src="item.photoUrl" />
+                  </router-link>
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                  <v-list-item-title v-html="item.userName"></v-list-item-title>
+                  <router-link :to="{ name: 'userpage', params: { id: item.userId } }">
+                    <v-list-item-title v-html="item.userName"></v-list-item-title>
+                  </router-link>
                 </v-list-item-content>
 
                 <v-list-item-action>
@@ -42,6 +46,7 @@
 
 <script>
 import axios from "axios";
+//import router from "../router";
 export default {
   data: () => ({
     item: [
@@ -74,7 +79,8 @@ export default {
     //フォローを承認する
     approve(item) {
       axios.post("/get/approveFollowRequest", { loginUser: this.$store.state.loginUser, followingsId: item.followingsId, followFlag: item.followFlag, followingId: item.followingId, followedId: item.followedId }).then((res) => {
-        console.log(res.data);
+        console.log(res.data.followerList);
+        this.$emit("aaa", res.data.followerList);
       });
       alert("フォローを許可を承認しました。");
       item.followFlag = true;
@@ -90,6 +96,8 @@ export default {
         }
       });
       this.$emit("followedLength", followedLength.length);
+
+      //router.go("/");
     },
     deny(item) {
       axios.post("/get/denyFollowRequest", { loginUser: this.$store.state.loginUser, followingsId: item.followingsId, followFlag: item.followFlag, followingId: item.followingId, followedId: item.followedId });

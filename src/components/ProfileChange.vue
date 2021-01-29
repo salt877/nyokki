@@ -59,6 +59,7 @@
             label="画像ファイルをアップロードしてください"
             prepend-icon="mdi-image"
             @change="onImagePicked"
+            type="file"
           ></v-file-input>
         </v-form>
       </v-sheet>
@@ -68,8 +69,7 @@
       <v-btn
         class="save-button"
         color="error"
-        @click="updateUserName"
-        
+        @click="fileUpload"
         >変更を保存する
       </v-btn> 
     </v-row>
@@ -144,6 +144,7 @@ export default {
         fr.readAsDataURL(file)
         fr.addEventListener('load', () => {
           this.uploadImageUrl = fr.result
+          console.log("がぞう",file);
         })
       } else {
         this.uploadImageUrl = ''
@@ -182,6 +183,26 @@ export default {
 
      onClickButton: function() {
       this.$emit("input", this.msg);
+    },
+
+    fileUpload(){
+      const formData = new FormData()
+      formData.append('file',this.uploadImageUrl)
+
+      axios.post("/get/updateUserPhoto", {loginUser : this.$store.state.loginUser, photoUrl: this.uploadImageUrl})
+      .then((res) => {
+          this.setLoginUser(res.data);
+          alert("編集完了",res.data);
+          this.uploadImageUrl = '';
+        })
+        .catch((error) => {
+          alert("編集失敗");
+          console.log("編集失敗" + error);
+//         });
+// }
+  });
+
+
     },
 
 
