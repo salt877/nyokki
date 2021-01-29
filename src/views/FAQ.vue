@@ -121,6 +121,7 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
+  <Test></Test>
  </v-container>
 </div>
 </v-main>
@@ -128,10 +129,12 @@
 
 <script>
 import Navigation from '../components/Navigation';
+import Test from '../components/Test';
   export default {
     name: "FAQ",
     components:{
       Navigation,
+      Test
     },
   };
 </script>

@@ -146,7 +146,7 @@ import NyokkiFlower from '../components/NyokkiFlower.vue';
   background-size: cover;
   background-position: center center;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 .card {
   padding-bottom: 50px;

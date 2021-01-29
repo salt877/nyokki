@@ -3,22 +3,23 @@
   <div>
     <v-app-bar class="light-green accent-1">
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      <v-toolbar-title>にょっき！</v-toolbar-title>
+      <v-toolbar-title>
+        <v-img src="../images/logo.jpg" height="57" width="150"></v-img></v-toolbar-title>
       <div class="flex-grow-1"></div>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" fixed temporary class="back">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
-            にょっき！
-          </v-list-item-title>
-          <v-list-item-subtitle>
+            <v-img src="../images/logo.jpg" height="85"></v-img>
+          <v-list-item-subtitle class="layout justify-center" fluid>
             にょきにょき育成日記
           </v-list-item-subtitle>
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
-
+      <div class="ray">
       <v-list nav dense >
         <v-list-item v-for="nav_list in nav_lists" :key="nav_list.name" :to="nav_list.link">
           <v-list-item-icon>
@@ -36,6 +37,7 @@
           <v-list-item-title> ログアウト </v-list-item-title>
         </v-list-item>
       </v-list>
+      </div>
     </v-navigation-drawer>
   </div>
 </v-main>
@@ -50,7 +52,7 @@ export default {
     return {
       drawer: false,
       nav_lists: [
-        { name: "サインイン", link: "/signIn" },
+        { name: "サインイン", icon: "mdi-login", link: "/signIn" },
         { name: "Top", icon: "mdi-home", link: "/" },
         { name: "マイページ", icon: "mdi-account", link: "/mypage" },
         { name: "ToDo登録", icon: "mdi-pencil", link: "/registerToDo" },
@@ -95,5 +97,14 @@ export default {
   background-position: center center;
   width: 100%;
   height: 100vh;
+}
+.ray {
+  /* text-align: center; */
+  /* position: relative; */
+  /* top: 20vh; */
+  width: 90%;
+  height: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  margin: 0 auto;
 }
 </style>
