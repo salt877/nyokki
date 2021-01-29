@@ -7,52 +7,54 @@
         <v-col class="user-name">
           <v-avatar size="150">
             <v-img :src="photoUrl" />
-            <!-- <v-img :src="`${photoUrl}`" /> --> </v-avatar
-          ><br /><br />
-          <v-text :value2="newName" @input="newName = $event" justify="center"> ユーザー名：{{ this.$store.state.loginUser.name }} </v-text>
-        </v-col>
-        <v-col class="user-flower">
-          <p>現在の花の状態：</p>
-          <v-list-item-avatar size="150">
-            <NyokkiFlower :flowerStatus="flowerStatus"></NyokkiFlower>
-          </v-list-item-avatar>
-        </v-col>
-      </v-row>
+             <!-- <v-img :src="`${photoUrl}`" /> -->
+          </v-avatar><br><br>
+          <v-text :value2="newName" @input="newName = $event" justify="center" class="card-font">
+              {{ this.$store.state.loginUser.name }}
+          </v-text>
+      </v-col>
+      <v-col class="user-flower">
+        <v-text class="card-font">現在の花の状態</v-text><br>
+        <v-avatar size="150">
+          <NyokkiFlower :flowerStatus="flowerStatus"></NyokkiFlower>
+        </v-avatar>
+      </v-col>
+    </v-row>
 
-      <v-row>
-        <v-col>
-          <v-card-actions>
-            <v-btn color="warning" @click="componentName = 'Follow'">フォロー一覧</v-btn>
-            <v-card-actions>
-              <v-text>フォロー数：{{ followingLength }}人</v-text>
-            </v-card-actions>
-          </v-card-actions>
-        </v-col>
-        <v-col>
-          <v-card-actions>
-            <v-btn color="warning" @click="componentName = 'Follower'" @followerList="followerList">フォロワー一覧</v-btn>
-            <v-card-actions>
-              <v-text>フォロワー数：{{ followedLength }}人</v-text>
-              {{ aaa }}
-            </v-card-actions>
-          </v-card-actions>
-        </v-col>
-        <v-col>
-          <v-card-actions>
-            <v-btn color="warning" @click="componentName = 'ProfileChange'">プロフィール変更</v-btn>
-          </v-card-actions>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <v-card>
-            <component class="card" :is="componentName" :followList="followList" :followerList="followerList" @followedLength="followedLength = $event" @followingLength="followingLength = $event"></component>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row><v-col></v-col></v-row>
-      <v-row><v-col></v-col></v-row>
-    </v-container>
+    <v-row>
+      <v-col>
+          <v-card-actions >
+            <v-btn color="warning" @click="componentName='Follow'">フォロー一覧</v-btn>
+        <v-card-actions> 
+        <v-text class="card-font2">フォロー数：{{ followingLength }}人</v-text>
+        </v-card-actions>
+        </v-card-actions>      
+      </v-col>
+      <v-col>
+        <v-card-actions>
+            <v-btn color="warning" @click="componentName='Follower'" @followerList="followerList" >フォロワー一覧</v-btn>
+        <v-card-actions>
+          <v-text class="card-font2">フォロワー数：{{ followedLength }}人</v-text>
+        </v-card-actions>
+        </v-card-actions>
+      </v-col>
+      <v-col>
+        <v-card-actions>
+            <v-btn color="warning" @click="componentName='ProfileChange'">プロフィール変更</v-btn>
+        </v-card-actions>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-card>
+           <component class="card" :is="componentName" :followList="followList" :followerList="followerList" 
+            @followedLength="followedLength=$event" @followingLength="followingLength=$event"></component>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row><v-col></v-col></v-row>
+    <v-row><v-col></v-col></v-row>
+  </v-container>
   </v-main>
 </template>
 
@@ -152,9 +154,19 @@ export default {
   width: 100%;
   height: auto;
   min-height: 100vh;
+  /* height: 100%; */
 }
 .card {
   padding-bottom: 50px;
   margin-bottom: 100px;
 }
+.card-font {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+.card-font2 {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
 </style>

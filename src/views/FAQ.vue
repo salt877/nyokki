@@ -3,8 +3,17 @@
   <!-- ナビゲーション -->
       <navigation></navigation>
   <div >
-      <h2>FAQ</h2>
-      <h4>よくあるご質問</h4>
+    <br>
+     <v-row>
+      <v-col></v-col>
+      <v-subheader class=" card-design2 yellow lighten-5 card-font layout justify-center" field>
+       <h2>FAQ</h2><pre></pre>
+      <h4>〜よくあるご質問〜</h4>
+      </v-subheader>
+      <v-col></v-col>
+    </v-row>
+      <!-- <h2>FAQ</h2>
+      <h4>よくあるご質問</h4> -->
  <v-container>
    <v-spacer></v-spacer>
   <v-expansion-panels focusable>
@@ -157,5 +166,17 @@ h2, h4 {
   background-position: center center;
   width: 100%;
   height: 200vh;
+}
+.card-design2{
+    text-align: center;
+    border-radius:50px 50px 50px 50px;
+    font-size: 1.8em;
+    color:rgb(250, 144, 74);
+    font-weight: bold;
+    width: 10%;
+}
+h4{
+  font-weight: bold;
+  font-size: 0.7em;
 }
 </style>

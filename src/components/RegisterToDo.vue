@@ -3,6 +3,13 @@
    <!-- ナビゲーション -->
       <navigation></navigation>
   <v-container>
+     <v-row>
+      <v-col></v-col>
+      <v-subheader class=" card-design2 yellow lighten-5 card-font layout justify-center" field>
+       ToDo登録
+      </v-subheader>
+      <v-col></v-col>
+    </v-row>
     <v-row>
       <v-col>
         <v-text-field placeholder="今日のToDoを追加しよう！" v-model="toDoCard"> </v-text-field>
@@ -109,6 +116,14 @@ export default {
 <style scoped>
 .container {
   text-align: center;
+}
+.card-design2{
+    text-align: center;
+    border-radius:50px 50px 50px 50px;
+    font-size: 1.8em;
+    color:rgb(250, 144, 74);
+    font-weight: bold;
+    width: 10%;
 }
 .row {
   align-content: center;

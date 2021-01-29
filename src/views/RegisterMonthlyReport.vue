@@ -4,7 +4,14 @@
     <navigation></navigation>
     <v-container>
       <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-        <h2>{{ year }}年{{ month }}月 月報登録</h2>
+      <v-row>
+      <v-col></v-col>
+      <v-subheader class=" card-design2 yellow lighten-5 card-font layout justify-center" field>
+       {{ year }}年{{ month }}月 月報登録
+      </v-subheader>
+      <v-col></v-col>
+    </v-row>
+        <!-- <h2>{{ year }}年{{ month }}月 月報登録</h2> -->
         <v-row>
           <v-col>
             <v-card>
@@ -161,6 +168,19 @@ export default {
 <style scoped>
 .container {
   text-align: center;
+}
+h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.8em;
+}
+.card-design2{
+    text-align: center;
+    border-radius:50px 50px 50px 50px;
+    font-size: 1.8em;
+    color:rgb(250, 144, 74);
+    font-weight: bold;
+    width: 10%;
 }
 .v-input {
   width: 90%;

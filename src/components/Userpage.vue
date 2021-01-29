@@ -6,8 +6,16 @@
       <Loading></Loading>
     </div>
     <v-container v-else>
+      <v-row>
+      <v-btn class="link">
         <p class="link" @click="$router.go(-1)">前のページに戻る</p>
-        <h2>{{ user.userName }}さんのページ</h2>
+        <!-- <p><router-link :to="{name: 'levelForAchivement'}">みんなの達成度へ戻る</router-link></p> -->
+      </v-btn>
+      <v-col></v-col>
+        <v-text class="card-font">{{ user.userName }}<span>さんのページ</span></v-text>
+        <v-col></v-col>
+        <v-col></v-col>
+        </v-row>
         <v-row>
             <v-col>
                 <v-avatar size="150">
@@ -15,7 +23,7 @@
                 </v-avatar>
             </v-col>
             <v-col>
-                <p>咲かせた花数🌷：{{user.continuationDays}}本+</p>
+                <p class="card-font2">咲かせた花数🌷：{{user.continuationDays}}本+</p>
                     <v-avatar size="150" class="userpage-flower">
                         <NyokkiFlower :flowerStatus="user.flowerStatus"></NyokkiFlower>
                     </v-avatar>
@@ -266,5 +274,20 @@ p {
     text-align: left;
     color: blue;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 1.0em;
+}
+.card-font {
+  font-weight: bold;
+  font-size: 1.9em;
+}
+.card-font2 {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+span {
+  font-weight: bold;
+  font-size: 0.6em;
+
 }
 </style>

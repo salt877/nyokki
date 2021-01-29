@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <h1>今月の自己達成度</h1>
+    <p>今月の自己達成度</p>
     <div class="columns">
       <div class="column">
         <line-chart
@@ -183,3 +183,10 @@
     // }
   }
 </script>
+<style scoped>
+p {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+</style>

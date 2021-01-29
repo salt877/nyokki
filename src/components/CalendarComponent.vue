@@ -3,10 +3,11 @@
       <Loading></Loading>
 </div>
     <v-app height="40vh" v-else>
-    <v-sheet tile height="6vh" color="pink lighten-4" class="d-flex align-center">
+    <v-sheet tile height="6vh" color="pink lighten-4" class=" font d-flex align-center">
       <v-btn outlined small class="ma-4" @click="setToday">
         今日
       </v-btn>
+      <v-spacer></v-spacer>
       <v-btn icon @click="$refs.calendar.prev();triggerEvent()"
       
       >
@@ -17,6 +18,7 @@
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-spacer></v-spacer>
       <v-btn outlined small class="ma-8"
        @click="viewMonth"
        >
@@ -484,5 +486,9 @@ export default {
 <style>
 .v-application--wrap {
   min-height: 40vh;
+}
+.font{
+  text-align: center;
+  font-weight: bold;
 }
 </style>
