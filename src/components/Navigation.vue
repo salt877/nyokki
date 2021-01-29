@@ -5,7 +5,47 @@
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>にょっき！</v-toolbar-title>
       <div class="flex-grow-1"></div>
+      こんにちわ {{ this.$store.state.loginUser.name }}さん
+      <v-btn icon @click="dialog = true">
+        <v-icon v-if="alertFollowerList.length!==0">mdi-bell-alert</v-icon>
+        <v-icon  v-if="alertFollowerList.length===0">mdi-bell-outline</v-icon>
+      </v-btn>
+      <v-dialog v-model="dialog" width="500">
+
+      <!-- フォロー申請通知モーダル -->
+      <v-card>
+        <v-card-title class="headline grey lighten-2">
+          通知
+        </v-card-title>
+        <!-- 通知内容 -->
+         <v-list two-line>
+           <v-subheader v-if="!alertFollowerList.length===0">フォロー申請が届いています</v-subheader>
+           <v-subheader v-if="alertFollowerList.length===0">フォロー申請はありません</v-subheader>
+            <v-list-item v-for="(item, index) in alertFollowerList" :key="index" link>
+              <v-list-item-content class="modal-content">  
+                <router-link :to="{name: 'userpage',  params: {id: item.id}}">
+                  <v-list-item-avatar size="60" class="avatar">
+                    <img :src="item.photoUrl">
+                  </v-list-item-avatar>
+                  <v-list-item-title class="user-name">
+                    {{ item.name }}
+                  </v-list-item-title>
+                </router-link> 
+                  <v-card-actions class="modal-btn">
+                    <v-btn color="light-blue lighten-3"  @click="approve(item)">承認⭕️</v-btn>
+                    <v-btn color="pink lighten-4" @click="deny(item)">否認❌</v-btn>
+                  </v-card-actions>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list> 
+        <v-divider></v-divider>
+          <v-btn color="primary" class="close-btn" text @click="dialog = false">
+            閉じる
+          </v-btn>
+      </v-card>
+    </v-dialog>
     </v-app-bar>
+
     <v-navigation-drawer v-model="drawer" fixed temporary class="back">
       <v-list-item>
         <v-list-item-content>
@@ -44,6 +84,7 @@
 <script>
 import firebase from "firebase";
 import { mapActions } from "vuex";
+import axios from "axios";
 export default {
   name: "Sidebar",
   data() {
@@ -61,7 +102,26 @@ export default {
         { name: "みんなの達成度", icon: "mdi-account-multiple-outline", link: "/levelForAchivement" },
         { name: "FAQ", icon: "mdi-help", link: "/faq" },
       ],
+        dialog: false,
+        alertFollowerList: []
     };
+  },
+  created(){
+       axios.post("/get/followAndFollowerList",{ loginUser: this.$store.state.loginUser }).then(res=> {
+       
+        const followerList = res.data.followerList;
+        this.followerList = followerList;
+
+        let alertFollowerList = [];
+        followerList.forEach(follower => {
+          if(follower.followFlag===false){
+            alertFollowerList.push(follower);
+          }
+        })
+         this.alertFollowerList = alertFollowerList;
+         console.log("created")
+         console.log(this.alertFollowerList);
+       })
   },
   methods: {
     ...mapActions(["resetState"]),
@@ -85,7 +145,37 @@ export default {
         // });
       }
     },
-  },
+    //フォローを承認する
+    approve(item){
+      axios.post("/get/approveFollowRequest",{loginUser: this.$store.state.loginUser, followingsId: item.followingsId,followFlag: item.followFlag,
+          followingId: item.followingId,followedId: item.followedId });
+          alert(item.name+"さんのフォローを許可します。");
+        
+          this.alertFollowerList.forEach(follower => {
+            if(item.followingsId === follower.followingsId){
+              let friendIndex = this.alertFollowerList.indexOf(follower);
+              this.alertFollowerList.splice(friendIndex,1);
+            }
+          })
+      },
+      //フォローを否認する
+    deny(item){
+      axios.post("/get/denyFollowRequest",{loginUser: this.$store.state.loginUser, followingsId: item.followingsId,followFlag: item.followFlag,
+          followingId: item.followingId,followedId: item.followedId });
+          let check = confirm(item.name+"さんのフォローを否認します。");
+
+          if(check===true){
+            this.alertFollowerList.forEach(follower => {
+                if(item.followingsId === follower.followingsId){
+                  let friendIndex = this.alertFollowerList.indexOf(follower);
+                  this.alertFollowerList.splice(friendIndex,1);
+                }
+            })
+          } else {
+            return false;
+          }
+  }
+  }
 };
 </script>
 <style scoped>
@@ -96,4 +186,26 @@ export default {
   width: 100%;
   height: 100vh;
 }
+
+.modal-content {
+  position: relative;
+}
+.avatar {
+  float: left;
+  width: 50%;
+}
+.user-name {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+}
+.modal-btn {
+  position: absolute;
+  float:right;
+  width: auto;
+  left: 65%;
+}
+.close-btn {
+  left: 80%;
+} 
 </style>
