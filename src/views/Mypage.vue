@@ -14,7 +14,9 @@
           </v-text>
       </v-col>
       <v-col class="user-flower">
-        <v-text class="card-font">現在の花の状態</v-text><br>
+        <v-text class="card-font">
+          咲かせた花数🌷：{{ getFlowerCount }}本+
+        </v-text><br>
         <v-avatar size="150">
           <NyokkiFlower :flowerStatus="flowerStatus"></NyokkiFlower>
         </v-avatar>
@@ -66,6 +68,7 @@ import ProfileChange from "../components/ProfileChange.vue";
 import Follow from "../components/Follow.vue";
 import Follower from "../components/Follower.vue";
 import NyokkiFlower from "../components/NyokkiFlower.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Mypage",
@@ -133,6 +136,7 @@ export default {
     });
   },
   computed: {
+    ...mapGetters(["getFlowerCount", "getFlowerStatus"]),
     //    ...mapGetters(["followingLength", "followedLength"]),
     photoUrl() {
       return this.$store.state.loginUser.photoUrl;

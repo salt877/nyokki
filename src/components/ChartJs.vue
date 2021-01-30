@@ -19,7 +19,7 @@
   return  `${value}`
 }
   const setDay = (value2) => {
-  return  `${value2}日`
+  return  `${value2}日分`
 }
 
   export default {

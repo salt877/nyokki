@@ -7,11 +7,13 @@
     <navigation></navigation>
     <v-container>
       <br>
-      <v-subheader class=" card-design2 yellow lighten-5 card-font layout justify-center" fluid>
+      <v-card elevation="16" class="card-design2">
+      <v-subheader elevation="16" class=" card-design2 yellow lighten-5 card-font layout justify-center" fluid>
         <span >今月の目標：
         {{ getThisMonthObjective }}
         </span>
       </v-subheader>
+      </v-card>
       <br>
       <v-row justify="center" align-content="center">
         <v-spacer></v-spacer>
@@ -132,7 +134,7 @@ export default {
 .card-font {
   font-weight: bold;
   font-size: 1.5em;
-  color:rgb(255, 153, 0);
+  color:rgb(255, 94, 0);
 }
 .card-font2 {
   font-weight: bold;
@@ -173,7 +175,7 @@ export default {
     
 }
 span{
-  color:rgb(255, 56, 172);
+  color:rgb(255, 71, 157);
 }
 
 </style>

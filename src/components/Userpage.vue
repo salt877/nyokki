@@ -7,13 +7,15 @@
     </div>
     <v-container v-else>
       <v-row>
+      <v-col>
       <v-btn class="link">
         <p class="link" @click="$router.go(-1)">前のページに戻る</p>
         <!-- <p><router-link :to="{name: 'levelForAchivement'}">みんなの達成度へ戻る</router-link></p> -->
       </v-btn>
-      <v-col></v-col>
+      </v-col>
+      <v-col>
         <v-text class="card-font">{{ user.userName }}<span>さんのページ</span></v-text>
-        <v-col></v-col>
+      </v-col>
         <v-col></v-col>
         </v-row>
         <v-row>
@@ -51,6 +53,7 @@
                 <v-card v-if="user.followFlag==false">
                     <p class="follow-yet">フォロー許可されると日報が見れるよ！</p>
                 </v-card>
+                <br>
             </v-col>
         </v-row>
   </v-container> 
@@ -259,6 +262,8 @@ p {
 }
 .follow-yet {
     padding: 100px;
+    font-weight: bold;
+    font-size: 1.6em;
 }
 .userpage-flower {
     border-radius: 0%;

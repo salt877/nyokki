@@ -24,12 +24,13 @@
                   </router-link>
                 </v-col>
                 <v-list-item-content>
-                  <v-list-item-title v-html="item.userName"> </v-list-item-title>
+                  <router-link :to="{ name: 'userpage', params: { id: item.userId } }">
+                  <v-list-item-title class="font2" v-html="item.userName"> </v-list-item-title>
+                  </router-link>
                   <v-list-item-subtitle>
                     咲かせた花数🌷:
                     {{ item.continuationDays }}本＋
                   </v-list-item-subtitle>
-
                   <v-col>
                     <v-list-item-avatar size="70">
                       <NyokkiFlower :flowerStatus="item.flowerStatus"></NyokkiFlower>
@@ -136,5 +137,9 @@ export default {
 }
 .back2{
   background-color: rgba(239, 184, 250, 0.3);
+}
+.font2{
+  font-weight: bold;
+  font-size: 1.1em;
 }
 </style>

@@ -4,7 +4,7 @@
     <v-app-bar class="light-green accent-1">
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>
-        <v-img src="../images/logo.jpg" height="60" width="150"></v-img></v-toolbar-title>
+        <v-img src="../images/logo2.png" height="60" width="150"></v-img></v-toolbar-title>
       <div class="flex-grow-1"></div>
       <span class="font">こんにちは！ {{ this.$store.state.loginUser.name }}さん</span>
       <v-btn icon @click="dialog = true">
@@ -51,7 +51,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
-            <v-img src="../images/logo.jpg" height="90"></v-img>
+            <v-img src="../images/logo2.png" height="90"></v-img>
           <v-list-item-subtitle class="layout justify-center" fluid>
             にょきにょき育成日記
           </v-list-item-subtitle>

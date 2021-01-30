@@ -18,6 +18,9 @@
         <ChartJs :values="values" :key="resetKey"></ChartJs>
       </v-card>
       <v-col>
+        <v-text class="card-font">
+          咲かせた花数🌷：{{ getFlowerCount }}本+
+        </v-text><br>
       <NyokkiFlower :flowerStatus="flowerStatus" ></NyokkiFlower>
     </v-col>
     </v-col>
@@ -37,7 +40,7 @@ import axios from "axios";
 import moment from 'moment';
 // import {mapActions, mapGetters} from 'vuex';
 import Navigation from '../components/Navigation';
-
+import { mapGetters } from "vuex";
 
   export default {
     name: "Calendar",
@@ -284,7 +287,9 @@ import Navigation from '../components/Navigation';
     });
       this.loading = false;
     },
-
+  computed:{
+    ...mapGetters(["getFlowerCount", "getFlowerStatus"]),
+  }
   };
 </script>
 <style scoped>
@@ -294,5 +299,9 @@ import Navigation from '../components/Navigation';
   background-position: center center;
   width: 100%;
   height: 100%;
+}
+.card-font {
+  font-weight: bold;
+  font-size: 1.3em;
 }
 </style>
