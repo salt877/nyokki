@@ -93,8 +93,8 @@ export default {
     return {
       drawer: false,
       nav_lists: [
-        { name: "サインイン", icon: "mdi-login", link: "/signIn" },
-        { name: "Top", icon: "mdi-home", link: "/" },
+       // { name: "サインイン", link: "/signIn" },
+        { name: "Top", icon: "mdi-home", link: "/top" },
         { name: "マイページ", icon: "mdi-account", link: "/mypage" },
         { name: "ToDo登録", icon: "mdi-pencil", link: "/registerToDo" },
         { name: "ToDo管理", icon: "mdi-format-list-bulleted", link: "/manageToDo" },
@@ -139,7 +139,7 @@ export default {
             localStorage.removeItem("vuex");
             console.log("ログアウト成功！");
             alert("ログアウトしました。");
-            this.$router.push("/signIn");
+            this.$router.push("/");
           });
         // .catch((error) => {
         //   console.log("ログアウト失敗" + error);

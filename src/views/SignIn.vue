@@ -123,7 +123,7 @@ export default {
                 this.setNextMonthObjective(res.data.nextMonthObjective);
                 this.setFollowingList(res.data.followingList);
               });
-              router.push("/");
+              router.push("/top");
             })
             .catch((error) => {
               console.log("既存ログイン失敗" + error);
@@ -154,7 +154,7 @@ export default {
             this.setNextMonthObjective(res.data.nextMonthObjective);
             this.setFollowingList(res.data.followingList);
           });
-          router.push("/");
+          router.push("/top");
         })
         .catch((error) => {
           console.log("既存ログイン失敗" + error);
@@ -183,7 +183,7 @@ export default {
             this.setNextMonthObjective(res.data.nextMonthObjective);
             this.setFollowingList(res.data.followingList);
           });
-          router.push("/");
+          router.push("/top");
         })
         .catch((error) => {
           console.log("既存ログイン失敗" + error);
@@ -212,7 +212,7 @@ export default {
             this.setNextMonthObjective(res.data.nextMonthObjective);
             this.setFollowingList(res.data.followingList);
           });
-          router.push("/");
+          router.push("/top");
         })
         .catch((error) => {
           console.log("既存ログイン失敗" + error);
