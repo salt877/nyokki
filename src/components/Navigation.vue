@@ -53,7 +53,7 @@
           <v-list-item-title class="title">
             <v-img src="../images/logo2.png" height="90"></v-img>
           <v-list-item-subtitle class="layout justify-center" fluid>
-            にょきにょき育成日記
+            にょきにょき育成日記🌱
           </v-list-item-subtitle>
           </v-list-item-title>
         </v-list-item-content>
