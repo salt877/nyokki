@@ -26,8 +26,8 @@ Vue.use(Router);
 export default new Router({
     mode: "history",
     routes: [
-        { path: '/signIn', component: SignIn },
-        { path: '/', component: Top ,
+        { path: '/', component: SignIn },
+        { path: '/top', component: Top ,
         children: [
             { path: '/nyokkiFlower', component: NyokkiFlower }
             ]},
