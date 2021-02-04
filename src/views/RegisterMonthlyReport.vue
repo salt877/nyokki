@@ -144,7 +144,7 @@ export default {
           this.setMonthlyReport(res.data.monthlyReport);
           this.setThisMonthObjective(res.data.thisMonthObjective);
           this.setNextMonthObjective(res.data.nextMonthObjective);
-          router.push("/");
+          router.push("/top");
         })
         .catch((error) => {
           console.log("通信失敗" + error);

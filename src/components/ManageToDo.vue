@@ -87,7 +87,7 @@ export default {
         .then((res) => {
           this.setTodoList(res.data);
           alert("編集完了");
-          router.push("/");
+          router.push("/top");
         })
         .catch((error) => {
           alert("編集失敗");

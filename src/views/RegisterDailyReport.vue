@@ -86,7 +86,7 @@
 <script>
 import axios from "axios";
 import router from "../router";
-import { mapActions } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import { extend } from "vee-validate";
 import Navigation from '../components/Navigation';
@@ -133,8 +133,11 @@ export default {
     };
     
   },
+  computed: {
+    ...mapGetters(["getDailyReportList"]),
+  },
   methods: {
-    ...mapActions(["setDailyReport"]),
+    ...mapActions(["setDailyReport","setDailyReportList"]),
     addNewCard: function() {
       const addCard = this.newCard;
       if (!addCard) {
@@ -154,8 +157,11 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.setDailyReport(res.data);
+          this.dailyReport = res.data;
+          this.$store.state.dailyReportList.push(this.dailyReport);
+          this.setDailyReportList(this.getDailyReportList);
           alert("日報を登録しました");
-          router.push("/");
+          router.push("/top");
         })
         .catch((error) => {
           console.log("通信失敗" + error);

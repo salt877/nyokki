@@ -6,6 +6,9 @@ export default {
   //     return state.nippos;
   // },
 
+  getDailyReportList(state){
+    return state.dailyReportList;
+  },
   getContinuationDays(state) {
     let continuationDays;
 
@@ -87,8 +90,6 @@ export default {
     // doubleCount:state => state.count * 2
   },
   getFollowList(state) {
-    console.log("gettersのgetFollowListが呼ばれた、ログインユーザのID:" + state.loginUser.id);
-    console.log("gettersのgetFollowListが呼ばれた、followingId:" + state.followingList.followingId);
     return state.followingList;
   },
   //ログインユーザーの花の数を取得

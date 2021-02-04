@@ -77,7 +77,7 @@ export default {
         .then((res) => {
           this.setTodoList(res.data);
           alert("登録完了");
-          router.push("/");
+          router.push("/top");
           this.todos = [];
         })
         .catch((error) => {

@@ -253,5 +253,4 @@ export default {
     width: 10%;
 }
 
-
 </style>

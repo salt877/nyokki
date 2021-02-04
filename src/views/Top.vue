@@ -57,7 +57,8 @@
         </div>
         <div id="app">
           <div class="labels">😊 :よくできた 😐 :まあまあできた 😢 :できなかった</div>
-          <Chart :def="def1" :data="data"> </Chart>
+          <Chart v-if="this.getLevelAchivementDekinakatta===0 || this.getLevelAchivementMaamaadekita===0 || this.getLevelAchivementYokudekita===0" :def="def1" :data="data"> </Chart>
+          <div class="labels-2" v-else>日報を登録して達成度をグラフ化しよう！</div>
         </div>
       </v-row>
       <v-row><v-col></v-col></v-row>
@@ -99,12 +100,13 @@ export default {
     maintainAspectRatio: false,
   },
   computed: {
-    ...mapGetters(["getFlowerCount", "getFlowerStatus", "getThisMonthObjective", "getLevelAchivementYokudekita", "getLevelAchivementMaamaadekita", "getLevelAchivementDekinakatta"]),
+    ...mapGetters(["getDailyReportList","getFlowerCount", "getFlowerStatus", "getThisMonthObjective", "getLevelAchivementYokudekita", "getLevelAchivementMaamaadekita", "getLevelAchivementDekinakatta"]),
   },
   created() {
     this.data.push({ label: "😢", value: this.getLevelAchivementDekinakatta });
     this.data.push({ label: "😐", value: this.getLevelAchivementMaamaadekita });
     this.data.push({ label: "😊", value: this.getLevelAchivementYokudekita });
+    console.log("データ"+JSON.stringify(this.data))
   },
 };
 </script>
@@ -126,6 +128,14 @@ export default {
   position: absolute;
   top: -20%;
   left: 34%;
+  font-weight: bold;
+  font-size: 1.0em;
+  color:rgb(23, 80, 1);
+}
+.labels-2 {
+  position: absolute;
+  top: 50%;
+  left: 37%;
   font-weight: bold;
   font-size: 1.0em;
   color:rgb(23, 80, 1);
