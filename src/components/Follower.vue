@@ -34,7 +34,7 @@
                   <v-card-actions>
                     <v-btn color="amber darken-1" v-if="item.followFlag === true" v-model="followFlag" disabled>フォロー許可済</v-btn>
                   </v-card-actions>
-                  <v-card-actions v-if="item.followFlag === false" v-model="followFlag">
+                  <v-card-actions v-if="item.followFlag === false" v-model="followFlag" >
                     <v-btn color="light-blue lighten-3" @click="approve(item)">承認⭕️</v-btn>
                     <v-btn color="pink lighten-4" @click="deny(item)">否認❌</v-btn>
                   </v-card-actions>
@@ -88,8 +88,7 @@ export default {
       });
       alert("フォローを許可を承認しました。");
       item.followFlag = true;
-      console.log(this.followerUserList);
-
+     
       let followedLength = [];
 
       this.followerUserList.forEach((follower) => {
@@ -97,9 +96,10 @@ export default {
           return;
         } else if (follower.followFlag === true) {
           followedLength.push(follower);
+          this.$emit("followedLength", followedLength.length);
         }
       });
-      this.$emit("followedLength", followedLength.length);
+      this.$emit("addFollower",item);
 
       //router.go("/");
     },
@@ -112,6 +112,7 @@ export default {
           if (item.followingsId === follower.followingsId) {
             let friendIndex = this.followerUserList.indexOf(follower);
             this.followerUserList.splice(friendIndex, 1);
+            this.$emit("deleteFollower",item);
           }
         });
         this.$emit("followedLength", this.followerUserList.length);

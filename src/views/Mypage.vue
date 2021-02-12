@@ -50,7 +50,8 @@
       <v-col>
         <v-card>
            <component class="card" :is="componentName" :followList="followList" :followerList="followerList" 
-            @followedLength="followedLength=$event" @followingLength="followingLength=$event">
+            @followedLength="followedLength=$event" @followingLength="followingLength=$event" 
+            @addFollower="add" @deleteFollower="remove" @unFollow="release">
             </component>
         </v-card>
       </v-col>
@@ -99,6 +100,32 @@ export default {
     followerList() {
       console.log("aaaa");
     },
+    //フォロー許可後、フォロワーリストを再描画
+     add(item){
+       this.followerList.forEach((follower,i) => {
+         console.log(i,follower);
+        if (follower.id == item.userId) {
+          follower.followFlag = true;
+          this.followerList.splice(i,1,follower);
+        }
+      });
+    },
+    //フォロー否認後、フォロワーリストを再描画
+     remove(item){
+       this.followerList.forEach((follower,i) => {
+        if (follower.id == item.userId) {
+          this.followerList.splice(i,1);
+        }
+      });
+    },
+    //フォロー一覧からフォロー削除してフォローリストを再描画
+    release(item){
+      this.followList.forEach((follow,i) => {
+        if (follow.id == item.userId) {
+          this.followList.splice(i,1);
+        }
+      })
+    }
   },
   created() {
     axios.post("/get/followAndFollowerList", { loginUser: this.$store.state.loginUser }).then((res) => {
@@ -142,6 +169,7 @@ export default {
       return this.$store.state.loginUser.photoUrl;
     },
   },
+
 };
 </script>
 <style scoped>
