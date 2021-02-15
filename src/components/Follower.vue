@@ -82,25 +82,26 @@ export default {
   methods: {
     //フォローを承認する
     approve(item) {
-      axios.post("/get/approveFollowRequest", { loginUser: this.$store.state.loginUser, followingsId: item.followingsId, followFlag: item.followFlag, followingId: item.followingId, followedId: item.followedId }).then((res) => {
-        console.log(res.data.followerList);
-        this.$emit("aaa", res.data.followerList);
-      });
-      alert("フォローを許可を承認しました。");
-      item.followFlag = true;
+      axios.post("/get/approveFollowRequest", { loginUser: this.$store.state.loginUser, followingsId: item.followingsId, followFlag: item.followFlag, followingId: item.followingId, followedId: item.followedId })
+      .then(() => {
+        
+        alert("フォローを許可を承認しました。");
+        item.followFlag = true;
      
-      let followedLength = [];
+        let followedLength = [];
 
-      this.followerUserList.forEach((follower) => {
-        if (follower.followFlag === false) {
-          return;
-        } else if (follower.followFlag === true) {
-          followedLength.push(follower);
-          this.$emit("followedLength", followedLength.length);
-        }
-      });
+        this.followerUserList.forEach((follower) => {
+          if (follower.followFlag === false) {
+            return;
+          } else if (follower.followFlag === true) {
+            followedLength.push(follower);
+            this.$emit("followedLength", followedLength.length);
+          }
+        });
       this.$emit("addFollower",item);
 
+      });
+      
       //router.go("/");
     },
     deny(item) {
