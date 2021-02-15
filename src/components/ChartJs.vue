@@ -52,7 +52,7 @@
               ticks: {
                 beginAtZero: true,
                 max: 3,
-                min: 0,
+                min: 1,
                 stepSize: 1,
                 callback: function(value) {
                       return setExpression(value);
