@@ -1,4 +1,8 @@
 export default {
+  //ログインユーザー情報
+  loginUser(state){
+    return state.loginUser
+  },
   count: function(state) {
     return state.count;
   },

@@ -63,6 +63,7 @@ export default {
   setCompleteList({ commit }, completeList) {
     commit(" setCompleteList", completeList);
   },
+  
   // setNippo({ commit }, nippos) {
   //   commit("setNippo", nippos);
   // },

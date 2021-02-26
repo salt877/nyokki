@@ -1,14 +1,14 @@
 <template>
- <Userpage></Userpage>
+ <UserpageComponent></UserpageComponent>
 </template>
 
 <script>
-import Userpage from '../components/Userpage';
+import UserpageComponent from '../components/Userpage.vue';
 
   export default {
     name: "Userpage",
     components:{
-      Userpage
+      UserpageComponent
     },
   };
 </script>

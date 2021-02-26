@@ -1,7 +1,7 @@
 <template>
 <v-main  class="back">
     <!-- ナビゲーション -->
-      <navigation></navigation>
+      <navigation></navigation> 
     <div v-if="loading">
       <Loading></Loading>
     </div>
@@ -10,7 +10,6 @@
       <v-col>
       <v-btn class="link">
         <p class="link" @click="$router.go(-1)">前のページに戻る</p>
-        <!-- <p><router-link :to="{name: 'levelForAchivement'}">みんなの達成度へ戻る</router-link></p> -->
       </v-btn>
       </v-col>
       <v-col>
@@ -70,12 +69,12 @@ import moment from 'moment';
 // import {mapGetters} from 'vuex';
 
   export default {
-    name: "Userpage",
+    name: "UserpageComponent",
     components:{
-        CalendarComponent,
+       CalendarComponent,
         NyokkiFlower,
         Loading,
-        Navigation,
+       Navigation,
     },
     // computed:{
     // ...mapGetters([
@@ -87,8 +86,7 @@ import moment from 'moment';
         axios.post("/get/userInformation",{ 
             userId: this.$route.params.id,
             loginUser: this.$store.state.loginUser
-            })
-        .then(res=> {
+        }).then(res=> {
             let flowerCount = res.data.continuationDays / 32;
             let flowerStatus = res.data.continuationDays % 32;
 
@@ -154,9 +152,7 @@ import moment from 'moment';
         });
         console.log("createされた日報です",this.nippos);
 
-
-         })
-          .catch((error) => {
+         }).catch((error) => {
             alert("編集失敗");
             console.log("編集失敗" + error);
      });
@@ -223,7 +219,7 @@ import moment from 'moment';
      });
       
       this.loading = false;
-        },
+      },
     },
     computed: {
     
