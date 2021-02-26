@@ -10,7 +10,7 @@ import Mypage from './views/Mypage.vue';
 import RegisterDailyReport from './views/RegisterDailyReport.vue';
 import RegisterMonthlyReport from './views/RegisterMonthlyReport.vue';
 import RegisterToDo from './views/RegisterToDo.vue';
-import Userpage from './components/Userpage.vue';
+import Userpage from './views/Userpage.vue';
 import CalendarComponent from './components/CalendarComponent.vue';
 import Chart from './components/Chart.vue';
 import ChartJs from './components/ChartJs.vue';

@@ -57,8 +57,8 @@
         </div>
         <div id="app">
           <div class="labels">😊 :よくできた 😐 :まあまあできた 😢 :できなかった</div>
-          <Chart v-if="this.getLevelAchivementDekinakatta===0 || this.getLevelAchivementMaamaadekita===0 || this.getLevelAchivementYokudekita===0" :def="def1" :data="data"> </Chart>
-          <div class="labels-2" v-else>日報を登録して達成度をグラフ化しよう！</div>
+          <div class="labels-2" v-if="this.getLevelAchivementDekinakatta===0 && this.getLevelAchivementMaamaadekita===0 && this.getLevelAchivementYokudekita===0">日報を登録して達成度をグラフ化しよう！</div>
+          <Chart v-else :def="def1" :data="data"> </Chart>
         </div>
       </v-row>
       <v-row><v-col></v-col></v-row>
@@ -106,7 +106,6 @@ export default {
     this.data.push({ label: "😢", value: this.getLevelAchivementDekinakatta });
     this.data.push({ label: "😐", value: this.getLevelAchivementMaamaadekita });
     this.data.push({ label: "😊", value: this.getLevelAchivementYokudekita });
-    console.log("データ"+JSON.stringify(this.data))
   },
 };
 </script>

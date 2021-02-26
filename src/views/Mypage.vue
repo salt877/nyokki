@@ -10,7 +10,7 @@
              <!-- <v-img :src="`${photoUrl}`" /> -->
           </v-avatar><br><br>
           <v-text :value2="newName" @input="newName = $event" justify="center" class="card-font">
-              {{ this.$store.state.loginUser.name }}
+              {{ loginUser.name }}
           </v-text>
       </v-col>
       <v-col class="user-flower">
@@ -163,8 +163,7 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(["getFlowerCount", "getFlowerStatus"]),
-    //    ...mapGetters(["followingLength", "followedLength"]),
+    ...mapGetters(["getFlowerCount", "getFlowerStatus","loginUser"]),
     photoUrl() {
       return this.$store.state.loginUser.photoUrl;
     },
